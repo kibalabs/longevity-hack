@@ -8,7 +8,7 @@ import { LongevityClient } from './client/client';
 import { GlobalsProvider, IGlobals } from './GlobalsContext';
 import { PageDataProvider } from './PageDataContext';
 import { HomePage } from './pages/HomePage';
-import { buildYieldseekerTheme } from './theme';
+import { buildAppTheme } from './theme';
 
 declare global {
   export interface Window {
@@ -21,7 +21,7 @@ const baseUrl = typeof window !== 'undefined' && window.KRT_API_URL ? window.KRT
 const longevityClient = new LongevityClient(requester, baseUrl);
 const localStorageClient = new LocalStorageClient(typeof window !== 'undefined' ? window.localStorage : new MockStorage());
 const sessionStorageClient = new LocalStorageClient(typeof window !== 'undefined' ? window.sessionStorage : new MockStorage());
-const theme = buildYieldseekerTheme();
+const theme = buildAppTheme();
 
 const globals: IGlobals = {
   requester,

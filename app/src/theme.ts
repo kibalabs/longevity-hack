@@ -1,56 +1,14 @@
-import { buildTheme, ICheckboxTheme, ITextTheme, ITheme, mergeTheme, mergeThemePartial, ThemeMap } from '@kibalabs/ui-react';
+import { buildTheme, ICheckboxTheme, ITheme, mergeTheme, mergeThemePartial, ThemeMap } from '@kibalabs/ui-react';
 import { buildToastThemes } from '@kibalabs/ui-react-toast';
 
-export const buildYieldseekerTheme = (): ITheme => {
+export const buildAppTheme = (): ITheme => {
   const baseTheme = buildTheme();
-  const textThemes: ThemeMap<ITextTheme> = {
-    ...baseTheme.texts,
-    default: mergeTheme(baseTheme.texts.default, {
-      'font-family': '"IBM Plex Mono", monospace, sans-serif',
-      'font-weight': '400',
-    }),
-    header1: {
-      'font-weight': '800',
-      color: '$colors.brandPrimary',
-    },
-    navBarLogo: {
-      'font-weight': '800',
-      color: 'white',
-    },
-    note: {
-      color: '$colors.textClear20',
-    },
-    light: {
-      color: '$colors.backgroundDarker50',
-    },
-    warning: {
-      color: '$colors.warning',
-    },
-    header3: {
-      'font-size': '1em',
-      'font-weight': 'bolder',
-    },
-    header4: {
-      'font-size': '1em',
-      'font-weight': 'normal',
-      'text-decoration': 'underline',
-    },
-    large: {
-      'font-size': '1.25em',
-    },
-    larger: {
-      'font-size': '2em',
-    },
-    passive: {
-      opacity: '0.5',
-    },
-  };
   const theme = buildTheme({
     colors: {
-      background: '#000',
-      brandPrimary: '#27ec6fff',
-      success: 'rgb(39, 236, 111)',
-      warning: '#cf9f04',
+      // background: '#000',
+      // brandPrimary: '#27ec6fff',
+      // success: 'rgb(39, 236, 111)',
+      // warning: '#cf9f04',
     },
     dimensions: {
       borderRadius: '0.2em',
@@ -60,7 +18,47 @@ export const buildYieldseekerTheme = (): ITheme => {
         url: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap',
       },
     },
-    texts: textThemes,
+    texts: {
+      default: mergeTheme(baseTheme.texts.default, {
+        'font-family': 'sans-serif',
+        'font-weight': '400',
+      }),
+      header1: {
+        'font-weight': '800',
+        color: '$colors.brandPrimary',
+      },
+      navBarLogo: {
+        'font-weight': '800',
+        color: 'white',
+      },
+      note: {
+        color: '$colors.textClear20',
+      },
+      light: {
+        color: '$colors.backgroundDarker50',
+      },
+      warning: {
+        color: '$colors.warning',
+      },
+      header3: {
+        'font-size': '1em',
+        'font-weight': 'bolder',
+      },
+      header4: {
+        'font-size': '1em',
+        'font-weight': 'normal',
+        'text-decoration': 'underline',
+      },
+      large: {
+        'font-size': '1.25em',
+      },
+      larger: {
+        'font-size': '2em',
+      },
+      passive: {
+        opacity: '0.5',
+      },
+    },
     dividers: {
       light: {
         color: 'var(--color-background-light25)',

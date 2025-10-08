@@ -34,20 +34,20 @@ jobs:
     needs: app-deploy
     runs-on: ubuntu-latest
     env:
-      NAME: yieldseeker-app
+      NAME: longevityhack-app
       DOCKER_IMAGE: ghcr.io/${{ github.repository }}-app:latest
     steps:
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.YS_APPBOX_URL }}
-          username: ${{ secrets.YS_APPBOX_USER }}
-          key: ${{ secrets.YS_APPBOX_SSH_KEY }}
-          port: ${{ secrets.YS_APPBOX_PORT }}
+          host: ${{ secrets.APPBOX_URL }}
+          username: ${{ secrets.APPBOX_USER }}
+          key: ${{ secrets.APPBOX_SSH_KEY }}
+          port: ${{ secrets.APPBOX_PORT }}
           envs: DOCKER_IMAGE,NAME
           script: |
             set -e
-            url="beta.yieldseeker.xyz"
+            url="longevityhack.kibalabs.com"
             varsFile=~/.${NAME}.vars
             docker pull ${DOCKER_IMAGE}
             docker stop ${NAME} && docker rm ${NAME} || true
@@ -61,35 +61,3 @@ jobs:
                 --env LETSENCRYPT_HOST=${url} \
                 --env-file ${varsFile} \
                 ${DOCKER_IMAGE}
-  # app-run-next:
-  #   needs: app-deploy
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     NAME: yieldseeker-app-next
-  #     DOCKER_IMAGE: ghcr.io/${{ github.repository }}-app:latest
-  #   steps:
-  #     - name: executing remote ssh commands
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.KIBA_APP_BOX_URL }}
-  #         username: ${{ secrets.KIBA_APP_BOX_USER }}
-  #         key: ${{ secrets.KIBA_APP_BOX_SSH_KEY }}
-  #         port: ${{ secrets.KIBA_APP_BOX_PORT }}
-  #         envs: DOCKER_IMAGE,NAME
-  #         script: |
-  #           set -e
-  #           url="yieldseeker-demo-next.kibalabs.com"
-  #           varsFile=~/.${NAME}.vars
-  #           docker pull ${DOCKER_IMAGE}
-  #           docker stop ${NAME} && docker rm ${NAME} || true
-  #           docker run \
-  #               --name ${NAME} \
-  #               --detach \
-  #               --publish-all \
-  #               --restart on-failure \
-  #               --env NAME=${NAME} \
-  #               --env VIRTUAL_HOST=${url} \
-  #               --env LETSENCRYPT_HOST=${url} \
-  #               --env KRT_IS_NEXT=1 \
-  #               --env-file ${varsFile} \
-  #               ${DOCKER_IMAGE}

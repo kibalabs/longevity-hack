@@ -10,8 +10,6 @@ export function HomePage(): React.ReactElement {
         <Text alignment={TextAlignment.Center} variant='header1'>Longevity Hack</Text>
         <Spacing variant={PaddingSize.Wide} />
         <Text alignment={TextAlignment.Center} variant='bold-large'>Coming Soon</Text>
-        <Spacing variant={PaddingSize.Wide} />
-        <Text alignment={TextAlignment.Center}>We&apos;re building something amazing. Stay tuned for updates!</Text>
       </Stack>
     </Stack>
   );

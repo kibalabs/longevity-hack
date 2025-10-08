@@ -8,7 +8,7 @@
 # from longevity.app_message_processor import AppMessageProcessor
 # from longevity.create_agent_manager import create_app_manager
 
-# name = os.environ.get('NAME', 'yieldseeker-worker')
+# name = os.environ.get('NAME', 'longevityhack-worker')
 # version = os.environ.get('VERSION', 'local')
 # environment = os.environ.get('ENV', 'dev')
 # isRunningDebugMode = environment == 'dev'

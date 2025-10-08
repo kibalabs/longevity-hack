@@ -16,7 +16,7 @@ from longevity.api.v1_api import create_v1_routes
 from longevity.api.v1_resource_builder import ResourceBuilderV1
 from longevity.create_app_manager import create_app_manager
 
-name = os.environ.get('NAME', 'yieldseeker-api')
+name = os.environ.get('NAME', 'longevityhack-api')
 version = os.environ.get('VERSION', 'local')
 environment = os.environ.get('ENV', 'dev')
 isRunningDebugMode = environment == 'dev'
@@ -34,7 +34,7 @@ resourceBuilder = ResourceBuilderV1(appManager.database)
 
 async def startup() -> None:
     # NOTE(krishan711): check max with `select * from pg_settings where name='max_connections'`
-    await appManager.database.connect(poolSize=2 if isRunningDebugMode else 25)
+    await appManager.database.connect(poolSize=2)
     # await appManager.workQueue.connect()
 
 

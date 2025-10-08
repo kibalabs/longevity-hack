@@ -34,21 +34,21 @@ jobs:
     needs: api-deploy
     runs-on: ubuntu-latest
     env:
-      NAME: yieldseeker-api
+      NAME: longevityhack-api
       VERSION: ${{ github.sha }}
       DOCKER_IMAGE: ghcr.io/${{ github.repository }}-api:latest
     steps:
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.YS_APPBOX_URL }}
-          username: ${{ secrets.YS_APPBOX_USER }}
-          key: ${{ secrets.YS_APPBOX_SSH_KEY }}
-          port: ${{ secrets.YS_APPBOX_PORT }}
+          host: ${{ secrets.APPBOX_URL }}
+          username: ${{ secrets.APPBOX_USER }}
+          key: ${{ secrets.APPBOX_SSH_KEY }}
+          port: ${{ secrets.APPBOX_PORT }}
           envs: DOCKER_IMAGE,NAME,VERSION
           script: |
             set -e
-            url="api.yieldseeker.xyz"
+            url="longevityhack-api.kibalabs.com"
             docker pull ${DOCKER_IMAGE}
             docker stop ${NAME} && docker rm ${NAME} || true
             docker run \
@@ -56,7 +56,6 @@ jobs:
               --detach \
               --publish-all \
               --restart on-failure \
-              --volume /home/ec2-user/yieldseeker-data:/app/data \
               --env NAME=${NAME} \
               --env VERSION=${VERSION} \
               --env VIRTUAL_HOST=${url} \
@@ -67,17 +66,17 @@ jobs:
   #   needs: api-deploy
   #   runs-on: ubuntu-latest
   #   env:
-  #     NAME: yieldseeker-worker
+  #     NAME: longevityhack-worker
   #     VERSION: ${{ github.sha }}
   #     DOCKER_IMAGE: ghcr.io/${{ github.repository }}-api:latest
   #   steps:
   #     - name: executing remote ssh commands
   #       uses: appleboy/ssh-action@master
   #       with:
-  #         host: ${{ secrets.YS_APPBOX_URL }}
-  #         username: ${{ secrets.YS_APPBOX_USER }}
-  #         key: ${{ secrets.YS_APPBOX_SSH_KEY }}
-  #         port: ${{ secrets.YS_APPBOX_PORT }}
+  #         host: ${{ secrets.APPBOX_URL }}
+  #         username: ${{ secrets.APPBOX_USER }}
+  #         key: ${{ secrets.APPBOX_SSH_KEY }}
+  #         port: ${{ secrets.APPBOX_PORT }}
   #         envs: DOCKER_IMAGE,NAME,VERSION
   #         script: |
   #           set -e
@@ -87,8 +86,8 @@ jobs:
   #             --name ${NAME} \
   #             --detach \
   #             --restart on-failure \
-  #             --volume /home/ec2-user/yieldseeker-data:/app/data \
+  #             --volume /home/ec2-user/longevityhack-data:/app/data \
   #             --env NAME=${NAME} \
   #             --env VERSION=${VERSION} \
-  #             --env-file ~/.yieldseeker-api.vars \
+  #             --env-file ~/.longevityhack-api.vars \
   #             ${DOCKER_IMAGE} /bin/bash -c 'make start-worker'
