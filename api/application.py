@@ -14,7 +14,7 @@ from starlette.routing import Mount
 
 from longevity.api.v1_api import create_v1_routes
 from longevity.api.v1_resource_builder import ResourceBuilderV1
-from longevity.create_agent_manager import create_app_manager
+from longevity.create_app_manager import create_app_manager
 
 name = os.environ.get('NAME', 'yieldseeker-api')
 version = os.environ.get('VERSION', 'local')
@@ -35,12 +35,12 @@ resourceBuilder = ResourceBuilderV1(appManager.database)
 async def startup() -> None:
     # NOTE(krishan711): check max with `select * from pg_settings where name='max_connections'`
     await appManager.database.connect(poolSize=2 if isRunningDebugMode else 25)
-    await appManager.workQueue.connect()
+    # await appManager.workQueue.connect()
 
 
 async def shutdown() -> None:
     await appManager.database.disconnect()
-    await appManager.workQueue.disconnect()
+    # await appManager.workQueue.disconnect()
 
 
 app = Starlette(
