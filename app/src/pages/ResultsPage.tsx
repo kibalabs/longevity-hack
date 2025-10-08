@@ -92,20 +92,11 @@ export function ResultsPage(): React.ReactElement {
                         <Stack direction={Direction.Horizontal} shouldAddGutters={true} contentAlignment={Alignment.Start} defaultGutter={PaddingSize.Default}>
                           <Text variant='bold'>{snp.rsid}</Text>
                           <Text variant='note'>•</Text>
-                          <Text variant='note'>
-                            Genotype:
-                            {snp.genotype}
-                          </Text>
+                          <Text variant='note'>{`Genotype: ${snp.genotype}`}</Text>
                         </Stack>
                         <Text variant='default'>{snp.annotation}</Text>
-                        <Text variant='note' tag='em'>
-                          Confidence:
-                          {snp.confidence}
-                        </Text>
-                        <Text variant='note'>
-                          Sources:
-                          {snp.sources.join(', ')}
-                        </Text>
+                        <Text variant='note' tag='em'>{`Confidence: ${snp.confidence}`}</Text>
+                        <Text variant='note'>{`Sources: ${snp.sources.join(', ')}`}</Text>
                       </Stack>
                     </div>
                   ))}

@@ -145,7 +145,9 @@ export function UploadPage(): React.ReactElement {
     }, remainingTime);
 
     return (): void => clearTimeout(timeoutId);
-  }, [genomeAnalysis, displayedStatus]); return (
+  }, [genomeAnalysis, displayedStatus]);
+
+  return (
     <Stack direction={Direction.Vertical} isFullWidth={true} isFullHeight={true} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide2}>
       {!genomeAnalysisResults && genomeAnalysis && (
         <Stack direction={Direction.Vertical} shouldAddGutters={true} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} defaultGutter={PaddingSize.Wide2} isFullWidth={true} paddingHorizontal={PaddingSize.Wide2} paddingVertical={PaddingSize.Wide2}>
