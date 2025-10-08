@@ -7,6 +7,7 @@
     "@kibalabs/core": "^0.6.3-next.1",
     "@kibalabs/core-react": "^0.9.7-next.2",
     "@kibalabs/ui-react": "^0.11.3-next.14",
+    "@kibalabs/ui-react-dropzone": "^0.2.2",
     "@kibalabs/ui-react-toast": "^0.2.3-next.2",
     "@tanstack/react-query": "^5.87.1",
     "@tanstack/react-query-devtools": "^5.85.5",

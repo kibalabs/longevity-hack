@@ -2,12 +2,16 @@ import React from 'react';
 
 import { LocalStorageClient, Requester } from '@kibalabs/core';
 import { IRoute, MockStorage, Router, SubRouter, useInitialization } from '@kibalabs/core-react';
-import { KibaApp } from '@kibalabs/ui-react';
+import { ComponentDefinition, KibaApp } from '@kibalabs/ui-react';
+import { buildDropzoneThemes, Dropzone, DropzoneThemedStyle } from '@kibalabs/ui-react-dropzone';
+import { buildToastThemes, Toast, ToastThemedStyle } from '@kibalabs/ui-react-toast';
 
 import { LongevityClient } from './client/client';
 import { GlobalsProvider, IGlobals } from './GlobalsContext';
 import { PageDataProvider } from './PageDataContext';
 import { HomePage } from './pages/HomePage';
+import { ResultsPage } from './pages/ResultsPage';
+import { UploadPage } from './pages/UploadPage';
 import { buildAppTheme } from './theme';
 
 declare global {
@@ -32,6 +36,8 @@ const globals: IGlobals = {
 
 const routes: IRoute<IGlobals>[] = [
   { path: '/', page: HomePage },
+  { path: '/upload', page: UploadPage },
+  { path: '/results', page: ResultsPage },
 ];
 
 interface IAppProps {
@@ -58,6 +64,17 @@ table th {
 }
 `;
 
+// @ts-expect-error
+const extraComponentDefinitions: ComponentDefinition[] = [{
+  component: Dropzone,
+  themeMap: buildDropzoneThemes(theme.colors, theme.dimensions, theme.texts, theme.boxes),
+  themeCssFunction: DropzoneThemedStyle,
+}, {
+  component: Toast,
+  themeMap: buildToastThemes(theme.colors, theme.dimensions, theme.boxes, theme.texts, theme.icons),
+  themeCssFunction: ToastThemedStyle,
+}];
+
 
 export function App(props: IAppProps): React.ReactElement {
   const isInitialized = useInitialization((): void => {
@@ -71,7 +88,7 @@ export function App(props: IAppProps): React.ReactElement {
   });
 
   return (
-    <KibaApp theme={theme} isFullPageApp={true} extraGlobalCss={extraGlobalCss}>
+    <KibaApp theme={theme} isFullPageApp={true} extraComponentDefinitions={extraComponentDefinitions} extraGlobalCss={extraGlobalCss}>
       <PageDataProvider initialData={props.pageData}>
         <GlobalsProvider globals={globals}>
           <Router staticPath={props.staticPath}>
