@@ -52,3 +52,12 @@ class GetExampleAnalysisIdRequest(BaseModel):
 
 class GetExampleAnalysisIdResponse(BaseModel):
     genomeAnalysisId: str
+
+
+class UploadGenomeFileRequest(BaseModel):
+    genomeAnalysisId: str
+    # Note: file will be in request.form['file'] in the actual handler
+
+
+class UploadGenomeFileResponse(BaseModel):
+    genomeAnalysis: resources.GenomeAnalysis

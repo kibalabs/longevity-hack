@@ -39,6 +39,7 @@ async def startup() -> None:
 
 
 async def shutdown() -> None:
+    await appManager.requester.close_connections()
     await appManager.database.disconnect()
     # await appManager.workQueue.disconnect()
 

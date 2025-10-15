@@ -1,19 +1,32 @@
 from __future__ import annotations
 
-# Example models for your application
-# Uncomment and modify as needed
+from pydantic import BaseModel
 
-# class User(BaseModel):
-#     userId: str
-#     createdDate: datetime.datetime
-#     updatedDate: datetime.datetime
-#     username: str
-#     email: str | None
 
-# class Agent(BaseModel):
-#     agentId: str
-#     createdDate: datetime.datetime
-#     updatedDate: datetime.datetime
-#     userId: str
-#     name: str
-#     description: str | None
+class GenomeAssociation(BaseModel):
+    rsid: str
+    genotype: str
+    chromosome: str
+    position: str
+    trait: str
+    pvalue: float | str | None = None
+    importanceScore: float
+    effectStrength: str | None = None
+    riskAllele: str | None = None
+    clinvarCondition: str | None = None
+    clinvarSignificance: int | None = None
+
+
+class GenomeAnalysisSummary(BaseModel):
+    totalSnps: int
+    matchedSnps: int
+    totalAssociations: int
+    topCategories: list[str]
+    clinvarCount: int
+
+
+class GenomeAnalysisResult(BaseModel):
+    summary: GenomeAnalysisSummary
+    phenotypeGroups: dict[str, list[GenomeAssociation]]
+    top50Associations: list[GenomeAssociation]
+    clinvarVariants: list[dict]  # TODO: Create proper ClinVar model

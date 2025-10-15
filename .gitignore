@@ -1,3 +1,7 @@
+# Custom
+**/.data/
+**/gwas_catalog*.tsv
+
 # Mac
 *.DS_Store
 .Spotlight-V100

@@ -1,25 +1,41 @@
-import random
+import asyncio
+import json
 import uuid
+from pathlib import Path
 
 from core.exceptions import NotFoundException
+from core.requester import Requester
 from core.store.database import Database
-from core.util import date_util
+from core.util import date_util, file_util
 
+from longevity import model
 from longevity.api import v1_resources as resources
+from longevity.genome_analyzer import GenomeAnalyzer
 
-COMPLETION_PROBABILITY = 0.25  # 25% chance to advance to next phase on each poll
 EXAMPLE_ANALYSIS_ID = 'example-analysis-123'
-
-# Status progression phases
-STATUS_PHASES = ['uploading', 'validating', 'parsing', 'building_baseline', 'completed']
 
 
 class AppManager:
-    def __init__(self, database: Database) -> None:
+    def __init__(self, database: Database, requester: Requester) -> None:
         self.database = database
+        self.requester = requester
         # In-memory mock storage for the hackathon
         self.genomeAnalysisStore: dict[str, resources.GenomeAnalysis] = {}
         self.genomeAnalysisResultsStore: dict[str, list[resources.GenomeAnalysisResult]] = {}
+        # Real genome analyzer
+        uploadsDir = Path(__file__).parent.parent / "uploads"
+        outputsDir = Path(__file__).parent.parent / "outputs"
+        gwasDir = Path(__file__).parent.parent / ".data" / "snps-gwas"
+        annotationsDir = Path(__file__).parent.parent / ".data" / "snps"
+
+        uploadsDir.mkdir(parents=True, exist_ok=True)
+        outputsDir.mkdir(parents=True, exist_ok=True)
+
+        self.uploadsDir = uploadsDir
+        self.outputsDir = outputsDir
+        self.gwasDir = gwasDir
+        self.annotationsDir = annotationsDir
+        self.genomeAnalyzer = GenomeAnalyzer(gwasDir=gwasDir, annotationsDir=annotationsDir)
         self._create_example_analysis()
 
     async def create_genome_analysis(self, fileName: str, fileType: str) -> resources.GenomeAnalysis:
@@ -28,7 +44,8 @@ class AppManager:
             genomeAnalysisId=genomeAnalysisId,
             fileName=fileName,
             fileType=fileType,
-            status='uploading',
+            detectedFormat=None,  # Will be detected during analysis
+            status='waiting_for_upload',  # Changed from 'uploading'
             createdDate=date_util.datetime_to_string(date_util.datetime_from_now()),
         )
         self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
@@ -37,27 +54,133 @@ class AppManager:
     async def get_example_analysis_id(self) -> str:
         return EXAMPLE_ANALYSIS_ID
 
-    async def get_genome_analysis(self, genomeAnalysisId: str) -> resources.GenomeAnalysis:
+    async def upload_and_analyze_genome_file(self, genomeAnalysisId: str, file) -> resources.GenomeAnalysis:
+        """Upload genome file and start analysis asynchronously."""
         genomeAnalysis = self.genomeAnalysisStore.get(genomeAnalysisId)
         if not genomeAnalysis:
             raise NotFoundException
 
-        # If already completed, return it
-        if genomeAnalysis.status == 'completed':
-            return genomeAnalysis
+        # Update status to uploading
+        genomeAnalysis.status = 'uploading'
+        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
 
-        # If in a processing phase, advance to next phase with probability
-        currentStatus = genomeAnalysis.status
-        if currentStatus in STATUS_PHASES[:-1] and random.random() < COMPLETION_PROBABILITY:  # noqa: S311
-            currentIndex = STATUS_PHASES.index(currentStatus)
-            nextStatus = STATUS_PHASES[currentIndex + 1]
-            genomeAnalysis.status = nextStatus
+        # Save the uploaded file (async)
+        safeName = Path(genomeAnalysis.fileName).name
+        uploadPath = self.uploadsDir / f"{genomeAnalysisId}_{safeName}"
+        content = await file.read()
 
-            # If we just completed, create the mock results
-            if nextStatus == 'completed':
-                self._create_mock_results(genomeAnalysisId, genomeAnalysis.fileName, genomeAnalysis.fileType)
+        # Write file asynchronously to avoid blocking
+        await file_util.write_file_bytes(str(uploadPath), content)
 
-            self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
+        # Update status to validating
+        genomeAnalysis.status = 'validating'
+        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
+
+        # Start analysis in background
+        asyncio.create_task(self._run_genome_analysis(genomeAnalysisId, uploadPath))
+
+        return genomeAnalysis
+
+    async def _run_genome_analysis(self, genomeAnalysisId: str, inputFilePath: Path) -> None:
+        """Run the genome analysis in the background."""
+        genomeAnalysis = self.genomeAnalysisStore[genomeAnalysisId]
+        genomeAnalysis.status = 'parsing'
+        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
+        genomeContent = await file_util.read_file(str(inputFilePath))
+        async def read_gwas_file(rsid: str) -> dict | None:
+            gwasFile = self.gwasDir / f'{rsid}.json'
+            if not gwasFile.exists():
+                return None
+            content = await file_util.read_file(str(gwasFile))
+            return json.loads(content)
+
+        async def read_annotation_file(rsid: str) -> dict | None:
+            annotationFile = self.annotationsDir / f'{rsid}.json'
+            if not annotationFile.exists():
+                return None
+            content = await file_util.read_file(str(annotationFile))
+            return json.loads(content)
+        analysisResult = await self.genomeAnalyzer.analyze_genome(
+            genomeContent=genomeContent,
+            read_gwas_file=read_gwas_file,
+            read_annotation_file=read_annotation_file
+        )
+        genomeAnalysis.status = 'building_baseline'
+        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
+        outputPath = self.outputsDir / f"{genomeAnalysisId}.json"
+        resultContent = analysisResult.model_dump_json(indent=2)
+        await file_util.write_file(str(outputPath), resultContent)
+        self._create_real_results(genomeAnalysisId, analysisResult)
+        genomeAnalysis.status = 'completed'
+        genomeAnalysis.detectedFormat = '23andme'
+        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
+
+    def _create_real_results(self, genomeAnalysisId: str, analysisData: model.GenomeAnalysisResult) -> None:
+        """Create genome analysis results from real analysis output."""
+        # Update analysis with summary
+        genomeAnalysis = self.genomeAnalysisStore[genomeAnalysisId]
+        genomeAnalysis.summary = resources.GenomeAnalysisSummary(
+            totalSnps=analysisData.summary.totalSnps,
+            matchedSnps=analysisData.summary.matchedSnps,
+            totalAssociations=analysisData.summary.totalAssociations,
+            topCategories=analysisData.summary.topCategories,
+            clinvarCount=analysisData.summary.clinvarCount,
+        )
+        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
+
+        # Use phenotype_groups from the analyzer
+        results = []
+        for category, associations in analysisData.phenotypeGroups.items():
+            # Deduplicate by rsid - keep highest scoring association per SNP
+            seenRsids = {}
+            for assoc in associations:
+                if assoc.rsid not in seenRsids:
+                    seenRsids[assoc.rsid] = assoc
+                elif assoc.importanceScore > seenRsids[assoc.rsid].importanceScore:
+                    seenRsids[assoc.rsid] = assoc
+
+            # Sort by importance score (show all unique SNPs, no limit)
+            uniqueAssociations = sorted(seenRsids.values(), key=lambda x: x.importanceScore, reverse=True)
+
+            # Convert to SNP resources
+            snps = []
+            for assoc in uniqueAssociations:
+                snp = resources.SNP(
+                    rsid=assoc.rsid,
+                    genotype=assoc.genotype,
+                    chromosome=assoc.chromosome,
+                    position=int(assoc.position) if assoc.position.isdigit() else 0,
+                    annotation=f"{assoc.trait} - {assoc.effectStrength or 'Unknown'} effect. " +
+                              (f"ClinVar: {assoc.clinvarCondition}" if assoc.clinvarCondition else ""),
+                    confidence='Unknown',  # Not provided by analyzer
+                    sources=['GWAS Catalog', 'ClinVar'] if assoc.clinvarCondition else ['GWAS Catalog'],
+                    # Additional fields
+                    trait=assoc.trait,
+                    importanceScore=assoc.importanceScore,
+                    pValue=str(assoc.pvalue) if assoc.pvalue else None,
+                    effectStrength=assoc.effectStrength,
+                    riskAllele=assoc.riskAllele,
+                    clinvarCondition=assoc.clinvarCondition,
+                    clinvarSignificance=assoc.clinvarSignificance,
+                )
+                snps.append(snp)
+
+            if snps:
+                result = resources.GenomeAnalysisResult(
+                    genomeAnalysisResultId=str(uuid.uuid4()),
+                    genomeAnalysisId=genomeAnalysisId,
+                    phenotypeGroup=category,
+                    phenotypeDescription=f"Genetic variants associated with {category.lower()}",
+                    snps=snps,
+                )
+                results.append(result)
+
+        self.genomeAnalysisResultsStore[genomeAnalysisId] = results
+
+    async def get_genome_analysis(self, genomeAnalysisId: str) -> resources.GenomeAnalysis:
+        genomeAnalysis = self.genomeAnalysisStore.get(genomeAnalysisId)
+        if not genomeAnalysis:
+            raise NotFoundException
 
         return genomeAnalysis
 
@@ -362,6 +485,7 @@ class AppManager:
             genomeAnalysisId=EXAMPLE_ANALYSIS_ID,
             fileName='example_genome_23andme.txt',
             fileType='text/plain',
+            detectedFormat='23andme',
             status='completed',
             createdDate=date_util.datetime_to_string(date_util.datetime_from_now()),
         )

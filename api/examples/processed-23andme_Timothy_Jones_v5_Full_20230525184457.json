@@ -1,0 +1,3897 @@
+{
+  "total_snps": 621635,
+  "matched_snps": 40162,
+  "snps_with_clinvar": 2688,
+  "total_associations": 159383,
+  "scored_associations_count": 69787,
+  "clinvar_summary": {
+    "actionable": 205,
+    "pharmacogenomic": 35,
+    "risk_factors": 75,
+    "uncertain": 0
+  },
+  "top_50_associations": [
+    {
+      "rsid": "rs11571833",
+      "genotype": "AA",
+      "risk_allele": "A",
+      "risk_allele_count": 2,
+      "trait": "Lung cancer (conditioned on cigarettes per day)",
+      "trait_category": "Cancer",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.637",
+      "beta_value": "0.637",
+      "effect_type": "beta",
+      "p_value_text": "1E-20",
+      "study": "Multi-ancestry GWAS meta-analyses of lung cancer reveal susceptibility loci and elucidate smoking-independent genetic risk.",
+      "importance_score": 53.352000000000004,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.00544413,
+        "af_nfe": 0.00706233,
+        "af_afr": 0.00160661,
+        "af_eas": 0.0
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 2e-19,
+        "pvalue_str": "2E-19",
+        "trait": "Lung cancer",
+        "risk_allele": "rs11571833-T",
+        "risk_allele_freq": "0.011",
+        "gene": "BRCA2, FRY",
+        "pubmed": 24880342
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "BRCA2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Hereditary breast ovarian cancer syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs671",
+      "genotype": "GG",
+      "risk_allele": "G",
+      "risk_allele_count": 2,
+      "trait": "Mean arterial pressure (BMI adjusted)",
+      "trait_category": "Cardiovascular measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.6214",
+      "beta_value": "0.6214",
+      "effect_type": "beta",
+      "p_value_text": "6E-16",
+      "study": "Causal relevance of different blood pressure traits on risk of cardiovascular diseases: GWAS and Mendelian randomisation in 100,000 Chinese adults.",
+      "importance_score": 41.81399999999999,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.013398,
+        "af_nfe": 0.0,
+        "af_afr": 0.000230097,
+        "af_eas": 0.267141
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 1e-14,
+        "pvalue_str": "1E-14",
+        "trait": "Myocardial infarction",
+        "risk_allele": "rs3782886-A",
+        "risk_allele_freq": "0.26",
+        "gene": "ALDH2",
+        "pubmed": 24916648
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "ALDH2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "AMED syndrome, digenic",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs671",
+      "genotype": "GG",
+      "risk_allele": "G",
+      "risk_allele_count": 2,
+      "trait": "Diastolic blood pressure (BMI adjusted)",
+      "trait_category": "Cardiovascular measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.6188",
+      "beta_value": "0.6188",
+      "effect_type": "beta",
+      "p_value_text": "3E-22",
+      "study": "Causal relevance of different blood pressure traits on risk of cardiovascular diseases: GWAS and Mendelian randomisation in 100,000 Chinese adults.",
+      "importance_score": 41.81399999999999,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.013398,
+        "af_nfe": 0.0,
+        "af_afr": 0.000230097,
+        "af_eas": 0.267141
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 1e-14,
+        "pvalue_str": "1E-14",
+        "trait": "Myocardial infarction",
+        "risk_allele": "rs3782886-A",
+        "risk_allele_freq": "0.26",
+        "gene": "ALDH2",
+        "pubmed": 24916648
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "ALDH2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "AMED syndrome, digenic",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs671",
+      "genotype": "GG",
+      "risk_allele": "G",
+      "risk_allele_count": 2,
+      "trait": "Diastolic blood pressure (BMI unadjusted)",
+      "trait_category": "Cardiovascular measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.7037",
+      "beta_value": "0.7037",
+      "effect_type": "beta",
+      "p_value_text": "2E-26",
+      "study": "Causal relevance of different blood pressure traits on risk of cardiovascular diseases: GWAS and Mendelian randomisation in 100,000 Chinese adults.",
+      "importance_score": 41.81399999999999,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.013398,
+        "af_nfe": 0.0,
+        "af_afr": 0.000230097,
+        "af_eas": 0.267141
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 1e-14,
+        "pvalue_str": "1E-14",
+        "trait": "Myocardial infarction",
+        "risk_allele": "rs3782886-A",
+        "risk_allele_freq": "0.26",
+        "gene": "ALDH2",
+        "pubmed": 24916648
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "ALDH2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "AMED syndrome, digenic",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs671",
+      "genotype": "GG",
+      "risk_allele": "G",
+      "risk_allele_count": 2,
+      "trait": "Alcohol-related disorders (PheCode 317)",
+      "trait_category": "Other disease",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.7264",
+      "beta_value": "0.7264",
+      "effect_type": "beta",
+      "p_value_text": "1E-11",
+      "study": "Diversity and scale: Genetic architecture of 2068 traits in the VA Million Veteran Program.",
+      "importance_score": 41.81399999999999,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.013398,
+        "af_nfe": 0.0,
+        "af_afr": 0.000230097,
+        "af_eas": 0.267141
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 1e-14,
+        "pvalue_str": "1E-14",
+        "trait": "Myocardial infarction",
+        "risk_allele": "rs3782886-A",
+        "risk_allele_freq": "0.26",
+        "gene": "ALDH2",
+        "pubmed": 24916648
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "ALDH2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "AMED syndrome, digenic",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs671",
+      "genotype": "GG",
+      "risk_allele": "G",
+      "risk_allele_count": 2,
+      "trait": "Alcohol-related disorders (PheCode 317)",
+      "trait_category": "Other disease",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.7313",
+      "beta_value": "0.7313",
+      "effect_type": "beta",
+      "p_value_text": "3E-14",
+      "study": "Diversity and scale: Genetic architecture of 2068 traits in the VA Million Veteran Program.",
+      "importance_score": 41.81399999999999,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.013398,
+        "af_nfe": 0.0,
+        "af_afr": 0.000230097,
+        "af_eas": 0.267141
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 1e-14,
+        "pvalue_str": "1E-14",
+        "trait": "Myocardial infarction",
+        "risk_allele": "rs3782886-A",
+        "risk_allele_freq": "0.26",
+        "gene": "ALDH2",
+        "pubmed": 24916648
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "ALDH2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "AMED syndrome, digenic",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs671",
+      "genotype": "GG",
+      "risk_allele": "G",
+      "risk_allele_count": 2,
+      "trait": "Gout",
+      "trait_category": "Metabolic disorder",
+      "direction": "+",
+      "effect_strength": "Moderate",
+      "confidence_label": "High",
+      "or_value": "1.93",
+      "beta_value": "1.93",
+      "effect_type": "OR",
+      "p_value_text": "3E-54",
+      "study": "Subtype-specific gout susceptibility loci and enrichment of selection pressure on ABCG2 and ALDH2 identified by subtype genome-wide meta-analyses of clinically defined gout patients.",
+      "importance_score": 41.544900000000005,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.013398,
+        "af_nfe": 0.0,
+        "af_afr": 0.000230097,
+        "af_eas": 0.267141
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 1e-14,
+        "pvalue_str": "1E-14",
+        "trait": "Myocardial infarction",
+        "risk_allele": "rs3782886-A",
+        "risk_allele_freq": "0.26",
+        "gene": "ALDH2",
+        "pubmed": 24916648
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "ALDH2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "AMED syndrome, digenic",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs5030858",
+      "genotype": "GG",
+      "risk_allele": "G",
+      "risk_allele_count": 2,
+      "trait": "Phenylalanine levels",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "1.5524",
+      "beta_value": "1.5524",
+      "effect_type": "beta",
+      "p_value_text": "4E-198",
+      "study": "Characterising metabolomic signatures of lipid-modifying therapies through drug target mendelian randomisation.",
+      "importance_score": 41.34,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.00194305,
+        "af_nfe": 0.00350058,
+        "af_afr": 0.000344511,
+        "af_eas": 0.0
+      },
+      "gwassnps": {
+        "has_gwassnps": false
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "PAH",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Phenylketonuria (PKU)",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs34637584",
+      "genotype": "GG",
+      "risk_allele": "G",
+      "risk_allele_count": 2,
+      "trait": "Parkinson's disease",
+      "trait_category": "Neurological disorder",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "1.638",
+      "beta_value": "1.638",
+      "effect_type": "beta",
+      "p_value_text": "2E-11",
+      "study": "Diversity and scale: Genetic architecture of 2068 traits in the VA Million Veteran Program.",
+      "importance_score": 40.4911,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.000191156,
+        "af_nfe": 0.00025937,
+        "af_afr": 0.000114811,
+        "af_eas": 0.0
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 2e-28,
+        "pvalue_str": "2E-28",
+        "trait": "Parkinson's disease",
+        "risk_allele": "rs34637584-A",
+        "risk_allele_freq": "0.002",
+        "gene": "LRRK2",
+        "pubmed": 21738487
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "LRRK2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Autosomal dominant Parkinson disease 8",
+      "clinvar_review_score": 3
+    },
+    {
+      "rsid": "rs34637584",
+      "genotype": "GG",
+      "risk_allele": "G",
+      "risk_allele_count": 2,
+      "trait": "Parkinson's disease",
+      "trait_category": "Neurological disorder",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "1.805",
+      "beta_value": "1.805",
+      "effect_type": "beta",
+      "p_value_text": "3E-12",
+      "study": "Diversity and scale: Genetic architecture of 2068 traits in the VA Million Veteran Program.",
+      "importance_score": 40.4911,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.000191156,
+        "af_nfe": 0.00025937,
+        "af_afr": 0.000114811,
+        "af_eas": 0.0
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 2e-28,
+        "pvalue_str": "2E-28",
+        "trait": "Parkinson's disease",
+        "risk_allele": "rs34637584-A",
+        "risk_allele_freq": "0.002",
+        "gene": "LRRK2",
+        "pubmed": 21738487
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "LRRK2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Autosomal dominant Parkinson disease 8",
+      "clinvar_review_score": 3
+    },
+    {
+      "rsid": "rs34637584",
+      "genotype": "GG",
+      "risk_allele": "G",
+      "risk_allele_count": 2,
+      "trait": "Parkinson's disease",
+      "trait_category": "Neurological disorder",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "1.594",
+      "beta_value": "1.594",
+      "effect_type": "beta",
+      "p_value_text": "7E-17",
+      "study": "Diversity and scale: Genetic architecture of 2068 traits in the VA Million Veteran Program.",
+      "importance_score": 40.4911,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.000191156,
+        "af_nfe": 0.00025937,
+        "af_afr": 0.000114811,
+        "af_eas": 0.0
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 2e-28,
+        "pvalue_str": "2E-28",
+        "trait": "Parkinson's disease",
+        "risk_allele": "rs34637584-A",
+        "risk_allele_freq": "0.002",
+        "gene": "LRRK2",
+        "pubmed": 21738487
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "LRRK2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Autosomal dominant Parkinson disease 8",
+      "clinvar_review_score": 3
+    },
+    {
+      "rsid": "rs7412",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Alzheimer's disease (onset between ages 58 and 79)",
+      "trait_category": "Neurological disorder",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "2.173913",
+      "beta_value": "2.173913",
+      "effect_type": "OR",
+      "p_value_text": "3E-33",
+      "study": "Identification of genetic heterogeneity of Alzheimer's disease across age.",
+      "importance_score": 39.168000000000006,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.0826848,
+        "af_nfe": 0.0820818,
+        "af_afr": 0.106134,
+        "af_eas": 0.0816195
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 3e-53,
+        "pvalue_str": "3E-53",
+        "trait": "Lipid traits",
+        "risk_allele": "rs7412-T",
+        "risk_allele_freq": "0.12",
+        "gene": "APOE",
+        "pubmed": 24023260
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "APOE",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Familial type 3 hyperlipoproteinemia",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs7412",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Alzheimer's disease",
+      "trait_category": "Neurological disorder",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "2.214072",
+      "beta_value": "2.214072",
+      "effect_type": "OR",
+      "p_value_text": "4E-13",
+      "study": "Genome-wide analysis of genetic predisposition to Alzheimer's disease and related sex disparities.",
+      "importance_score": 39.168000000000006,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.0826848,
+        "af_nfe": 0.0820818,
+        "af_afr": 0.106134,
+        "af_eas": 0.0816195
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 3e-53,
+        "pvalue_str": "3E-53",
+        "trait": "Lipid traits",
+        "risk_allele": "rs7412-T",
+        "risk_allele_freq": "0.12",
+        "gene": "APOE",
+        "pubmed": 24023260
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "APOE",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Familial type 3 hyperlipoproteinemia",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs7412",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Hyperlipidemia (PheCode 272.1)",
+      "trait_category": "Metabolic disorder",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.4541",
+      "beta_value": "0.4541",
+      "effect_type": "beta",
+      "p_value_text": "1E-323",
+      "study": "Diversity and scale: Genetic architecture of 2068 traits in the VA Million Veteran Program.",
+      "importance_score": 39.168000000000006,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.0826848,
+        "af_nfe": 0.0820818,
+        "af_afr": 0.106134,
+        "af_eas": 0.0816195
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 3e-53,
+        "pvalue_str": "3E-53",
+        "trait": "Lipid traits",
+        "risk_allele": "rs7412-T",
+        "risk_allele_freq": "0.12",
+        "gene": "APOE",
+        "pubmed": 24023260
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "APOE",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Familial type 3 hyperlipoproteinemia",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs7412",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Hyperlipidemia (PheCode 272.1)",
+      "trait_category": "Metabolic disorder",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.4145",
+      "beta_value": "0.4145",
+      "effect_type": "beta",
+      "p_value_text": "4E-31",
+      "study": "Diversity and scale: Genetic architecture of 2068 traits in the VA Million Veteran Program.",
+      "importance_score": 39.168000000000006,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.0826848,
+        "af_nfe": 0.0820818,
+        "af_afr": 0.106134,
+        "af_eas": 0.0816195
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 3e-53,
+        "pvalue_str": "3E-53",
+        "trait": "Lipid traits",
+        "risk_allele": "rs7412-T",
+        "risk_allele_freq": "0.12",
+        "gene": "APOE",
+        "pubmed": 24023260
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "APOE",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Familial type 3 hyperlipoproteinemia",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs7412",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Hyperlipidemia (PheCode 272.1)",
+      "trait_category": "Metabolic disorder",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.5341",
+      "beta_value": "0.5341",
+      "effect_type": "beta",
+      "p_value_text": "4E-224",
+      "study": "Diversity and scale: Genetic architecture of 2068 traits in the VA Million Veteran Program.",
+      "importance_score": 39.168000000000006,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.0826848,
+        "af_nfe": 0.0820818,
+        "af_afr": 0.106134,
+        "af_eas": 0.0816195
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 3e-53,
+        "pvalue_str": "3E-53",
+        "trait": "Lipid traits",
+        "risk_allele": "rs7412-T",
+        "risk_allele_freq": "0.12",
+        "gene": "APOE",
+        "pubmed": 24023260
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "APOE",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Familial type 3 hyperlipoproteinemia",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs7412",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Hyperlipidemia (PheCode 272.1)",
+      "trait_category": "Metabolic disorder",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.4238",
+      "beta_value": "0.4238",
+      "effect_type": "beta",
+      "p_value_text": "1E-323",
+      "study": "Diversity and scale: Genetic architecture of 2068 traits in the VA Million Veteran Program.",
+      "importance_score": 39.168000000000006,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.0826848,
+        "af_nfe": 0.0820818,
+        "af_afr": 0.106134,
+        "af_eas": 0.0816195
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 3e-53,
+        "pvalue_str": "3E-53",
+        "trait": "Lipid traits",
+        "risk_allele": "rs7412-T",
+        "risk_allele_freq": "0.12",
+        "gene": "APOE",
+        "pubmed": 24023260
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "APOE",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Familial type 3 hyperlipoproteinemia",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs671",
+      "genotype": "GG",
+      "risk_allele": "G",
+      "risk_allele_count": 2,
+      "trait": "Atrial fibrillation",
+      "trait_category": "Cardiovascular disease",
+      "direction": "+",
+      "effect_strength": "Small",
+      "confidence_label": "High",
+      "or_value": "1.26",
+      "beta_value": "1.26",
+      "effect_type": "OR",
+      "p_value_text": "1E-27",
+      "study": "Meta-analysis of genome-wide associations and polygenic risk prediction for atrial fibrillation in more than 180,000 cases.",
+      "importance_score": 38.584799999999994,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.013398,
+        "af_nfe": 0.0,
+        "af_afr": 0.000230097,
+        "af_eas": 0.267141
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 1e-14,
+        "pvalue_str": "1E-14",
+        "trait": "Myocardial infarction",
+        "risk_allele": "rs3782886-A",
+        "risk_allele_freq": "0.26",
+        "gene": "ALDH2",
+        "pubmed": 24916648
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "ALDH2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "AMED syndrome, digenic",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs17879961",
+      "genotype": "AA",
+      "risk_allele": "A",
+      "risk_allele_count": 2,
+      "trait": "Lung cancer",
+      "trait_category": "Cancer",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "2.63",
+      "beta_value": "2.63",
+      "effect_type": "OR",
+      "p_value_text": "1E-13",
+      "study": "Rare variants of large effect in BRCA2 and CHEK2 affect risk of lung cancer.",
+      "importance_score": 37.702749999999995,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.0113057,
+        "af_nfe": 0.0154873,
+        "af_afr": 0.0,
+        "af_eas": 0.0
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 3e-11,
+        "pvalue_str": "3E-11",
+        "trait": "Lung cancer",
+        "risk_allele": "rs17879961-A",
+        "risk_allele_freq": "0.9975",
+        "gene": "CHEK2",
+        "pubmed": 24880342
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "CHEK2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Breast and colorectal cancer, susceptibility to",
+      "clinvar_review_score": 3
+    },
+    {
+      "rsid": "rs17879961",
+      "genotype": "AA",
+      "risk_allele": "A",
+      "risk_allele_count": 2,
+      "trait": "Squamous cell lung carcinoma (conditioned on cigarettes per day)",
+      "trait_category": "Cancer",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "2.586",
+      "beta_value": "2.586",
+      "effect_type": "OR",
+      "p_value_text": "3E-18",
+      "study": "Multi-ancestry GWAS meta-analyses of lung cancer reveal susceptibility loci and elucidate smoking-independent genetic risk.",
+      "importance_score": 37.702749999999995,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.0113057,
+        "af_nfe": 0.0154873,
+        "af_afr": 0.0,
+        "af_eas": 0.0
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 3e-11,
+        "pvalue_str": "3E-11",
+        "trait": "Lung cancer",
+        "risk_allele": "rs17879961-A",
+        "risk_allele_freq": "0.9975",
+        "gene": "CHEK2",
+        "pubmed": 24880342
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "CHEK2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Breast and colorectal cancer, susceptibility to",
+      "clinvar_review_score": 3
+    },
+    {
+      "rsid": "rs268",
+      "genotype": "AA",
+      "risk_allele": "A",
+      "risk_allele_count": 2,
+      "trait": "Coronary artery disease",
+      "trait_category": "Cardiovascular disease",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.876",
+      "beta_value": "0.876",
+      "effect_type": "beta",
+      "p_value_text": "4E-11",
+      "study": "Discovery and systematic characterization of risk variants and genes for coronary artery disease in over a million participants.",
+      "importance_score": 36.7609,
+      "priority_tier": "\ud83d\udfe1 IMPORTANT",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.0144849,
+        "af_nfe": 0.0217053,
+        "af_afr": 0.00263883,
+        "af_eas": 0.0
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 2e-12,
+        "pvalue_str": "2E-12",
+        "trait": "Metabolic syndrome",
+        "risk_allele": "rs268-G",
+        "risk_allele_freq": "0.02",
+        "gene": "LPL",
+        "pubmed": 22399527
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "LPL",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "not provided",
+      "clinvar_review_score": 3
+    },
+    {
+      "rsid": "rs671",
+      "genotype": "GG",
+      "risk_allele": "G",
+      "risk_allele_count": 2,
+      "trait": "Metabolic syndrome",
+      "trait_category": "Cardiovascular measurement",
+      "direction": "+",
+      "effect_strength": "Small",
+      "confidence_label": "High",
+      "or_value": "1.41",
+      "beta_value": "1.41",
+      "effect_type": "OR",
+      "p_value_text": "5E-28",
+      "study": "Susceptibility loci for metabolic syndrome and metabolic components identified in Han Chinese: a multi-stage genome-wide association study.",
+      "importance_score": 36.431999999999995,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.013398,
+        "af_nfe": 0.0,
+        "af_afr": 0.000230097,
+        "af_eas": 0.267141
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 1e-14,
+        "pvalue_str": "1E-14",
+        "trait": "Myocardial infarction",
+        "risk_allele": "rs3782886-A",
+        "risk_allele_freq": "0.26",
+        "gene": "ALDH2",
+        "pubmed": 24916648
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "ALDH2",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "AMED syndrome, digenic",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Plasma estrone conjugates levels in resected early stage estrogen-receptor positive breast cancer",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.5",
+      "beta_value": "0.5",
+      "effect_type": "beta",
+      "p_value_text": "4E-11",
+      "study": "SLCO1B1 polymorphisms and plasma estrone conjugates in postmenopausal women with ER+\u00a0breast cancer: genome-wide association studies of the estrone pathway.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Urinary metabolite levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.588",
+      "beta_value": "0.588",
+      "effect_type": "beta",
+      "p_value_text": "2E-11",
+      "study": "Genetic studies of urinary metabolites illuminate mechanisms of detoxification and excretion in humans.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Urinary metabolite levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.677",
+      "beta_value": "0.677",
+      "effect_type": "beta",
+      "p_value_text": "4E-32",
+      "study": "Genetic studies of urinary metabolites illuminate mechanisms of detoxification and excretion in humans.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Metabolite levels (hexadecanedioate; hexadecanedioate (C16-DC))",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.453",
+      "beta_value": "0.453",
+      "effect_type": "beta",
+      "p_value_text": "2E-87",
+      "study": "Whole-Genome Sequencing Analysis of Human Metabolome in Multi-Ethnic Populations.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Metabolite levels (glycocholenate sulfate)",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.611",
+      "beta_value": "0.611",
+      "effect_type": "beta",
+      "p_value_text": "3E-150",
+      "study": "Whole-Genome Sequencing Analysis of Human Metabolome in Multi-Ethnic Populations.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Metabolite levels (hexadecenedioate (C16:1-DC))",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.569",
+      "beta_value": "0.569",
+      "effect_type": "beta",
+      "p_value_text": "1E-46",
+      "study": "Whole-Genome Sequencing Analysis of Human Metabolome in Multi-Ethnic Populations.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Metabolite levels (tetradecanedioate; tetradecanedioate (C14-DC))",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.474",
+      "beta_value": "0.474",
+      "effect_type": "beta",
+      "p_value_text": "3E-90",
+      "study": "Whole-Genome Sequencing Analysis of Human Metabolome in Multi-Ethnic Populations.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Metabolite levels (deoxycholic acid (12 or 24)-sulfate)",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.481",
+      "beta_value": "0.481",
+      "effect_type": "beta",
+      "p_value_text": "4E-32",
+      "study": "Whole-Genome Sequencing Analysis of Human Metabolome in Multi-Ethnic Populations.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Metabolite levels (octadecenedioate (C18:1-DC))",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.531",
+      "beta_value": "0.531",
+      "effect_type": "beta",
+      "p_value_text": "1E-40",
+      "study": "Whole-Genome Sequencing Analysis of Human Metabolome in Multi-Ethnic Populations.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Metabolite levels (octadecadienedioate (C18:2-DC))",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.532",
+      "beta_value": "0.532",
+      "effect_type": "beta",
+      "p_value_text": "1E-41",
+      "study": "Whole-Genome Sequencing Analysis of Human Metabolome in Multi-Ethnic Populations.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Metabolite levels (1-linoleoyl-GPG (18:2))",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.454",
+      "beta_value": "0.454",
+      "effect_type": "beta",
+      "p_value_text": "2E-63",
+      "study": "Whole-Genome Sequencing Analysis of Human Metabolome in Multi-Ethnic Populations.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Metabolite levels (glycochenodeoxycholate glucuronide (1))",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.981",
+      "beta_value": "0.981",
+      "effect_type": "beta",
+      "p_value_text": "5E-303",
+      "study": "Whole-Genome Sequencing Analysis of Human Metabolome in Multi-Ethnic Populations.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Metabolite levels (glycodeoxycholate 3-sulfate; glycodeoxycholate sulfate)",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.55",
+      "beta_value": "0.55",
+      "effect_type": "beta",
+      "p_value_text": "4E-90",
+      "study": "Whole-Genome Sequencing Analysis of Human Metabolome in Multi-Ethnic Populations.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Urine deoxycholic acid 12-sulfate* levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.497",
+      "beta_value": "0.497",
+      "effect_type": "beta",
+      "p_value_text": "1E-31",
+      "study": "Genetic studies of paired metabolomes reveal enzymatic and transport processes at the interface of plasma and urine.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Plasma hexadecenedioate (C16:1-DC)* levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.484",
+      "beta_value": "0.484",
+      "effect_type": "beta",
+      "p_value_text": "2E-141",
+      "study": "Genetic studies of paired metabolomes reveal enzymatic and transport processes at the interface of plasma and urine.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Plasma glycochenodeoxycholate glucuronide (1) levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "1.073",
+      "beta_value": "1.073",
+      "effect_type": "beta",
+      "p_value_text": "3E-266",
+      "study": "Genetic studies of paired metabolomes reveal enzymatic and transport processes at the interface of plasma and urine.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Urine glycochenodeoxycholate glucuronide (1) levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.653",
+      "beta_value": "0.653",
+      "effect_type": "beta",
+      "p_value_text": "1E-88",
+      "study": "Genetic studies of paired metabolomes reveal enzymatic and transport processes at the interface of plasma and urine.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Plasma glycocholenate sulfate* levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.456",
+      "beta_value": "0.456",
+      "effect_type": "beta",
+      "p_value_text": "8E-126",
+      "study": "Genetic studies of paired metabolomes reveal enzymatic and transport processes at the interface of plasma and urine.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Urine glycocholenate sulfate* levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.481",
+      "beta_value": "0.481",
+      "effect_type": "beta",
+      "p_value_text": "1E-67",
+      "study": "Genetic studies of paired metabolomes reveal enzymatic and transport processes at the interface of plasma and urine.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Urine X-24546 levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.477",
+      "beta_value": "0.477",
+      "effect_type": "beta",
+      "p_value_text": "7E-38",
+      "study": "Genetic studies of paired metabolomes reveal enzymatic and transport processes at the interface of plasma and urine.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Plasma octadecadienedioate (C18:2-DC)* levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.424",
+      "beta_value": "0.424",
+      "effect_type": "beta",
+      "p_value_text": "8E-58",
+      "study": "Genetic studies of paired metabolomes reveal enzymatic and transport processes at the interface of plasma and urine.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Plasma octadecanedioylcarnitine (C18-DC)* levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.419",
+      "beta_value": "0.419",
+      "effect_type": "beta",
+      "p_value_text": "9E-121",
+      "study": "Genetic studies of paired metabolomes reveal enzymatic and transport processes at the interface of plasma and urine.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Plasma octadecenedioylcarnitine (C18:1-DC)* levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.53",
+      "beta_value": "0.53",
+      "effect_type": "beta",
+      "p_value_text": "8E-160",
+      "study": "Genetic studies of paired metabolomes reveal enzymatic and transport processes at the interface of plasma and urine.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Plasma tetradecanedioate (C14-DC) levels in chronic kidney disease",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.437",
+      "beta_value": "0.437",
+      "effect_type": "beta",
+      "p_value_text": "1E-100",
+      "study": "Genetic studies of paired metabolomes reveal enzymatic and transport processes at the interface of plasma and urine.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Glycochenodeoxycholate glucuronide (1) levels",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.885028",
+      "beta_value": "0.885028",
+      "effect_type": "beta",
+      "p_value_text": "3E-493",
+      "study": "Genomic atlas of the plasma metabolome prioritizes metabolites implicated in human diseases.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Octadecanedioylcarnitine (C18-DC) levels",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.524674",
+      "beta_value": "0.524674",
+      "effect_type": "beta",
+      "p_value_text": "2E-156",
+      "study": "Genomic atlas of the plasma metabolome prioritizes metabolites implicated in human diseases.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "1-oleoyl-GPG (18:1) levels",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.458172",
+      "beta_value": "0.458172",
+      "effect_type": "beta",
+      "p_value_text": "3E-98",
+      "study": "Genomic atlas of the plasma metabolome prioritizes metabolites implicated in human diseases.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "risk_allele": "C",
+      "risk_allele_count": 2,
+      "trait": "Octadecenedioylcarnitine (C18:1-DC) levels",
+      "trait_category": "Other measurement",
+      "direction": "+",
+      "effect_strength": "Large",
+      "confidence_label": "High",
+      "or_value": "0.564187",
+      "beta_value": "0.564187",
+      "effect_type": "beta",
+      "p_value_text": "4E-183",
+      "study": "Genomic atlas of the plasma metabolome prioritizes metabolites implicated in human diseases.",
+      "importance_score": 36.36,
+      "priority_tier": "\ud83d\udd34 CRITICAL",
+      "gnomad": {
+        "has_gnomad": true,
+        "global_af": 0.13572,
+        "af_nfe": 0.17626,
+        "af_afr": 0.0329506,
+        "af_eas": 0.118252
+      },
+      "gwassnps": {
+        "has_gwassnps": true,
+        "pvalue": 0.0,
+        "pvalue_str": "6E-328",
+        "trait": "Blood metabolite ratios",
+        "risk_allele": "rs4149056-T",
+        "risk_allele_freq": "0.82",
+        "gene": "SLCO1B1",
+        "pubmed": 24816252
+      },
+      "has_clinvar": true,
+      "clinvar_gene": "SLCO1B1",
+      "clinvar_max_significance": 10,
+      "clinvar_top_condition": "Gilbert syndrome",
+      "clinvar_review_score": 4
+    }
+  ],
+  "clinvar_actionable": [
+    {
+      "rsid": "rs150812083",
+      "genotype": "CC",
+      "gene": "PER3",
+      "condition": "Advanced sleep phase syndrome 3",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs41307788",
+      "genotype": "CC",
+      "gene": "MASP2",
+      "condition": "Immunodeficiency due to MASP-2 deficiency",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs72550870",
+      "genotype": "TT",
+      "gene": "MASP2",
+      "condition": "Immunodeficiency due to MASP-2 deficiency",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs1801133",
+      "genotype": "AG",
+      "gene": "MTHFR",
+      "condition": "Homocystinuria due to methylene tetrahydrofolate reductase deficiency",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs121909293",
+      "genotype": "CC",
+      "gene": "CTRC",
+      "condition": "Pancreatitis, chronic, susceptibility to",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "rsid": "rs61757683",
+      "genotype": "GG",
+      "gene": "ALDH4A1",
+      "condition": "Hyperprolinemia type 2 (HYRPRO2)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs142433309",
+      "genotype": "GG",
+      "gene": "HSPG2",
+      "condition": "Schwartz-Jampel syndrome",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs138156467",
+      "genotype": "CC",
+      "gene": "CSF3R",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs12731981",
+      "genotype": "GG",
+      "gene": "MPL",
+      "condition": "Congenital amegakaryocytic thrombocytopenia",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs11591147",
+      "genotype": "GG",
+      "gene": "PCSK9",
+      "condition": "Hypocholesterolemia",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs11800243",
+      "genotype": "GG",
+      "gene": "PCSK9",
+      "condition": "Hypercholesterolemia, familial, 1",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs746115963",
+      "genotype": "TT",
+      "gene": "PCSK9",
+      "condition": "Hypercholesterolemia, autosomal dominant, 3 (FHCL3)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs41286844",
+      "genotype": "GG",
+      "gene": "C8B",
+      "condition": "Type II complement component 8 deficiency",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs149968614",
+      "genotype": "CC",
+      "gene": "LOC126805749",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs3918290",
+      "genotype": "CC",
+      "gene": "DPYD",
+      "condition": "Dihydropyrimidine dehydrogenase deficiency (DPYDD)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs17602729",
+      "genotype": "GG",
+      "gene": "AMPD1",
+      "condition": "Muscle AMP deaminase deficiency (MMDD)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs41317525",
+      "genotype": "GG",
+      "gene": "ADAMTSL4",
+      "condition": "Ectopia lentis 2, isolated, autosomal recessive (ECTOL2)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs17582155",
+      "genotype": "GG",
+      "gene": "RORC",
+      "condition": "Autosomal recessive mendelian susceptibility to mycobacterial diseases due to complete RORgamma receptor deficiency",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs2230288",
+      "genotype": "CC",
+      "gene": "LOC106627981",
+      "condition": "Gaucher disease perinatal lethal",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs116100695",
+      "genotype": "GG",
+      "gene": "PKLR",
+      "condition": "Pyruvate kinase deficiency of red cells (CNSHA2)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs6339",
+      "genotype": "GG",
+      "gene": "NTRK1",
+      "condition": "Familial medullary thyroid carcinoma (MTC)",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs138055271",
+      "genotype": "TT",
+      "gene": "SPTA1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs3737515",
+      "genotype": "GG",
+      "gene": "SPTA1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs2814778",
+      "genotype": "TT",
+      "gene": "ACKR1",
+      "condition": "DUFFY BLOOD GROUP SYSTEM, FY(a-b-) PHENOTYPE",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs5082",
+      "genotype": "AG",
+      "gene": "APOA2",
+      "condition": "Hypercholesterolemia, familial, 1",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs6030",
+      "genotype": "CT",
+      "gene": "F5",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs4524",
+      "genotype": "CT",
+      "gene": "F5",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs2266782",
+      "genotype": "AG",
+      "gene": "LOC126805916",
+      "condition": "Trimethylaminuria, mild",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs2227624",
+      "genotype": "AA",
+      "gene": "SERPINC1",
+      "condition": "Hereditary antithrombin deficiency (AT3D)",
+      "significance": "Pathogenic",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs1061170",
+      "genotype": "CC",
+      "gene": "CFH",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs151093663",
+      "genotype": "GG",
+      "gene": "CR2",
+      "condition": "Immunodeficiency, common variable, 7",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs139814109",
+      "genotype": "CC",
+      "gene": "NLRP3",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs5742904",
+      "genotype": "CC",
+      "gene": "APOB",
+      "condition": "Hypercholesterolemia, autosomal dominant, type B (FHCL2)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "rsid": "rs676210",
+      "genotype": "GG",
+      "gene": "APOB",
+      "condition": "Triangular shaped proximal phalanx of the thumb",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs6413458",
+      "genotype": "GG",
+      "gene": "APOB",
+      "condition": "Hypercholesterolemia, familial, 1",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs41288783",
+      "genotype": "GG",
+      "gene": "APOB",
+      "condition": "Hypercholesterolemia, familial, 1",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs12691202",
+      "genotype": "CC",
+      "gene": "APOB",
+      "condition": "Hypercholesterolemia, familial, 1",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs13306194",
+      "genotype": "GG",
+      "gene": "APOB",
+      "condition": "Hypercholesterolemia, familial, 1",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs142066904",
+      "genotype": "GG",
+      "gene": "APOB",
+      "condition": "Hypercholesterolemia, autosomal dominant, type B (FHCL2)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs141828689",
+      "genotype": "CC",
+      "gene": "ABCG5",
+      "condition": "Sitosterolemia (STSL)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs11886868",
+      "genotype": "CC",
+      "gene": "BCL11A",
+      "condition": "Fetal hemoglobin quantitative trait locus 5 (HBFQTL5)",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs138436961",
+      "genotype": "GG",
+      "gene": "MCEE",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs74874677",
+      "genotype": "AA",
+      "gene": "DGUOK",
+      "condition": "Progressive external ophthalmoplegia with mitochondrial DNA deletions, autosomal recessive 4",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs3827760",
+      "genotype": "AA",
+      "gene": "RANBP2",
+      "condition": "Non-syndromic oligodontia",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs41272687",
+      "genotype": "CC",
+      "gene": "CYP27A1",
+      "condition": "Cholestanol storage disease (CTX)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs77583146",
+      "genotype": "GG",
+      "gene": "WNT10A",
+      "condition": "SchC6pf-Schulz-Passarge syndrome",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs147680216",
+      "genotype": "GG",
+      "gene": "WNT10A",
+      "condition": "Odonto-onycho-dermal dysplasia",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs7586110",
+      "genotype": "GT",
+      "gene": "UGT1A",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs4148323",
+      "genotype": "GG",
+      "gene": "UGT1A",
+      "condition": "Gilbert syndrome",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs146092501",
+      "genotype": "CT",
+      "gene": "COL6A3",
+      "condition": "not specified",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs13078881",
+      "genotype": "GG",
+      "gene": "BTD",
+      "condition": "Biotinidase deficiency",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs3732378",
+      "genotype": "AG",
+      "gene": "CX3CR1",
+      "condition": "Human immunodeficiency virus type 1, rapid progression to AIDS",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs149617956",
+      "genotype": "GG",
+      "gene": "MITF",
+      "condition": "Melanoma, cutaneous malignant, susceptibility to, 8",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs192044702",
+      "genotype": "AG",
+      "gene": "GBE1",
+      "condition": "Glycogen storage disease, type IV (GSD4)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs17843776",
+      "genotype": "AA",
+      "gene": "UMPS",
+      "condition": "Oroticaciduria",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs143137713",
+      "genotype": "GG",
+      "gene": "GYG1",
+      "condition": "Polyglucosan body myopathy type 2",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs1803274",
+      "genotype": "CC",
+      "gene": "BCHE",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs1799807",
+      "genotype": "TT",
+      "gene": "BCHE",
+      "condition": "Deficiency of butyrylcholinesterase (BCHED)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs121965019",
+      "genotype": "GG",
+      "gene": "IDUA",
+      "condition": "Mucopolysaccharidosis type 1",
+      "significance": "Pathogenic",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs10010131",
+      "genotype": "AG",
+      "gene": "WFS1",
+      "condition": "Type 2 diabetes mellitus",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs147834269",
+      "genotype": "GG",
+      "gene": "WFS1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs144292455",
+      "genotype": "CC",
+      "gene": "TACR3",
+      "condition": "Hypogonadotropic hypogonadism 11 with or without anosmia (HH11)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs141853578",
+      "genotype": "CC",
+      "gene": "CFI",
+      "condition": "Atypical hemolytic-uremic syndrome with I factor anomaly",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "rsid": "rs6054",
+      "genotype": "CC",
+      "gene": "FGB",
+      "condition": "not specified",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs6050",
+      "genotype": "TT",
+      "gene": "FGA",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs121434346",
+      "genotype": "GG",
+      "gene": "SLC6A19",
+      "condition": "Neutral 1 amino acid transport defect (HND)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs34094720",
+      "genotype": "GG",
+      "gene": "TERT",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs72478580",
+      "genotype": "GT",
+      "gene": "PRLR",
+      "condition": "Multiple fibroadenoma of the breast",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs34324145",
+      "genotype": "TT",
+      "gene": "OSMR",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs375762365",
+      "genotype": "II",
+      "gene": "C6",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs2233218",
+      "genotype": "GG",
+      "gene": "MOCS2",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs1801155",
+      "genotype": "TT",
+      "gene": "APC",
+      "condition": "Hereditary cancer-predisposing syndrome",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs114973968",
+      "genotype": "GG",
+      "gene": "PDE6A",
+      "condition": "Retinitis pigmentosa (RP)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs35960726",
+      "genotype": "TT",
+      "gene": "HAVCR2",
+      "condition": "Subcutaneous panniculitis-like T-cell lymphoma (SPTCL)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs351855",
+      "genotype": "GG",
+      "gene": "FGFR4",
+      "condition": "Cancer progression and tumor cell motility",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs104893941",
+      "genotype": "CC",
+      "gene": "SQSTM1",
+      "condition": "Paget disease of bone 3",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs1799945",
+      "genotype": "CC",
+      "gene": "HFE-AS1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs1800562",
+      "genotype": "GG",
+      "gene": "HFE",
+      "condition": "Hemochromatosis type 1 (HFE1)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs11575837",
+      "genotype": "CC",
+      "gene": "NCR3",
+      "condition": "Malaria, severe, susceptibility to",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs4151667",
+      "genotype": "TT",
+      "gene": "C2",
+      "condition": "Age related macular degeneration 14",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs145499142",
+      "genotype": "GG",
+      "gene": "COL11A2",
+      "condition": "not specified",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs41266745",
+      "genotype": "CC",
+      "gene": "CD109",
+      "condition": "Multiple sclerosis",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs374270497",
+      "genotype": "CC",
+      "gene": "ENPP1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs148462924",
+      "genotype": "AA",
+      "gene": "ENPP1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "rsid": "rs6929137",
+      "genotype": "GG",
+      "gene": "CCDC170",
+      "condition": "Estrogen resistance syndrome",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs2046210",
+      "genotype": "GG",
+      "gene": "CCDC170",
+      "condition": "Estrogen resistance syndrome",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs139960913",
+      "genotype": "CC",
+      "gene": "ESR1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs41272114",
+      "genotype": "CC",
+      "gene": "LPA",
+      "condition": "Lipoprotein(a) deficiency, congenital",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs17853284",
+      "genotype": "CC",
+      "gene": "POR",
+      "condition": "not specified",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs61730509",
+      "genotype": "CC",
+      "gene": "ABCB4",
+      "condition": "not specified",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs140460765",
+      "genotype": "AA",
+      "gene": "DPP6",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs804280",
+      "genotype": "AA",
+      "gene": "GATA4",
+      "condition": "Congenital heart disease (CHD)",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs41341748",
+      "genotype": "GG",
+      "gene": "MSR1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs268",
+      "genotype": "AA",
+      "gene": "LPL",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs114322847",
+      "genotype": "CC",
+      "gene": "TG",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs112892337",
+      "genotype": "GG",
+      "gene": "LOC130001238",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs11777194",
+      "genotype": "CC",
+      "gene": "OPLAH",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs192864327",
+      "genotype": "GG",
+      "gene": "DOCK8",
+      "condition": "Combined immunodeficiency due to DOCK8 deficiency (HIES2)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs116920018",
+      "genotype": "AA",
+      "gene": "DOCK8",
+      "condition": "not specified",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs138640017",
+      "genotype": "CC",
+      "gene": "GLDC",
+      "condition": "Glycine encephalopathy",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs1063192",
+      "genotype": "AG",
+      "gene": "CDKN2B-AS1",
+      "condition": "Malignant tumor of breast",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs2070074",
+      "genotype": "AA",
+      "gene": "GALT",
+      "condition": "Deficiency of UDPglucose-hexose-1-phosphate uridylyltransferase",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs1800546",
+      "genotype": "CC",
+      "gene": "ALDOB",
+      "condition": "Hereditary fructosuria",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs142572218",
+      "genotype": "CC",
+      "gene": "ADAMTS13",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs182330532",
+      "genotype": "GG",
+      "gene": "NOTCH1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs1800450",
+      "genotype": "CT",
+      "gene": "MBL2",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs5030737",
+      "genotype": "GG",
+      "gene": "MBL2",
+      "condition": "Mannose-binding lectin deficiency",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs35947132",
+      "genotype": "GG",
+      "gene": "PRF1",
+      "condition": "Familial hemophagocytic lymphohistiocytosis 2 (FHL2)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs140621272",
+      "genotype": "GG",
+      "gene": "CDHR1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs146405172",
+      "genotype": "GG",
+      "gene": "ABCC2",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs33930165",
+      "genotype": "CC",
+      "gene": "LOC106099062",
+      "condition": "beta Thalassemia (BTHAL)",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs34598529",
+      "genotype": "TT",
+      "gene": "HBB",
+      "condition": "beta Thalassemia (BTHAL)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs35152987",
+      "genotype": "CC",
+      "gene": "LOC106099063",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs116841148",
+      "genotype": "GG",
+      "gene": "LDHA",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs34804482",
+      "genotype": "TT",
+      "gene": "LGR4",
+      "condition": "Delayed puberty, self-limited",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs11570112",
+      "genotype": "GG",
+      "gene": "MYBPC3",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "rsid": "rs150884181",
+      "genotype": "AA",
+      "gene": "CBLIF",
+      "condition": "Hereditary intrinsic factor deficiency (IFD)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs6856",
+      "genotype": "TT",
+      "gene": "BSCL2",
+      "condition": "Triangular shaped proximal phalanx of the thumb",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs143313688",
+      "genotype": "GG",
+      "gene": "CTSF",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs140191063",
+      "genotype": "GG",
+      "gene": "TCIRG1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs189174414",
+      "genotype": "TT",
+      "gene": "CPT1A",
+      "condition": "Carnitine palmitoyl transferase 1A deficiency",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs80338857",
+      "genotype": "CC",
+      "gene": "DHCR7",
+      "condition": "Smith-Lemli-Opitz syndrome (SLOS)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs948962",
+      "genotype": "CC",
+      "gene": "MYO7A",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs1042602",
+      "genotype": "CC",
+      "gene": "TYR",
+      "condition": "Oculocutaneous albinism type 1B (OCA1B)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs117178504",
+      "genotype": "CC",
+      "gene": "DYNC2H1",
+      "condition": "Jeune thoracic dystrophy (ATD1)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "rsid": "rs1801673",
+      "genotype": "AA",
+      "gene": "ATM",
+      "condition": "Ataxia-telangiectasia syndrome (AT)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs149808404",
+      "genotype": "GG",
+      "gene": "APOA5",
+      "condition": "Familial type 5 hyperlipoproteinemia",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs147210663",
+      "genotype": "GG",
+      "gene": "APOC3",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs2066827",
+      "genotype": "GG",
+      "gene": "CDKN1B",
+      "condition": "Multiple endocrine neoplasia type 4",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs77271279",
+      "genotype": "GG",
+      "gene": "SLCO1B1",
+      "condition": "Rotor syndrome (HBLRR)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs4149056",
+      "genotype": "CC",
+      "gene": "SLCO1B1",
+      "condition": "Gilbert syndrome",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs34637584",
+      "genotype": "GG",
+      "gene": "LRRK2",
+      "condition": "Autosomal dominant Parkinson disease 8",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs34778348",
+      "genotype": "GG",
+      "gene": "LRRK2",
+      "condition": "Autosomal dominant Parkinson disease 8",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs35428353",
+      "genotype": "GG",
+      "gene": "GPD1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs2232207",
+      "genotype": "TT",
+      "gene": "GPD1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs1799986",
+      "genotype": "CC",
+      "gene": "LRP1",
+      "condition": "Keratosis pilaris",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs5030861",
+      "genotype": "CC",
+      "gene": "PAH",
+      "condition": "Phenylketonuria (PKU)",
+      "significance": "Pathogenic",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs5030858",
+      "genotype": "GG",
+      "gene": "PAH",
+      "condition": "Phenylketonuria (PKU)",
+      "significance": "Pathogenic",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs35267264",
+      "genotype": "GG",
+      "gene": "WASHC4",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs671",
+      "genotype": "GG",
+      "gene": "ALDH2",
+      "condition": "AMED syndrome, digenic",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs35887622",
+      "genotype": "AA",
+      "gene": "GJB2",
+      "condition": "Nonsyndromic genetic hearing loss",
+      "significance": "Pathogenic",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs11571833",
+      "genotype": "AA",
+      "gene": "BRCA2",
+      "condition": "Hereditary breast ovarian cancer syndrome",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs1801248",
+      "genotype": "CC",
+      "gene": "ATP7B",
+      "condition": "Wilson disease (WND)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs112657170",
+      "genotype": "GG",
+      "gene": "SLC10A2",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs35026927",
+      "genotype": "CC",
+      "gene": "PYGL",
+      "condition": "Glycogen storage disease, type VI (GSD6)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs146737847",
+      "genotype": "GG",
+      "gene": "SIX6",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs140130028",
+      "genotype": "CC",
+      "gene": "ACYP1",
+      "condition": "Niemann-Pick disease, type C2 (NPC2)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs28929474",
+      "genotype": "CC",
+      "gene": "SERPINA1",
+      "condition": "Alpha-1-antitrypsin deficiency (A1ATD)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs17580",
+      "genotype": "TT",
+      "gene": "SERPINA1",
+      "condition": "Alpha-1-antitrypsin deficiency (A1ATD)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs28929470",
+      "genotype": "GG",
+      "gene": "SERPINA1",
+      "condition": "Alpha-1-antitrypsin deficiency (A1ATD)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs61757459",
+      "genotype": "GG",
+      "gene": "SERPINA12",
+      "condition": "Hereditary palmoplantar keratoderma, Gamborg-Nielsen type",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs34819316",
+      "genotype": "GG",
+      "gene": "SLC12A1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs8034191",
+      "genotype": "CC",
+      "gene": "HYKK",
+      "condition": "Chronic obstructive pulmonary disease",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs11555096",
+      "genotype": "CC",
+      "gene": "FAH",
+      "condition": "Fumarylacetoacetase pseudodeficiency",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs149989682",
+      "genotype": "TT",
+      "gene": "ABCA3",
+      "condition": "Interstitial lung disease due to ABCA3 deficiency",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs148373909",
+      "genotype": "CC",
+      "gene": "DNASE1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs1799802",
+      "genotype": "CC",
+      "gene": "ERCC4",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs72653706",
+      "genotype": "GG",
+      "gene": "ABCC6",
+      "condition": "Autosomal recessive inherited pseudoxanthoma elasticum (PXE)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs9934438",
+      "genotype": "AG",
+      "gene": "VKORC1",
+      "condition": "Warfarin response",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs9923231",
+      "genotype": "CT",
+      "gene": "VKORC1",
+      "condition": "Warfarin response",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs2066844",
+      "genotype": "CC",
+      "gene": "NOD2",
+      "condition": "not specified",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs4673",
+      "genotype": "AG",
+      "gene": "CYBA",
+      "condition": "Very early onset inflammatory bowel disease",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs1805007",
+      "genotype": "CT",
+      "gene": "MC1R",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs201326893",
+      "genotype": "CC",
+      "gene": "MC1R",
+      "condition": "Melanoma, cutaneous malignant, susceptibility to, 5",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs1110400",
+      "genotype": "TT",
+      "gene": "MC1R",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs1805008",
+      "genotype": "CC",
+      "gene": "MC1R",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs200000734",
+      "genotype": "CC",
+      "gene": "MC1R",
+      "condition": "Melanoma, cutaneous malignant, susceptibility to, 5",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs368507952",
+      "genotype": "GG",
+      "gene": "MC1R",
+      "condition": "Melanoma, cutaneous malignant, susceptibility to, 5",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs140547520",
+      "genotype": "TT",
+      "gene": "PFN1",
+      "condition": "Amyotrophic lateral sclerosis type 18",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs148934699",
+      "genotype": "CC",
+      "gene": "KIF1C",
+      "condition": "Spastic ataxia 2",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs28934585",
+      "genotype": "CC",
+      "gene": "ACADVL",
+      "condition": "Very long chain acyl-CoA dehydrogenase deficiency (ACADVLD)",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs78378222",
+      "genotype": "TT",
+      "gene": "TP53",
+      "condition": "Li-Fraumeni syndrome 1 (LFS)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs2285644",
+      "genotype": "GG",
+      "gene": "SLC4A1",
+      "condition": "DIEGO BLOOD GROUP ANTIGEN",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs138213197",
+      "genotype": "CC",
+      "gene": "HOXB13",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs119468010",
+      "genotype": "GG",
+      "gene": "LOC106694316",
+      "condition": "Myeloperoxidase deficiency (MPOD)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs149133270",
+      "genotype": "CC",
+      "gene": "LOC106694316",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs56378716",
+      "genotype": "AA",
+      "gene": "LPO",
+      "condition": "Myeloperoxidase deficiency (MPOD)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "rsid": "rs35551271",
+      "genotype": "GG",
+      "gene": "TEX14",
+      "condition": "Non-obstructive azoospermia",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs41282065",
+      "genotype": "GG",
+      "gene": "NHERF1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs11652075",
+      "genotype": "CC",
+      "gene": "LOC126862662",
+      "condition": "Pityriasis rubra pilaris (PRP)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs141851670",
+      "genotype": "CC",
+      "gene": "LAMA1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs76992529",
+      "genotype": "GG",
+      "gene": "TTR",
+      "condition": "Amyloidosis, hereditary systemic 1 (AMYLD1)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs118174674",
+      "genotype": "CC",
+      "gene": "LOXHD1",
+      "condition": "Autosomal recessive nonsyndromic hearing loss 77",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs2074888",
+      "genotype": "GG",
+      "gene": "TCF3",
+      "condition": "Myeloproliferative neoplasm, unclassifiable",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "rsid": "rs144172724",
+      "genotype": "GG",
+      "gene": "LDLR",
+      "condition": "Hypercholesterolemia, familial, 1",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs139624145",
+      "genotype": "GG",
+      "gene": "LDLR",
+      "condition": "Hypercholesterolemia, familial, 1",
+      "significance": "Pathogenic",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs147213895",
+      "genotype": "AA",
+      "gene": "RYR1",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs429358",
+      "genotype": "CT",
+      "gene": "APOE",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs7412",
+      "genotype": "CC",
+      "gene": "APOE",
+      "condition": "Familial type 3 hyperlipoproteinemia",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs1799990",
+      "genotype": "AA",
+      "gene": "PRNP",
+      "condition": "Inherited Creutzfeldt-Jakob disease",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs41529445",
+      "genotype": "CC",
+      "gene": "MMP9",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs201186470",
+      "genotype": "GG",
+      "gene": "PCK1",
+      "condition": "Phosphoenolpyruvate carboxykinase deficiency, cytosolic (PCKDC)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs41303899",
+      "genotype": "GG",
+      "gene": "TUBB1",
+      "condition": "Thrombocytopenia",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "rsid": "rs63750066",
+      "genotype": "CC",
+      "gene": "APP",
+      "condition": "Alzheimer disease",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs147231991",
+      "genotype": "GG",
+      "gene": "TMPRSS3",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs140221307",
+      "genotype": "TT",
+      "gene": "LOC129391259",
+      "condition": "Immunodeficiency 51 (IMD51)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs17879961",
+      "genotype": "AA",
+      "gene": "CHEK2",
+      "condition": "Breast and colorectal cancer, susceptibility to",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs73885319",
+      "genotype": "AA",
+      "gene": "APOL1",
+      "condition": "Focal segmental glomerulosclerosis 4, susceptibility to (FSGS4)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "rsid": "rs139105452",
+      "genotype": "CC",
+      "gene": "TMPRSS6",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs121434529",
+      "genotype": "CC",
+      "gene": "NAGA",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs738409",
+      "genotype": "CC",
+      "gene": "PNPLA3",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, conflicting interpretations"
+    },
+    {
+      "rsid": "rs6151429",
+      "genotype": "TT",
+      "gene": "ARSA",
+      "condition": "ARYLSULFATASE A PSEUDODEFICIENCY",
+      "significance": "Pathogenic",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs72554664",
+      "genotype": "C",
+      "gene": "G6PD",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs5030868",
+      "genotype": "G",
+      "gene": "G6PD",
+      "condition": "not provided",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    },
+    {
+      "rsid": "rs1050828",
+      "genotype": "C",
+      "gene": "G6PD",
+      "condition": "Anemia, nonspherocytic hemolytic, due to G6PD deficiency (CNSHA1)",
+      "significance": "Pathogenic",
+      "review_status": "criteria provided, multiple submitters, no conflicts"
+    }
+  ],
+  "clinvar_pharmacogenomic": [
+    {
+      "rsid": "rs2235544",
+      "genotype": "CC",
+      "gene": "DIO1",
+      "drug_response": "Levothyroxine response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs1042034",
+      "genotype": "TT",
+      "gene": "APOB",
+      "drug_response": "Warfarin response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs693",
+      "genotype": "AG",
+      "gene": "APOB",
+      "drug_response": "Warfarin response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs679899",
+      "genotype": "GG",
+      "gene": "APOB",
+      "drug_response": "Warfarin response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs1367117",
+      "genotype": "GG",
+      "gene": "APOB",
+      "drug_response": "Warfarin response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs10929302",
+      "genotype": "AG",
+      "gene": "UGT1A1",
+      "drug_response": "irinotecan response - Toxicity",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs61361928",
+      "genotype": "TT",
+      "gene": "UGT2B7",
+      "drug_response": "Tramadol response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs2231142",
+      "genotype": "GG",
+      "gene": "ABCG2",
+      "drug_response": "rosuvastatin response - Efficacy",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs12916",
+      "genotype": "TT",
+      "gene": "HMGCR",
+      "drug_response": "Statins, attenuated cholesterol lowering by",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs1042711",
+      "genotype": "CT",
+      "gene": "LOC129994952",
+      "drug_response": "Beta-2-adrenoreceptor agonist, reduced response to",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs1800888",
+      "genotype": "CC",
+      "gene": "ADRB2",
+      "drug_response": "Beta-2-adrenoreceptor agonist, reduced response to",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs1142345",
+      "genotype": "TT",
+      "gene": "TPMT",
+      "drug_response": "Thiopurine S-methyltransferase deficiency",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs1800462",
+      "genotype": "CC",
+      "gene": "TPMT",
+      "drug_response": "Thiopurine S-methyltransferase deficiency",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs1799971",
+      "genotype": "AG",
+      "gene": "OPRM1",
+      "drug_response": "Tramadol response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs675026",
+      "genotype": "GG",
+      "gene": "OPRM1",
+      "drug_response": "Tramadol response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs2072183",
+      "genotype": "CG",
+      "gene": "NPC1L1",
+      "drug_response": "Statins, attenuated cholesterol lowering by",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs3842",
+      "genotype": "TT",
+      "gene": "ABCB1",
+      "drug_response": "Tramadol response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs2032588",
+      "genotype": "GG",
+      "gene": "ABCB1",
+      "drug_response": "Tramadol response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs10246939",
+      "genotype": "CT",
+      "gene": "TAS2R38",
+      "drug_response": "Phenylthiocarbamide tasting",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs713598",
+      "genotype": "CC",
+      "gene": "TAS2R38",
+      "drug_response": "Phenylthiocarbamide tasting",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs12777823",
+      "genotype": "GG",
+      "gene": "CYP2C19",
+      "drug_response": "warfarin response - Dosage",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs1799853",
+      "genotype": "CC",
+      "gene": "CYP2C9",
+      "drug_response": "Flurbiprofen response",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "rsid": "rs1057910",
+      "genotype": "AA",
+      "gene": "CYP2C9",
+      "drug_response": "Flurbiprofen response",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "rsid": "rs116855232",
+      "genotype": "CC",
+      "gene": "NUDT15",
+      "drug_response": "azathioprine response - Toxicity",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs2359612",
+      "genotype": "AG",
+      "gene": "VKORC1",
+      "drug_response": "warfarin response - Dosage",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs2884737",
+      "genotype": "AA",
+      "gene": "VKORC1",
+      "drug_response": "warfarin response - Dosage",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs2108622",
+      "genotype": "CT",
+      "gene": "CYP4F2",
+      "drug_response": "acenocoumarol response - Dosage",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs12979860",
+      "genotype": "CC",
+      "gene": "IFNL3",
+      "drug_response": "peginterferon alfa-2a, peginterferon alfa-2b, ribavirin, and telaprevir response - Efficacy",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs8099917",
+      "genotype": "TT",
+      "gene": "IFNL3",
+      "drug_response": "interferons, peginterferon alfa-2a, peginterferon alfa-2b, and ribavirin response - Efficacy",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs405509",
+      "genotype": "GT",
+      "gene": "APOE",
+      "drug_response": "Warfarin response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs769450",
+      "genotype": "AG",
+      "gene": "APOE",
+      "drug_response": "Warfarin response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs439401",
+      "genotype": "CC",
+      "gene": "APOE",
+      "drug_response": "Warfarin response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs7270101",
+      "genotype": "AA",
+      "gene": "ITPA",
+      "drug_response": "peginterferon alfa-2b and ribavirin response - Toxicity",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "rsid": "rs4633",
+      "genotype": "CC",
+      "gene": "COMT",
+      "drug_response": "Tramadol response",
+      "review_status": "no assertion criteria provided"
+    },
+    {
+      "rsid": "rs4680",
+      "genotype": "GG",
+      "gene": "COMT",
+      "drug_response": "Tramadol response",
+      "review_status": "no assertion criteria provided"
+    }
+  ]
+}

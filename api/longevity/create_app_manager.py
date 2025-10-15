@@ -1,5 +1,6 @@
 import os
 
+from core.requester import Requester
 from core.store.database import Database
 
 from longevity.app_manager import AppManager
@@ -21,8 +22,10 @@ def create_app_manager() -> AppManager:
     #     accessKeySecret=os.environ['AWS_SECRET_ACCESS_KEY'],
     #     queueUrl=os.environ['SQS_QUEUE_URL'],
     # )
+    requester = Requester()
     appManager = AppManager(
         database=database,
+        requester=requester,
         # workQueue=workQueue,
     )
     return appManager

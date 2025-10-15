@@ -60,4 +60,21 @@ export class LongevityClient extends ServiceClient {
     const response = await this.makeRequest(method, path, request, Endpoints.GetExampleAnalysisIdResponse, this.getHeaders());
     return response.genomeAnalysisId;
   };
+
+  public uploadGenomeFile = async (genomeAnalysisId: string, file: File): Promise<Resources.GenomeAnalysis> => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch(`${this.baseUrl}/v1/genome-analyses/${genomeAnalysisId}/upload`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Upload failed: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return Resources.GenomeAnalysis.fromObject(data.genomeAnalysis);
+  };
 }

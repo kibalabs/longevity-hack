@@ -5,6 +5,7 @@ import { Alignment, Button, Direction, PaddingSize, Spacing, Stack, Text, TextAl
 
 import * as Resources from '../client/resources';
 import { useGlobals } from '../GlobalsContext';
+import { clearPendingUpload, getPendingUpload } from '../util/fileUploadStore';
 
 interface StepInfo {
   step: number;
@@ -18,6 +19,14 @@ interface StepInfo {
 const ALL_STEPS: StepInfo[] = [
   {
     step: 1,
+    status: 'waiting_for_upload',
+    label: 'Preparing',
+    title: 'Preparing upload...',
+    description: 'Setting up your secure genome analysis workspace.',
+    icon: '🔄',
+  },
+  {
+    step: 2,
     status: 'uploading',
     label: 'Uploading',
     title: 'Uploading your genome...',
@@ -25,7 +34,7 @@ const ALL_STEPS: StepInfo[] = [
     icon: '📤',
   },
   {
-    step: 2,
+    step: 3,
     status: 'validating',
     label: 'Validating',
     title: 'Validating your file...',
@@ -33,7 +42,7 @@ const ALL_STEPS: StepInfo[] = [
     icon: '🧐',
   },
   {
-    step: 3,
+    step: 4,
     status: 'parsing',
     label: 'Parsing',
     title: 'Parsing genetic data...',
@@ -41,7 +50,7 @@ const ALL_STEPS: StepInfo[] = [
     icon: '🔬',
   },
   {
-    step: 4,
+    step: 5,
     status: 'building_baseline',
     label: 'Building Baseline',
     title: 'Building your baseline...',
@@ -49,7 +58,7 @@ const ALL_STEPS: StepInfo[] = [
     icon: '🛠️',
   },
   {
-    step: 5,
+    step: 6,
     status: 'completed',
     label: 'Complete',
     title: 'Analysis Complete!',
@@ -69,46 +78,70 @@ export function UploadPage(): React.ReactElement {
   const [genomeAnalysisId, setGenomeAnalysisId] = React.useState<string | null>(null);
   const [genomeAnalysis, setGenomeAnalysis] = React.useState<Resources.GenomeAnalysis | null>(null);
   const [genomeAnalysisResults, setGenomeAnalysisResults] = React.useState<Resources.GenomeAnalysisResult[] | null>(null);
-  const [displayedStatus, setDisplayedStatus] = React.useState<string>('uploading');
+  const [displayedStatus, setDisplayedStatus] = React.useState<string>('waiting_for_upload');
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const stepStartTimeRef = React.useRef<number>(Date.now());
 
   React.useEffect((): void => {
     // Get the analysis ID from URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
+
     if (id) {
       setGenomeAnalysisId(id);
       longevityClient.getGenomeAnalysis(id).then((analysis: Resources.GenomeAnalysis): void => {
         setGenomeAnalysis(analysis);
+
+        // If we're waiting for upload, trigger it now
+        if (analysis.status === 'waiting_for_upload') {
+          // Retrieve file from in-memory store
+          const file = getPendingUpload(id);
+
+          if (file) {
+            // Trigger upload immediately
+            longevityClient.uploadGenomeFile(id, file).then((): void => {
+              console.log('Upload completed');
+              // Clean up the pending upload
+              clearPendingUpload(id);
+            }).catch((error: Error): void => {
+              console.error('Upload failed:', error);
+              setErrorMessage('Failed to upload file. Please try again.');
+            });
+          } else {
+            console.warn('No pending file found for analysis:', id);
+            setErrorMessage('No file found for upload. Please start over.');
+          }
+        }
       }).catch((error: Error): void => {
         console.error('Failed to fetch analysis:', error);
+        setErrorMessage('Failed to load analysis. Please try again.');
       });
     } else {
       navigator.navigateTo('/');
     }
-  }, [longevityClient, navigator]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty array - only run once on mount
 
   React.useEffect((): (() => void) | void => {
-    if (!genomeAnalysisId || !genomeAnalysis) return undefined;
+    if (!genomeAnalysisId) return undefined;
 
-    // Handle completion - only load results when we're actually showing completed status
-    if (genomeAnalysis.status === 'completed' && displayedStatus === 'completed' && !genomeAnalysisResults) {
-      longevityClient.listGenomeAnalysisResults(genomeAnalysisId).then((results: Resources.GenomeAnalysisResult[]): void => {
-        setGenomeAnalysisResults(results);
-      }).catch((error: Error): void => {
-        console.error('Failed to fetch results:', error);
-      });
-      return undefined;
-    }
-
-    if (genomeAnalysis.status === 'failed') {
-      return undefined;
-    }
-
-    // Poll for status updates
+    // Poll for status updates every 2 seconds
     const intervalId = setInterval((): void => {
       longevityClient.getGenomeAnalysis(genomeAnalysisId).then((analysis: Resources.GenomeAnalysis): void => {
         setGenomeAnalysis(analysis);
+
+        // Load results when analysis is complete
+        if (analysis.status === 'completed') {
+          longevityClient.listGenomeAnalysisResults(genomeAnalysisId).then((results: Resources.GenomeAnalysisResult[]): void => {
+            setGenomeAnalysisResults(results);
+            // Immediately set displayedStatus to 'completed' to avoid blank screen
+            setDisplayedStatus('completed');
+            // Stop polling by clearing the interval
+            clearInterval(intervalId);
+          }).catch((error: Error): void => {
+            console.error('Failed to fetch results:', error);
+          });
+        }
       }).catch((error: Error): void => {
         console.error('Failed to check analysis status:', error);
       });
@@ -117,7 +150,8 @@ export function UploadPage(): React.ReactElement {
     return (): void => {
       clearInterval(intervalId);
     };
-  }, [longevityClient, genomeAnalysisId, genomeAnalysis, displayedStatus, genomeAnalysisResults]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [genomeAnalysisId]); // Only depend on genomeAnalysisId
 
   // Separate effect to handle step transitions with minimum duration
   React.useEffect((): (() => void) | void => {
@@ -236,6 +270,21 @@ export function UploadPage(): React.ReactElement {
         </Stack>
       )}
 
+      {errorMessage && (
+        <Stack direction={Direction.Vertical} shouldAddGutters={true} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} isFullWidth={true} paddingHorizontal={PaddingSize.Wide2}>
+          <div style={{ maxWidth: '600px', width: '100%', backgroundColor: '#FFE5E5', padding: '16px', borderRadius: '8px', border: '1px solid #FF3B30' }}>
+            <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
+              <div style={{ color: '#FF3B30' }}>
+                <Text variant='bold'>Error</Text>
+              </div>
+              <Text variant='default'>{errorMessage}</Text>
+              <Spacing variant={PaddingSize.Default} />
+              <Button variant='secondary' text='Go Back' onClicked={(): void => navigator.navigateTo('/')} />
+            </Stack>
+          </div>
+        </Stack>
+      )}
+
       {genomeAnalysis?.status === 'failed' && (
         <Stack direction={Direction.Vertical} shouldAddGutters={true} childAlignment={Alignment.Center} contentAlignment={Alignment.Center}>
           <Text variant='header3'>Analysis Failed</Text>
@@ -292,6 +341,9 @@ export function UploadPage(): React.ReactElement {
             <div style={{ fontSize: '64px' }}>🎉</div>
             <Text variant='header2'>Analysis Complete!</Text>
             <Text variant='default'>{genomeAnalysis.fileName}</Text>
+            {genomeAnalysis.detectedFormat && (
+              <Text variant='note'>Detected format: {genomeAnalysis.detectedFormat}</Text>
+            )}
 
             <Spacing variant={PaddingSize.Wide} />
 

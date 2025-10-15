@@ -1,6 +1,8 @@
 from core.api.api_request import KibaApiRequest
 from core.api.json_route import json_route
 from core.store.database import Database
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 from starlette.routing import Route
 
 from longevity.api import v1_endpoints as endpoints
@@ -48,10 +50,40 @@ def create_v1_routes(appManager: AppManager, database: Database, resourceBuilder
         genomeAnalysisId = await appManager.get_example_analysis_id()
         return endpoints.GetExampleAnalysisIdResponse(genomeAnalysisId=genomeAnalysisId)
 
+    async def upload_genome_file(request: Request) -> JSONResponse:
+        """Handle multipart file upload for genome analysis."""
+        genomeAnalysisId = request.path_params['genomeAnalysisId']
+
+        # Get the uploaded file from multipart form data
+        form = await request.form()
+        file = form.get('file')
+
+        if not file:
+            return JSONResponse({'error': 'No file provided'}, status_code=400)
+
+        # Start the upload and analysis process
+        genomeAnalysis = await appManager.upload_and_analyze_genome_file(
+            genomeAnalysisId=genomeAnalysisId,
+            file=file
+        )
+
+        # Return the updated analysis object
+        return JSONResponse({
+            'genomeAnalysis': {
+                'genomeAnalysisId': genomeAnalysis.genomeAnalysisId,
+                'fileName': genomeAnalysis.fileName,
+                'fileType': genomeAnalysis.fileType,
+                'detectedFormat': genomeAnalysis.detectedFormat,
+                'status': genomeAnalysis.status,
+                'createdDate': genomeAnalysis.createdDate,
+            }
+        })
+
     return [
         Route('/health', health_check, methods=['GET']),
         Route('/genome-analyses', create_genome_analysis, methods=['POST']),
         Route('/genome-analyses/{genomeAnalysisId}', get_genome_analysis, methods=['GET']),
+        Route('/genome-analyses/{genomeAnalysisId}/upload', upload_genome_file, methods=['POST']),
         Route('/genome-analyses/{genomeAnalysisId}/results', list_genome_analysis_results, methods=['GET']),
         Route('/genome-analyses/{genomeAnalysisId}/results/{genomeAnalysisResultId}', get_genome_analysis_result, methods=['GET']),
         Route('/example-analysis', get_example_analysis_id, methods=['GET']),

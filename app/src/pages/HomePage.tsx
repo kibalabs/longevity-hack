@@ -6,12 +6,14 @@ import { Alignment, Box, Button, Checkbox, Direction, PaddingSize, Spacing, Stac
 import { Dropzone } from '@kibalabs/ui-react-dropzone';
 
 import { useGlobals } from '../GlobalsContext';
+import { setPendingUpload } from '../util/fileUploadStore';
 
 export function HomePage(): React.ReactElement {
   const navigator = useNavigator();
   const { longevityClient } = useGlobals();
   const [hasCheckedConsent, setHasCheckedConsent] = React.useState(false);
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
   const onFileSelected = async (files: File[]): Promise<void> => {
     if (files.length > 0) {
@@ -23,20 +25,30 @@ export function HomePage(): React.ReactElement {
     if (!hasCheckedConsent || !selectedFile) {
       return;
     }
+    setErrorMessage(null);
     try {
+      // Create the analysis first (status: waiting_for_upload)
       const analysis = await longevityClient.createGenomeAnalysis(selectedFile.name, selectedFile.type || 'text/plain');
+
+      // Store the file reference in memory (no blocking!)
+      setPendingUpload(analysis.genomeAnalysisId, selectedFile);
+
+      // Navigate immediately - no waiting!
       navigator.navigateTo(`/upload?id=${analysis.genomeAnalysisId}`);
     } catch (error) {
-      console.error('Upload failed:', error);
+      console.error('Failed to create analysis:', error);
+      setErrorMessage('Failed to start analysis. Please try again.');
     }
   };
 
   const onSeeExampleClick = async (): Promise<void> => {
+    setErrorMessage(null);
     try {
       const exampleId = await longevityClient.getExampleAnalysisId();
       navigator.navigateTo(`/upload?id=${exampleId}`);
     } catch (error) {
       console.error('Failed to load example:', error);
+      setErrorMessage('Failed to load example. Please try again.');
     }
   };
 
@@ -69,6 +81,16 @@ export function HomePage(): React.ReactElement {
             </Stack>
           </Box>
         </Stack>
+        {errorMessage && (
+          <div style={{ maxWidth: '600px', width: '100%', backgroundColor: '#FFE5E5', padding: '16px', borderRadius: '8px', border: '1px solid #FF3B30' }}>
+            <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
+              <div style={{ color: '#FF3B30' }}>
+                <Text variant='bold'>Error</Text>
+              </div>
+              <Text variant='default'>{errorMessage}</Text>
+            </Stack>
+          </div>
+        )}
         <Button variant='primary' text='Continue' onClicked={onContinueClick} isEnabled={hasCheckedConsent && selectedFile !== null} />
         <Button variant='secondary' text='See an Example' onClicked={onSeeExampleClick} />
       </Stack>
