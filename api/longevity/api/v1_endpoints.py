@@ -31,6 +31,8 @@ class GetGenomeAnalysisResponse(BaseModel):
 class ListGenomeAnalysisResultsRequest(BaseModel):
     genomeAnalysisId: str
     phenotypeGroup: str | None = None
+    limit: int | None = None  # Max SNPs per category (default: 20)
+    minImportanceScore: float | None = None  # Filter by minimum importance score
 
 
 class ListGenomeAnalysisResultsResponse(BaseModel):

@@ -36,11 +36,15 @@ export class LongevityClient extends ServiceClient {
     return response.genomeAnalysis;
   };
 
-  public listGenomeAnalysisResults = async (genomeAnalysisId: string, phenotypeGroup: string | null = null): Promise<Resources.GenomeAnalysisResult[]> => {
+  public listGenomeAnalysisResults = async (genomeAnalysisId: string, phenotypeGroup: string | null = null, limit: number | null = null, minImportanceScore: number | null = null): Promise<Resources.GenomeAnalysisResult[]> => {
     const method = RestMethod.GET;
     const pathBase = `v1/genome-analyses/${genomeAnalysisId}/results`;
-    const path = phenotypeGroup ? `${pathBase}?phenotypeGroup=${encodeURIComponent(phenotypeGroup)}` : pathBase;
-    const request = new Endpoints.ListGenomeAnalysisResultsRequest(genomeAnalysisId, phenotypeGroup);
+    const params = new URLSearchParams();
+    if (phenotypeGroup) params.append('phenotypeGroup', phenotypeGroup);
+    if (limit !== null) params.append('limit', limit.toString());
+    if (minImportanceScore !== null) params.append('minImportanceScore', minImportanceScore.toString());
+    const path = params.toString() ? `${pathBase}?${params.toString()}` : pathBase;
+    const request = new Endpoints.ListGenomeAnalysisResultsRequest(genomeAnalysisId, phenotypeGroup, limit, minImportanceScore);
     const response = await this.makeRequest(method, path, request, Endpoints.ListGenomeAnalysisResultsResponse, this.getHeaders());
     return response.genomeAnalysisResults;
   };

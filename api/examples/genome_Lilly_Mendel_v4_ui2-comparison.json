@@ -1,0 +1,5701 @@
+{
+  "summary": {
+    "our_total_snps": 996605,
+    "our_matched_snps": 80086,
+    "our_top_associations": 80086,
+    "promethease_total_genotypes": 24940,
+    "promethease_snps_mentioned": 80,
+    "overlap_count": 53,
+    "our_unique_count": 80033,
+    "promethease_unique_count": 27
+  },
+  "scoring_distribution": {
+    "our_importance_scores": {
+      "critical": 146382,
+      "medium": 34311,
+      "low": 1193,
+      "high": 37114
+    },
+    "promethease_magnitude_scores": {
+      "high": 5,
+      "medium": 34,
+      "low": 58
+    }
+  },
+  "overlapping_snps": [
+    {
+      "rsid": "rs10246939",
+      "our_analysis": [
+        {
+          "genotype": "CT",
+          "importance_score": 62.0,
+          "trait": "Bitter taste perception",
+          "p_value": "2E-62",
+          "category": "Other trait",
+          "clinvar_condition": "Phenylthiocarbamide tasting",
+          "clinvar_significance": 6
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 62.0,
+          "trait": "Bitter taste perception",
+          "p_value": "3E-199",
+          "category": "Other trait",
+          "clinvar_condition": "Phenylthiocarbamide tasting",
+          "clinvar_significance": 6
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 27.0,
+          "trait": "Salty food liking",
+          "p_value": "1E-15",
+          "category": "Other trait",
+          "clinvar_condition": "Phenylthiocarbamide tasting",
+          "clinvar_significance": 6
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 22.154901959985743,
+          "trait": "F-wine liking (derived food-liking factor)",
+          "p_value": "7E-11",
+          "category": "Other trait",
+          "clinvar_condition": "Phenylthiocarbamide tasting",
+          "clinvar_significance": 6
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 21.397940008672037,
+          "trait": "Smoking initiation",
+          "p_value": "4E-10",
+          "category": "Other trait",
+          "clinvar_condition": "Phenylthiocarbamide tasting",
+          "clinvar_significance": 6
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "gs227",
+          "interpretation": "Fully heterozygous, age-related tasting variation",
+          "magnitude": 3,
+          "repute": null,
+          "conditions": [
+            "Taste"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs1026732",
+      "our_analysis": [
+        {
+          "genotype": "AG",
+          "importance_score": 18.69897000433602,
+          "trait": "Restless legs syndrome",
+          "p_value": "2E-19",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "&gt;1.7x risk for developing restless legs syndrome",
+          "magnitude": 2,
+          "repute": "Bad",
+          "conditions": [
+            "Attention deficit hyperactivity disorder",
+            "Restless legs syndrome"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs1041983",
+      "our_analysis": [
+        {
+          "genotype": "CC",
+          "importance_score": 50.0,
+          "trait": "5-acetylamino-6-formylamino-3-methyluracil levels",
+          "p_value": "2E-146",
+          "category": "Other trait",
+          "clinvar_condition": "NAT2-related disorder",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "CC",
+          "importance_score": 21.522878745280337,
+          "trait": "Very low density lipoprotein cholesterol levels",
+          "p_value": "3E-22",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": "NAT2-related disorder",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "CC",
+          "importance_score": 19.522878745280337,
+          "trait": "Triglyceride levels",
+          "p_value": "3E-20",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": "NAT2-related disorder",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "CC",
+          "importance_score": 19.30102999566398,
+          "trait": "Triglyceride levels",
+          "p_value": "5E-20",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": "NAT2-related disorder",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "CC",
+          "importance_score": 12.0,
+          "trait": "Triglyceride levels",
+          "p_value": "1E-12",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": "NAT2-related disorder",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "CC",
+          "importance_score": 10.221848749616356,
+          "trait": "Total cholesterol levels",
+          "p_value": "6E-11",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": "NAT2-related disorder",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "CC",
+          "importance_score": 9.698970004336019,
+          "trait": "Total cholesterol levels",
+          "p_value": "2E-10",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": "NAT2-related disorder",
+          "clinvar_significance": 0
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "gs156",
+          "interpretation": "NAT2 Rapid metabolizer.",
+          "magnitude": 2,
+          "repute": "Good",
+          "conditions": [],
+          "topics": [
+            "NAT2"
+          ]
+        }
+      ]
+    },
+    {
+      "rsid": "rs1045485",
+      "our_analysis": [
+        {
+          "genotype": "CG",
+          "importance_score": 56.0,
+          "trait": "CASP8/PRDX6 protein level ratio",
+          "p_value": "2E-305",
+          "category": "Other trait",
+          "clinvar_condition": "Autoimmune lymphoproliferative syndrome type 2B",
+          "clinvar_significance": 3
+        },
+        {
+          "genotype": "CG",
+          "importance_score": 6.0,
+          "trait": "CASP8/INPP1 protein level ratio",
+          "p_value": "5E-550",
+          "category": "Other trait",
+          "clinvar_condition": "Autoimmune lymphoproliferative syndrome type 2B",
+          "clinvar_significance": 3
+        },
+        {
+          "genotype": "CG",
+          "importance_score": 6.0,
+          "trait": "CASP8/PFKFB2 protein level ratio",
+          "p_value": "2E-367",
+          "category": "Other trait",
+          "clinvar_condition": "Autoimmune lymphoproliferative syndrome type 2B",
+          "clinvar_significance": 3
+        },
+        {
+          "genotype": "CG",
+          "importance_score": 6.0,
+          "trait": "CASP8/PPP3R1 protein level ratio",
+          "p_value": "5E-385",
+          "category": "Other trait",
+          "clinvar_condition": "Autoimmune lymphoproliferative syndrome type 2B",
+          "clinvar_significance": 3
+        },
+        {
+          "genotype": "CG",
+          "importance_score": 6.0,
+          "trait": "CASP8/RILP protein level ratio",
+          "p_value": "4E-525",
+          "category": "Other trait",
+          "clinvar_condition": "Autoimmune lymphoproliferative syndrome type 2B",
+          "clinvar_significance": 3
+        },
+        {
+          "genotype": "CG",
+          "importance_score": 6.0,
+          "trait": "CASP8/SEPTIN9 protein level ratio",
+          "p_value": "9E-361",
+          "category": "Other trait",
+          "clinvar_condition": "Autoimmune lymphoproliferative syndrome type 2B",
+          "clinvar_significance": 3
+        },
+        {
+          "genotype": "CG",
+          "importance_score": 6.0,
+          "trait": "CASP8/SERPINB1 protein level ratio",
+          "p_value": "4E-328",
+          "category": "Other trait",
+          "clinvar_condition": "Autoimmune lymphoproliferative syndrome type 2B",
+          "clinvar_significance": 3
+        },
+        {
+          "genotype": "CG",
+          "importance_score": 6.0,
+          "trait": "CASP8/CIAPIN1 protein level ratio",
+          "p_value": "4E-631",
+          "category": "Other trait",
+          "clinvar_condition": "Autoimmune lymphoproliferative syndrome type 2B",
+          "clinvar_significance": 3
+        },
+        {
+          "genotype": "CG",
+          "importance_score": 6.0,
+          "trait": "CASP8/DARS1 protein level ratio",
+          "p_value": "1E-491",
+          "category": "Other trait",
+          "clinvar_condition": "Autoimmune lymphoproliferative syndrome type 2B",
+          "clinvar_significance": 3
+        },
+        {
+          "genotype": "CG",
+          "importance_score": 6.0,
+          "trait": "CASP8/DDX58 protein level ratio",
+          "p_value": "6E-401",
+          "category": "Other trait",
+          "clinvar_condition": "Autoimmune lymphoproliferative syndrome type 2B",
+          "clinvar_significance": 3
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "slightly (0.89x) lowered risk for breast cancer",
+          "magnitude": 1.5,
+          "repute": "Good",
+          "conditions": [
+            "Breast cancer",
+            "Leukemia",
+            "Ovarian cancer"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs10513789",
+      "our_analysis": [
+        {
+          "genotype": "TT",
+          "importance_score": 49.221848749616356,
+          "trait": "Parkinson's disease",
+          "p_value": "6E-50",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "TT",
+          "importance_score": 34.0,
+          "trait": "Parkinson's disease or first degree relation to individual with Parkinson's disease",
+          "p_value": "1E-34",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "TT",
+          "importance_score": 16.397940008672037,
+          "trait": "Parkinson's disease",
+          "p_value": "4E-17",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "TT",
+          "importance_score": 12.0,
+          "trait": "Lewy body dementia (MTAG)",
+          "p_value": "1E-12",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "TT",
+          "importance_score": 9.522878745280337,
+          "trait": "Parkinson's disease",
+          "p_value": "3E-10",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "gs250",
+          "interpretation": "Normal Parkinson's Disease Risk",
+          "magnitude": 1.5,
+          "repute": null,
+          "conditions": [],
+          "topics": [
+            "Gs247",
+            "Gs249"
+          ]
+        },
+        {
+          "genoset": "",
+          "interpretation": "Very common. Normal risk of Parkinson's disease.",
+          "magnitude": 1.25,
+          "repute": null,
+          "conditions": [
+            "Parkinson's disease"
+          ],
+          "topics": [
+            "Gs247",
+            "Gs248",
+            "Gs249",
+            "Gs250",
+            "NatGeo"
+          ]
+        }
+      ]
+    },
+    {
+      "rsid": "rs11031006",
+      "our_analysis": [
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "FSHB protein levels",
+          "p_value": "1E-85",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 35.39794000867204,
+          "trait": "Length of menstrual cycle",
+          "p_value": "4E-36",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 30.154901959985743,
+          "trait": "Follicle stimulating hormone levels",
+          "p_value": "7E-31",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 21.0,
+          "trait": "Uterine fibroids",
+          "p_value": "1E-21",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 20.045757490560675,
+          "trait": "Age at first birth or uterine leiomyomata (pleiotropy)",
+          "p_value": "9E-21",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 18.0,
+          "trait": "Luteinizing hormone levels",
+          "p_value": "1E-18",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 15.522878745280337,
+          "trait": "Luteinizing hormone levels in polycystic ovary syndrome",
+          "p_value": "3E-16",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 15.0,
+          "trait": "Uterine leiomyomata",
+          "p_value": "1E-15",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 14.522878745280337,
+          "trait": "Menarche (age at onset)",
+          "p_value": "3E-15",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 14.397940008672037,
+          "trait": "Follicle stimulating hormone levels",
+          "p_value": "4E-15",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 14.221848749616356,
+          "trait": "Uterine fibroids",
+          "p_value": "6E-15",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 14.221848749616356,
+          "trait": "Uterine fibroids",
+          "p_value": "6E-15",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 13.045757490560675,
+          "trait": "Menopause (age at onset)",
+          "p_value": "9E-14",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.698970004336019,
+          "trait": "Heavy menstrual bleeding",
+          "p_value": "2E-13",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 10.0,
+          "trait": "Spontaneous dizygotic twinning",
+          "p_value": "1E-10",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 9.0,
+          "trait": "Polycystic ovary syndrome",
+          "p_value": "1E-9",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 7.698970004336019,
+          "trait": "Polycystic ovary syndrome",
+          "p_value": "2E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 6.3979400086720375,
+          "trait": "Number of twin births",
+          "p_value": "4E-7",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 5.045757490560675,
+          "trait": "Polycystic ovary syndrome (reproductive subtype)",
+          "p_value": "9E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 7.0,
+          "trait": "Polycystic ovary syndrome in overweight/obese individuals (BMI > 25 kg/m2)",
+          "p_value": "1E-7",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "Most common genotype; slightly higher odds of giving birth to fraternal twins",
+          "magnitude": 1.5,
+          "repute": null,
+          "conditions": [],
+          "topics": [
+            "Pregnancy",
+            "Twinning"
+          ]
+        }
+      ]
+    },
+    {
+      "rsid": "rs12075",
+      "our_analysis": [
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "Growth-regulated protein alpha levels",
+          "p_value": "1E-55",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "Inflammatory biomarkers",
+          "p_value": "4E-51",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "CXCL8 protein levels",
+          "p_value": "8E-103",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "CCL13 protein levels",
+          "p_value": "2E-300",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "CCL26 protein levels",
+          "p_value": "4E-217",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "CCL8 protein levels",
+          "p_value": "3E-293",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "Serum levels of protein CCL2",
+          "p_value": "3E-168",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "Serum levels of protein CCL11",
+          "p_value": "3E-166",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "Serum levels of protein CCL14",
+          "p_value": "7E-52",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "Serum levels of protein CXCL6",
+          "p_value": "3E-102",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "Serum levels of protein CXCL8",
+          "p_value": "8E-140",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "Serum levels of protein CDSN",
+          "p_value": "4E-225",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "Monocyte chemoattractant protein-1 levels",
+          "p_value": "1E-134",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "Monocyte chemoattractant protein-1 levels",
+          "p_value": "7E-149",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "Monocyte chemoattractant protein-1 levels",
+          "p_value": "8E-183",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "C-X-C motif chemokine 1 levels",
+          "p_value": "2E-107",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 45.69897000433602,
+          "trait": "Monocyte count",
+          "p_value": "2E-46",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 44.0,
+          "trait": "Monocyte chemoattractant protein-1 levels",
+          "p_value": "1E-44",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 42.30102999566398,
+          "trait": "Monocyte count",
+          "p_value": "5E-43",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 42.0,
+          "trait": "Basophil count",
+          "p_value": "1E-42",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 42.0,
+          "trait": "CXCL6 protein levels",
+          "p_value": "1E-42",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 41.15490195998574,
+          "trait": "Monocyte chemoattractant protein-4 levels",
+          "p_value": "7E-42",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 41.096910013008056,
+          "trait": "Serum levels of protein CXCL5",
+          "p_value": "8E-42",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 41.0,
+          "trait": "CCL11 protein levels",
+          "p_value": "1E-41",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 40.221848749616356,
+          "trait": "Basophil count",
+          "p_value": "6E-41",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 39.0,
+          "trait": "Basophil count",
+          "p_value": "1E-39",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 35.15490195998574,
+          "trait": "C-C motif chemokine 14 levels",
+          "p_value": "7E-36",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 33.39794000867204,
+          "trait": "Serum levels of protein CCL17",
+          "p_value": "4E-34",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 33.221848749616356,
+          "trait": "Serum levels of protein CXCL2;CXCL3",
+          "p_value": "6E-34",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 29.522878745280337,
+          "trait": "Corneodesmosin levels (CDSN.7085.81.3)",
+          "p_value": "3E-30",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 29.522878745280337,
+          "trait": "Serum levels of protein CXCL1",
+          "p_value": "3E-30",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 28.0,
+          "trait": "White blood cell count",
+          "p_value": "1E-28",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 26.0,
+          "trait": "Eotaxin levels",
+          "p_value": "1E-26",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 25.30102999566398,
+          "trait": "Serum levels of protein CXCL11",
+          "p_value": "5E-26",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 25.0,
+          "trait": "Monocyte count (UKB data field 30130)",
+          "p_value": "1E-25",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 24.397940008672037,
+          "trait": "Neutrophil count",
+          "p_value": "4E-25",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 23.69897000433602,
+          "trait": "Basophil percentage of white cells",
+          "p_value": "2E-24",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 23.69897000433602,
+          "trait": "Monocyte chemoattractant protein-1 levels",
+          "p_value": "2E-24",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 23.397940008672037,
+          "trait": "White blood cell count",
+          "p_value": "4E-24",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 23.30102999566398,
+          "trait": "White blood cell count",
+          "p_value": "5E-24",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 23.0,
+          "trait": "Interleukin-8 levels",
+          "p_value": "1E-23",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 22.30102999566398,
+          "trait": "C-C motif chemokine 7 levels",
+          "p_value": "5E-23",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 22.045757490560675,
+          "trait": "White blood cell count (basophil)",
+          "p_value": "9E-23",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 21.69897000433602,
+          "trait": "Monocyte chemoattractant protein-1 levels",
+          "p_value": "2E-22",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 21.69897000433602,
+          "trait": "CCL17 protein levels",
+          "p_value": "2E-22",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 21.221848749616356,
+          "trait": "Monocyte count",
+          "p_value": "6E-22",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 21.0,
+          "trait": "Monocyte chemoattractant protein-1 levels",
+          "p_value": "1E-21",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 21.0,
+          "trait": "Obesity-related traits",
+          "p_value": "1E-21",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 19.69897000433602,
+          "trait": "Monocyte count",
+          "p_value": "2E-20",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 19.045757490560675,
+          "trait": "Eotaxin levels (CCL11.5301.7.3)",
+          "p_value": "9E-20",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 16.0,
+          "trait": "Lymphocyte percentage of white cells",
+          "p_value": "1E-16",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 15.154901959985743,
+          "trait": "Basophil percentage of white cells",
+          "p_value": "7E-16",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 13.698970004336019,
+          "trait": "CCL3 protein levels",
+          "p_value": "2E-14",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 13.154901959985743,
+          "trait": "C-X-C motif chemokine 11 levels",
+          "p_value": "7E-14",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 13.0,
+          "trait": "Monocyte percentage of white cells",
+          "p_value": "1E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 12.698970004336019,
+          "trait": "Basophil percentage of granulocytes",
+          "p_value": "2E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 12.522878745280337,
+          "trait": "Basophil count",
+          "p_value": "3E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 12.397940008672037,
+          "trait": "Eotaxin levels",
+          "p_value": "4E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 12.301029995663981,
+          "trait": "C-C motif chemokine 17 levels",
+          "p_value": "5E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 12.221848749616356,
+          "trait": "Monocyte percentage (UKB data field 30190)",
+          "p_value": "6E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 10.698970004336019,
+          "trait": "Basophil count",
+          "p_value": "2E-11",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 10.397940008672037,
+          "trait": "Eotaxin levels",
+          "p_value": "4E-11",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 9.698970004336019,
+          "trait": "Monocyte count",
+          "p_value": "2E-10",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 9.0,
+          "trait": "Myeloid white cell count",
+          "p_value": "1E-9",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 8.096910013008056,
+          "trait": "White blood cell count",
+          "p_value": "8E-9",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 6.3979400086720375,
+          "trait": "Interleukin-8 levels",
+          "p_value": "4E-7",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 6.154901959985743,
+          "trait": "Blood protein levels",
+          "p_value": "7E-7",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 6.0,
+          "trait": "Educational attainment",
+          "p_value": "1E-6",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 5.698970004336019,
+          "trait": "C-X-C motif chemokine 6 levels",
+          "p_value": "2E-6",
+          "category": "Other trait",
+          "clinvar_condition": "not specified",
+          "clinvar_significance": 0
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "Duffy Fy(a+b+) phenotype likely (unless Duffy null mutation is present)",
+          "magnitude": 1,
+          "repute": "Good",
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs12608932",
+      "our_analysis": [
+        {
+          "genotype": "AC",
+          "importance_score": 24.522878745280337,
+          "trait": "Amyotrophic lateral sclerosis",
+          "p_value": "3E-25",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AC",
+          "importance_score": 24.045757490560675,
+          "trait": "Amyotrophic lateral sclerosis",
+          "p_value": "9E-25",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AC",
+          "importance_score": 13.522878745280337,
+          "trait": "Amyotrophic lateral sclerosis",
+          "p_value": "3E-14",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AC",
+          "importance_score": 9.522878745280337,
+          "trait": "Amyotrophic lateral sclerosis (sporadic)",
+          "p_value": "3E-10",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AC",
+          "importance_score": 7.698970004336019,
+          "trait": "Amyotrophic lateral sclerosis",
+          "p_value": "2E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AC",
+          "importance_score": 7.698970004336019,
+          "trait": "Amyotrophic lateral sclerosis",
+          "p_value": "2E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AC",
+          "importance_score": 7.301029995663981,
+          "trait": "Amyotrophic lateral sclerosis",
+          "p_value": "5E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AC",
+          "importance_score": 6.3979400086720375,
+          "trait": "Amyotrophic lateral sclerosis in C9orf72 mutation positive individuals",
+          "p_value": "4E-7",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AC",
+          "importance_score": 5.221848749616356,
+          "trait": "Amyotrophic lateral sclerosis (sporadic)",
+          "p_value": "6E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AC",
+          "importance_score": 25.154901959985743,
+          "trait": "Frontotemporal dementia (MTAG)",
+          "p_value": "7E-26",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AC",
+          "importance_score": 5.154901959985743,
+          "trait": "Frontotemporal dementia",
+          "p_value": "7E-6",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "Slight (1.5x) increase in ALS risk",
+          "magnitude": 1.5,
+          "repute": "Bad",
+          "conditions": [
+            "Amyotrophic Lateral Sclerosis"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs12913832",
+      "our_analysis": [
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Hair color",
+          "p_value": "5E-104",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Perceived skin darkness",
+          "p_value": "4E-77",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Hair color",
+          "p_value": "8E-105",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Eye color (brightness)",
+          "p_value": "1E-200",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Eye color",
+          "p_value": "1E-200",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Eye color (hue)",
+          "p_value": "1E-92",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Skin, hair and eye pigmentation (multivariate analysis)",
+          "p_value": "1E-200",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Low tan response",
+          "p_value": "6E-184",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Skin pigmentation traits",
+          "p_value": "8E-132",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Skin pigmentation traits",
+          "p_value": "1E-148",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Hair morphology traits",
+          "p_value": "1E-52",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Hair morphology traits",
+          "p_value": "7E-79",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Hair morphology traits",
+          "p_value": "2E-101",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Eye color traits",
+          "p_value": "1E-300",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Eye color",
+          "p_value": "1E-300",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Eye color",
+          "p_value": "3E-52",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Hair color",
+          "p_value": "9E-88",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Eye color",
+          "p_value": "1E-177",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Eye color",
+          "p_value": "1E-158",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Hair color",
+          "p_value": "1E-167",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Black vs. blond hair color",
+          "p_value": "4E-103",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Black vs. red hair color",
+          "p_value": "1E-77",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Hair color",
+          "p_value": "1E-100",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Retinal vascular fractal dimension",
+          "p_value": "6E-80",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Blond vs. brown/black hair color",
+          "p_value": "5E-141",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Blond vs. brown/black hair color",
+          "p_value": "2E-308",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Brown vs. black hair color",
+          "p_value": "2E-308",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Blond vs. brown/black hair color",
+          "p_value": "3E-51",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Skin phototype score",
+          "p_value": "5E-147",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Skin color (Fitzpatrick scale)",
+          "p_value": "6E-126",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Actinic keratosis (PheCode 702.1)",
+          "p_value": "3E-107",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Actinic keratosis (PheCode 702.1)",
+          "p_value": "2E-70",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 58.221848749616356,
+          "trait": "Primary angle-closure glaucoma (PheCode 365.2)",
+          "p_value": "6E-49",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 58.0,
+          "trait": "Degenerative skin conditions and other dermatoses (PheCode 702)",
+          "p_value": "1E-48",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 49.0,
+          "trait": "Left eye overall retinal pigment epithelium thickness",
+          "p_value": "1E-39",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 47.221848749616356,
+          "trait": "Primary angle-closure glaucoma (PheCode 365.2)",
+          "p_value": "6E-38",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 46.30102999566398,
+          "trait": "Neoplasm of uncertain behavior of skin (PheCode 173)",
+          "p_value": "5E-37",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 45.52287874528034,
+          "trait": "Degenerative skin conditions and other dermatoses (PheCode 702)",
+          "p_value": "3E-36",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 39.52287874528034,
+          "trait": "Hair morphology traits",
+          "p_value": "3E-30",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 37.30102999566398,
+          "trait": "Neoplasm of uncertain behavior of skin (PheCode 173)",
+          "p_value": "5E-28",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 36.69897000433602,
+          "trait": "Skin color",
+          "p_value": "2E-27",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 36.52287874528034,
+          "trait": "Skin pigmentation traits",
+          "p_value": "3E-27",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 35.69897000433602,
+          "trait": "Skin pigmentation traits",
+          "p_value": "2E-26",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 32.096910013008056,
+          "trait": "Brown vs. black hair color",
+          "p_value": "8E-23",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 32.0,
+          "trait": "Tanning",
+          "p_value": "1E-22",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 27.0,
+          "trait": "Skin pigmentation",
+          "p_value": "1E-17",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 25.397940008672037,
+          "trait": "Age-related macular degeneration",
+          "p_value": "4E-16",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 23.522878745280337,
+          "trait": "Erythematosquamous dermatosis (PheCode 690)",
+          "p_value": "3E-14",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 23.397940008672037,
+          "trait": "Ease of sunburn",
+          "p_value": "4E-14",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 23.397940008672037,
+          "trait": "Seborrheic dermatitis (PheCode 690.1)",
+          "p_value": "4E-14",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 23.30102999566398,
+          "trait": "Skin pigmentation traits",
+          "p_value": "5E-14",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 23.154901959985743,
+          "trait": "Diisocyanate-induced asthma",
+          "p_value": "7E-14",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 22.522878745280337,
+          "trait": "25-hydroxyvitamin D levels (skin colour stratified)",
+          "p_value": "3E-13",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 22.045757490560675,
+          "trait": "Skin pigmentation traits",
+          "p_value": "9E-13",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 21.30102999566398,
+          "trait": "Seborrheic dermatitis (PheCode 690.1)",
+          "p_value": "5E-12",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 21.154901959985743,
+          "trait": "Erythematosquamous dermatosis (PheCode 690)",
+          "p_value": "7E-12",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 21.0,
+          "trait": "Skin pigmentation traits",
+          "p_value": "1E-11",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 19.397940008672037,
+          "trait": "Retinal arteriolar tortuosity",
+          "p_value": "4E-10",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 19.045757490560675,
+          "trait": "Ease of skin tanning",
+          "p_value": "9E-10",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 17.522878745280337,
+          "trait": "Skin pigmentation",
+          "p_value": "3E-8",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 17.522878745280337,
+          "trait": "Corneal astigmatism",
+          "p_value": "3E-8",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 17.522878745280337,
+          "trait": "Primary open angle glaucoma (MTAG)",
+          "p_value": "3E-8",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 17.397940008672037,
+          "trait": "Glaucoma (PheCode 365)",
+          "p_value": "4E-8",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 16.221848749616356,
+          "trait": "Eye color (saturation)",
+          "p_value": "6E-7",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 16.045757490560675,
+          "trait": "Intraocular pressure",
+          "p_value": "9E-7",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 15.397940008672037,
+          "trait": "Colonoscopy-negative controls vs population controls",
+          "p_value": "4E-6",
+          "category": "Other trait",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 23.154901959985743,
+          "trait": "Disorder of skin and subcutaneous tissue NO (PheCode 689)",
+          "p_value": "7E-14",
+          "category": "Other disease",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 22.0,
+          "trait": "Disorder of skin and subcutaneous tissue NO (PheCode 689)",
+          "p_value": "1E-12",
+          "category": "Other disease",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 20.69897000433602,
+          "trait": "Diseases of sebaceous glands (PheCode 706)",
+          "p_value": "2E-11",
+          "category": "Other disease",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 20.522878745280337,
+          "trait": "Chorioretinal inflammations, scars, and other disorders of choroid (PheCode 363)",
+          "p_value": "3E-11",
+          "category": "Other disease",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Other non-epithelial cancer of skin (PheCode 172.2)",
+          "p_value": "4E-63",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "Skin cancer",
+          "p_value": "1E-69",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 57.0,
+          "trait": "Skin cancer",
+          "p_value": "1E-47",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 56.0,
+          "trait": "Skin cancer",
+          "p_value": "1E-46",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 53.096910013008056,
+          "trait": "Other non-epithelial cancer of skin (PheCode 172.2)",
+          "p_value": "8E-44",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.15490195998574,
+          "trait": "Melanomas of skin, dx or hx (PheCode 172.1)",
+          "p_value": "7E-41",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 47.52287874528034,
+          "trait": "Skin cancer",
+          "p_value": "3E-38",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 42.69897000433602,
+          "trait": "Melanomas of skin, dx or hx (PheCode 172.1)",
+          "p_value": "2E-33",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 40.69897000433602,
+          "trait": "Basal cell carcinoma (PheCode 172.21)",
+          "p_value": "2E-31",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 33.69897000433602,
+          "trait": "Basal cell carcinoma (PheCode 172.21)",
+          "p_value": "2E-24",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 32.69897000433602,
+          "trait": "Cutaneous malignant melanoma",
+          "p_value": "2E-23",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 31.30102999566398,
+          "trait": "Squamous cell carcinoma (PheCode 172.22)",
+          "p_value": "5E-22",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 29.69897000433602,
+          "trait": "Squamous cell carcinoma (PheCode 172.22)",
+          "p_value": "2E-20",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 24.522878745280337,
+          "trait": "Uveal melanoma",
+          "p_value": "3E-15",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 23.69897000433602,
+          "trait": "Nevus count or cutaneous melanoma",
+          "p_value": "2E-14",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 16.0,
+          "trait": "Non-melanoma skin cancer",
+          "p_value": "1E-6",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 15.154901959985743,
+          "trait": "Colorectal cancer",
+          "p_value": "7E-6",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 10.0,
+          "trait": "Cutaneous melanoma or hair colour",
+          "p_value": "2E-9237",
+          "category": "Cancer",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 19.69897000433602,
+          "trait": "Height",
+          "p_value": "2E-10",
+          "category": "Body measurement",
+          "clinvar_condition": "SKIN/HAIR/EYE PIGMENTATION 1, BLUE/NONBLUE EYES (SHEP1)",
+          "clinvar_significance": 5
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "blond hair & blue eyes is 4x more likely",
+          "magnitude": 1.5,
+          "repute": null,
+          "conditions": [],
+          "topics": [
+            "Eye color"
+          ]
+        }
+      ]
+    },
+    {
+      "rsid": "rs1426654",
+      "our_analysis": [
+        {
+          "genotype": "AA",
+          "importance_score": 50.0,
+          "trait": "Skin pigmentation",
+          "p_value": "2E-130",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 50.0,
+          "trait": "Skin, hair and eye pigmentation (multivariate analysis)",
+          "p_value": "4E-150",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 49.096910013008056,
+          "trait": "Eye color (brightness)",
+          "p_value": "8E-50",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 48.39794000867204,
+          "trait": "Benign neoplasm of eye, uveal (PheCode 224.1)",
+          "p_value": "4E-49",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 44.221848749616356,
+          "trait": "Eye color (saturation)",
+          "p_value": "6E-45",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 39.0,
+          "trait": "Benign neoplasm of eye (PheCode 224)",
+          "p_value": "1E-39",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 38.52287874528034,
+          "trait": "Skin reflectance (Melanin index)",
+          "p_value": "3E-39",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 38.221848749616356,
+          "trait": "Skin pigmentation",
+          "p_value": "6E-39",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 36.096910013008056,
+          "trait": "Actinic keratosis (PheCode 702.1)",
+          "p_value": "8E-37",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 26.0,
+          "trait": "Eye color",
+          "p_value": "1E-26",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 25.522878745280337,
+          "trait": "Eye color",
+          "p_value": "3E-26",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 24.397940008672037,
+          "trait": "Actinic keratosis (PheCode 702.1)",
+          "p_value": "4E-25",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 23.69897000433602,
+          "trait": "Benign neoplasm of eye, uveal (PheCode 224.1)",
+          "p_value": "2E-24",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 22.045757490560675,
+          "trait": "Actinic keratosis (PheCode 702.1)",
+          "p_value": "9E-23",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 21.30102999566398,
+          "trait": "Degenerative skin conditions and other dermatoses (PheCode 702)",
+          "p_value": "5E-22",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 18.0,
+          "trait": "Hair color",
+          "p_value": "1E-18",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 18.0,
+          "trait": "Hair color",
+          "p_value": "1E-18",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 18.0,
+          "trait": "Benign neoplasm of eye (PheCode 224)",
+          "p_value": "1E-18",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 16.045757490560675,
+          "trait": "Glaucoma",
+          "p_value": "9E-17",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 13.522878745280337,
+          "trait": "Degenerative skin conditions and other dermatoses (PheCode 702)",
+          "p_value": "3E-14",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 11.522878745280337,
+          "trait": "Open-angle glaucoma (PheCode 365.1)",
+          "p_value": "3E-12",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 11.397940008672037,
+          "trait": "Primary open angle glaucoma (PheCode 365.11)",
+          "p_value": "4E-12",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 10.698970004336019,
+          "trait": "Glaucoma",
+          "p_value": "2E-11",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 9.698970004336019,
+          "trait": "Hair colour (natural, before greying): Black (UKB data field 1747_5)",
+          "p_value": "2E-10",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 9.698970004336019,
+          "trait": "Facial morphology (D527)",
+          "p_value": "2E-10",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 9.301029995663981,
+          "trait": "Skin pigmentation",
+          "p_value": "5E-10",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 8.522878745280337,
+          "trait": "Hair colour (natural, before greying): Blonde (UKB data field 1747_1)",
+          "p_value": "3E-9",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 8.522878745280337,
+          "trait": "Hair colour (natural, before greying): Dark brown (UKB data field 1747_4)",
+          "p_value": "3E-9",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 8.096910013008056,
+          "trait": "Iris color (b* coordinate)",
+          "p_value": "8E-9",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 8.0,
+          "trait": "Skin pigmentation",
+          "p_value": "1E-8",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 7.698970004336019,
+          "trait": "Facial morphology (nose roundness 3)",
+          "p_value": "2E-8",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 7.154901959985743,
+          "trait": "Facial morphology (columella inclination)",
+          "p_value": "7E-8",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 6.522878745280337,
+          "trait": "Skin pigmentation",
+          "p_value": "3E-7",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 5.698970004336019,
+          "trait": "Iris color (a* coordinate)",
+          "p_value": "2E-6",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 5.522878745280337,
+          "trait": "Facial morphology (lower lip thickness 1)",
+          "p_value": "3E-6",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 5.522878745280337,
+          "trait": "Facial morphology (lower lip thickness 2)",
+          "p_value": "3E-6",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 5.3979400086720375,
+          "trait": "Facial morphology (lip thickness 1)",
+          "p_value": "4E-6",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 23.154901959985743,
+          "trait": "Skin cancer",
+          "p_value": "7E-24",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 21.221848749616356,
+          "trait": "Skin cancer",
+          "p_value": "6E-22",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 19.0,
+          "trait": "Other non-epithelial cancer of skin (PheCode 172.2)",
+          "p_value": "1E-19",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 17.522878745280337,
+          "trait": "Other non-epithelial cancer of skin (PheCode 172.2)",
+          "p_value": "3E-18",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 15.301029995663981,
+          "trait": "Melanomas of skin, dx or hx (PheCode 172.1)",
+          "p_value": "5E-16",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 13.698970004336019,
+          "trait": "Melanomas of skin, dx or hx (PheCode 172.1)",
+          "p_value": "2E-14",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 6.3979400086720375,
+          "trait": "Body mass index",
+          "p_value": "4E-7",
+          "category": "Body measurement",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 6.096910013008056,
+          "trait": "Body mass index",
+          "p_value": "8E-7",
+          "category": "Body measurement",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "probably light-skinned, European ancestry",
+          "magnitude": 2.7,
+          "repute": null,
+          "conditions": [],
+          "topics": [
+            "Appearance",
+            "Skin color"
+          ]
+        }
+      ]
+    },
+    {
+      "rsid": "rs16891982",
+      "our_analysis": [
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin pigmentation",
+          "p_value": "1E-117",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Hair color",
+          "p_value": "6E-66",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Low tan response",
+          "p_value": "2E-176",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Eye color",
+          "p_value": "2E-255",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin pigmentation traits",
+          "p_value": "9E-92",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin pigmentation traits",
+          "p_value": "1E-122",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin pigmentation traits",
+          "p_value": "7E-128",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin pigmentation traits",
+          "p_value": "2E-130",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin pigmentation traits",
+          "p_value": "4E-55",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin pigmentation traits",
+          "p_value": "6E-55",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Hair morphology traits",
+          "p_value": "1E-70",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Hair morphology traits",
+          "p_value": "3E-65",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Hair color",
+          "p_value": "1E-100",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Urea levels",
+          "p_value": "1E-263",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Actinic keratosis",
+          "p_value": "8E-80",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Sunburns",
+          "p_value": "3E-320",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Blond vs. brown/black hair color",
+          "p_value": "3E-181",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Brown vs. black hair color",
+          "p_value": "2E-308",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Ease of skin tanning",
+          "p_value": "3E-54",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Ease of sunburn",
+          "p_value": "1E-58",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin phototype score",
+          "p_value": "3E-150",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin color (Fitzpatrick scale)",
+          "p_value": "1E-111",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin color",
+          "p_value": "1E-140",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Neoplasm of uncertain behavior of skin (PheCode 173)",
+          "p_value": "1E-102",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Neoplasm of uncertain behavior of skin (PheCode 173)",
+          "p_value": "2E-87",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Actinic keratosis (PheCode 702.1)",
+          "p_value": "2E-311",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Seborrheic keratosis (PheCode 702.2)",
+          "p_value": "5E-72",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Actinic keratosis (PheCode 702.1)",
+          "p_value": "3E-77",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Degenerative skin conditions and other dermatoses (PheCode 702)",
+          "p_value": "7E-175",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Actinic keratosis (PheCode 702.1)",
+          "p_value": "4E-255",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Seborrheic keratosis (PheCode 702.2)",
+          "p_value": "4E-61",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Degenerative skin conditions and other dermatoses (PheCode 702)",
+          "p_value": "3E-135",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 47.69897000433602,
+          "trait": "Skin pigmentation traits",
+          "p_value": "2E-48",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 47.15490195998574,
+          "trait": "Monobrow",
+          "p_value": "7E-48",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 43.69897000433602,
+          "trait": "Brown vs. black hair color",
+          "p_value": "2E-44",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 41.52287874528034,
+          "trait": "Hair morphology traits",
+          "p_value": "3E-42",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 36.30102999566398,
+          "trait": "Degenerative skin conditions and other dermatoses (PheCode 702)",
+          "p_value": "5E-37",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 35.69897000433602,
+          "trait": "Skin pigmentation traits",
+          "p_value": "2E-36",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 29.154901959985743,
+          "trait": "25-hydroxyvitamin D levels (skin colour stratified)",
+          "p_value": "7E-30",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 22.69897000433602,
+          "trait": "Skin pigmentation",
+          "p_value": "2E-23",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 20.221848749616356,
+          "trait": "Hair morphology traits",
+          "p_value": "6E-21",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 19.69897000433602,
+          "trait": "Neoplasm of uncertain behavior of skin (PheCode 173)",
+          "p_value": "2E-20",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 19.522878745280337,
+          "trait": "Dermatitis due to solar radiation (PheCode 938)",
+          "p_value": "3E-20",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 19.397940008672037,
+          "trait": "Hair color",
+          "p_value": "4E-20",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 19.397940008672037,
+          "trait": "Hair color",
+          "p_value": "4E-20",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 18.397940008672037,
+          "trait": "Dermatitis due to solar radiation (PheCode 938)",
+          "p_value": "4E-19",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 17.221848749616356,
+          "trait": "Seborrheic dermatitis (PheCode 690.1)",
+          "p_value": "6E-18",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 17.221848749616356,
+          "trait": "Chronic dermatitis due to solar radiation (PheCode 938.2)",
+          "p_value": "6E-18",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 17.096910013008056,
+          "trait": "Erythematosquamous dermatosis (PheCode 690)",
+          "p_value": "8E-18",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 16.397940008672037,
+          "trait": "Eye color (brightness)",
+          "p_value": "4E-17",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 16.30102999566398,
+          "trait": "Eye color",
+          "p_value": "5E-17",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 16.0,
+          "trait": "Eye color traits",
+          "p_value": "1E-16",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 15.221848749616356,
+          "trait": "Seborrheic keratosis (PheCode 702.2)",
+          "p_value": "6E-16",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 15.045757490560675,
+          "trait": "Youthful appearance (self-reported)",
+          "p_value": "9E-16",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 15.0,
+          "trait": "Eye color",
+          "p_value": "1E-15",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 14.0,
+          "trait": "Brown vs. black hair color",
+          "p_value": "1E-14",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 13.698970004336019,
+          "trait": "Screening for malignant neopla (PheCode 216.1)",
+          "p_value": "2E-14",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 13.096910013008056,
+          "trait": "Retinal vascular fractal dimension",
+          "p_value": "8E-14",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 13.0,
+          "trait": "Benign neoplasm of skin (PheCode 216)",
+          "p_value": "1E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.698970004336019,
+          "trait": "Skin reflectance (Melanin index)",
+          "p_value": "2E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.698970004336019,
+          "trait": "Eye color traits",
+          "p_value": "2E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.397940008672037,
+          "trait": "Benign neoplasm of skin (PheCode 216)",
+          "p_value": "4E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.397940008672037,
+          "trait": "Rosacea (PheCode 695.3)",
+          "p_value": "4E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.301029995663981,
+          "trait": "Chronic dermatitis due to solar radiation (PheCode 938.2)",
+          "p_value": "5E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.221848749616356,
+          "trait": "Actinic keratosis",
+          "p_value": "6E-13",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.0,
+          "trait": "Eye color",
+          "p_value": "1E-12",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 11.397940008672037,
+          "trait": "Screening for malignant neopla (PheCode 216.1)",
+          "p_value": "4E-12",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 10.522878745280337,
+          "trait": "Skin pigmentation",
+          "p_value": "3E-11",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 9.698970004336019,
+          "trait": "Rosacea symptom severity",
+          "p_value": "2E-10",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 9.698970004336019,
+          "trait": "Blond vs. brown/black hair color",
+          "p_value": "2E-10",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 9.0,
+          "trait": "Skin pigmentation",
+          "p_value": "1E-9",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 9.0,
+          "trait": "Freckles",
+          "p_value": "1E-9",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 8.698970004336019,
+          "trait": "Hair morphology traits",
+          "p_value": "2E-9",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 6.301029995663981,
+          "trait": "Eye color (saturation)",
+          "p_value": "5E-7",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 6.0,
+          "trait": "Black vs. non-black hair color",
+          "p_value": "1E-6",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 5.154901959985743,
+          "trait": "Skin sensitivity to sun",
+          "p_value": "7E-6",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 19.0,
+          "trait": "Diseases of sebaceous glands (PheCode 706)",
+          "p_value": "1E-19",
+          "category": "Other disease",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 17.69897000433602,
+          "trait": "Other specified diseases of sebaceous glands (PheCode 706.8)",
+          "p_value": "2E-18",
+          "category": "Other disease",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.698970004336019,
+          "trait": "Disorder of skin and subcutaneous tissue NO (PheCode 689)",
+          "p_value": "2E-13",
+          "category": "Other disease",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 11.0,
+          "trait": "Diseases of sebaceous glands (PheCode 706)",
+          "p_value": "1E-11",
+          "category": "Other disease",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 10.397940008672037,
+          "trait": "Disorder of skin and subcutaneous tissue NO (PheCode 689)",
+          "p_value": "4E-11",
+          "category": "Other disease",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Cutaneous malignant melanoma",
+          "p_value": "1E-112",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Basal cell carcinoma",
+          "p_value": "1E-61",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Basal cell carcinoma",
+          "p_value": "8E-66",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Melanomas of skin, dx or hx (PheCode 172.1)",
+          "p_value": "2E-141",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Other non-epithelial cancer of skin (PheCode 172.2)",
+          "p_value": "1E-181",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin cancer",
+          "p_value": "1E-240",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Basal cell carcinoma (PheCode 172.21)",
+          "p_value": "3E-80",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Squamous cell carcinoma (PheCode 172.22)",
+          "p_value": "2E-52",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin cancer",
+          "p_value": "8E-118",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin cancer",
+          "p_value": "8E-174",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Skin cancer",
+          "p_value": "6E-134",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Other non-epithelial cancer of skin (PheCode 172.2)",
+          "p_value": "2E-140",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Basal cell carcinoma (PheCode 172.21)",
+          "p_value": "9E-81",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 50.0,
+          "trait": "Melanomas of skin, dx or hx (PheCode 172.1)",
+          "p_value": "8E-128",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 49.0,
+          "trait": "Squamous cell carcinoma (PheCode 172.22)",
+          "p_value": "1E-49",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 41.0,
+          "trait": "Melanomas of skin (PheCode 172.11)",
+          "p_value": "1E-41",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 40.52287874528034,
+          "trait": "Melanomas of skin (PheCode 172.11)",
+          "p_value": "3E-41",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 40.39794000867204,
+          "trait": "Basal cell carcinoma",
+          "p_value": "4E-41",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 36.0,
+          "trait": "Skin cancer",
+          "p_value": "1E-36",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 30.045757490560675,
+          "trait": "Other non-epithelial cancer of skin (PheCode 172.2)",
+          "p_value": "9E-31",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 28.30102999566398,
+          "trait": "Cutaneous squamous cell carcinoma",
+          "p_value": "5E-29",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 28.0,
+          "trait": "Skin cancer",
+          "p_value": "1E-28",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 27.522878745280337,
+          "trait": "Squamous cell carcinoma",
+          "p_value": "3E-28",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 24.0,
+          "trait": "Melanomas of skin, dx or hx (PheCode 172.1)",
+          "p_value": "1E-24",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 23.0,
+          "trait": "Melanoma",
+          "p_value": "1E-23",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 22.397940008672037,
+          "trait": "Basal cell carcinoma",
+          "p_value": "4E-23",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 21.397940008672037,
+          "trait": "Non-melanoma skin cancer",
+          "p_value": "4E-22",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 20.221848749616356,
+          "trait": "Basal cell carcinoma (PheCode 172.21)",
+          "p_value": "6E-21",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 19.69897000433602,
+          "trait": "Invasive melanoma",
+          "p_value": "2E-20",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 19.221848749616356,
+          "trait": "Skin cancer",
+          "p_value": "6E-20",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.698970004336019,
+          "trait": "Biological Sibling:  Cancer, Skin",
+          "p_value": "2E-13",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.045757490560675,
+          "trait": "Biological Sibling:  Cancer, Skin",
+          "p_value": "9E-13",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.0,
+          "trait": "Biological Mother:  Cancer, Skin",
+          "p_value": "1E-12",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 12.0,
+          "trait": "Takes medication for skin cancer?",
+          "p_value": "1E-12",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 11.221848749616356,
+          "trait": "Biological Mother:  Cancer, Skin",
+          "p_value": "6E-12",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 11.154901959985743,
+          "trait": "Melanoma",
+          "p_value": "7E-12",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 8.397940008672037,
+          "trait": "Melanoma",
+          "p_value": "4E-9",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 7.698970004336019,
+          "trait": "Cancer",
+          "p_value": "2E-8",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 5.096910013008056,
+          "trait": "Cancer",
+          "p_value": "8E-6",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 5.045757490560675,
+          "trait": "Basal cell carcinoma",
+          "p_value": "9E-6",
+          "category": "Cancer",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 20.221848749616356,
+          "trait": "Height (maximum, inv-normal transformed)",
+          "p_value": "6E-21",
+          "category": "Body measurement",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 11.0,
+          "trait": "What is your height? (cm, inv-normal transformed)",
+          "p_value": "1E-11",
+          "category": "Body measurement",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "Generally European; Light skin; Possibly an increased risk of melanoma",
+          "magnitude": 1.1,
+          "repute": null,
+          "conditions": [],
+          "topics": [
+            "Appearance",
+            "Doi:10.1186/1471-2156-10-88",
+            "Eye color",
+            "Hair color",
+            "Mendeliome",
+            "Skin color"
+          ]
+        }
+      ]
+    },
+    {
+      "rsid": "rs1711437",
+      "our_analysis": [
+        {
+          "genotype": "TT",
+          "importance_score": 5.221848749616356,
+          "trait": "N-acetylaspartate (NAA) levels in elite athletes",
+          "p_value": "6E-6",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "younger, healthier kidney function",
+          "magnitude": 2,
+          "repute": "Good",
+          "conditions": [],
+          "topics": []
+        },
+        {
+          "genoset": "",
+          "interpretation": "younger, healthier kidney function",
+          "magnitude": 2,
+          "repute": "Good",
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs1726866",
+      "our_analysis": [
+        {
+          "genotype": "AG",
+          "importance_score": 50.0,
+          "trait": "Bitter taste perception",
+          "p_value": "3E-59",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 43.15490195998574,
+          "trait": "Added salt consumption",
+          "p_value": "7E-44",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 7.522878745280337,
+          "trait": "Grapefruit liking",
+          "p_value": "3E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 18.397940008672037,
+          "trait": "Bitter taste perception (6-n-propylthiouracil) in obesity with metabolic syndrome",
+          "p_value": "4E-19",
+          "category": "Metabolic disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 17.0,
+          "trait": "Bitter taste perception (phenylthiocarbamide) in obesity with metabolic syndrome",
+          "p_value": "1E-17",
+          "category": "Metabolic disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "gs227",
+          "interpretation": "Fully heterozygous, age-related tasting variation",
+          "magnitude": 3,
+          "repute": null,
+          "conditions": [
+            "Taste"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs1799990",
+      "our_analysis": [
+        {
+          "genotype": "AG",
+          "importance_score": 55.52287874528034,
+          "trait": "Sporadic Creutzfeldt-Jakob disease (clinical duration)",
+          "p_value": "3E-36",
+          "category": "Other disease",
+          "clinvar_condition": "Inherited Creutzfeldt-Jakob disease",
+          "clinvar_significance": 10
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 40.69897000433602,
+          "trait": "Creutzfeldt-Jakob disease",
+          "p_value": "2E-21",
+          "category": "Other disease",
+          "clinvar_condition": "Inherited Creutzfeldt-Jakob disease",
+          "clinvar_significance": 10
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 36.0,
+          "trait": "Creutzfeldt-Jakob disease (sporadic)",
+          "p_value": "1E-16",
+          "category": "Other disease",
+          "clinvar_condition": "Inherited Creutzfeldt-Jakob disease",
+          "clinvar_significance": 10
+        },
+        {
+          "genotype": "AG",
+          "importance_score": 26.154901959985743,
+          "trait": "Prion diseases",
+          "p_value": "7E-7",
+          "category": "Other disease",
+          "clinvar_condition": "Inherited Creutzfeldt-Jakob disease",
+          "clinvar_significance": 10
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "Resistance to vCJD (PrP 129 Met/Val heterozygote), 4.6x reduced risk of sporadic CJD and 0.87x reduced risk for late-onset Alzheimer in a Caucasian population",
+          "magnitude": 2.1,
+          "repute": "Good",
+          "conditions": [],
+          "topics": [
+            "Memory"
+          ]
+        }
+      ]
+    },
+    {
+      "rsid": "rs1800787",
+      "our_analysis": [
+        {
+          "genotype": "TT",
+          "importance_score": 15.154901959985743,
+          "trait": "Phenylalanine levels",
+          "p_value": "7E-16",
+          "category": "Other trait",
+          "clinvar_condition": "not provided",
+          "clinvar_significance": 0
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "",
+          "magnitude": 1,
+          "repute": null,
+          "conditions": [
+            "Coronary artery disease",
+            "Heart disease"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs1828591",
+      "our_analysis": [
+        {
+          "genotype": "GG",
+          "importance_score": 60.0,
+          "trait": "FEV1",
+          "p_value": "8E-52",
+          "category": "Other trait",
+          "clinvar_condition": "Chronic obstructive pulmonary disease",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 21.522878745280337,
+          "trait": "Post bronchodilator FEV1/FVC ratio",
+          "p_value": "3E-12",
+          "category": "Other trait",
+          "clinvar_condition": "Chronic obstructive pulmonary disease",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 18.69897000433602,
+          "trait": "Cryptic phenotype that captures alpha-1-antitrypsin deficiency severity",
+          "p_value": "2E-9",
+          "category": "Other trait",
+          "clinvar_condition": "Chronic obstructive pulmonary disease",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 18.397940008672037,
+          "trait": "Post bronchodilator FEV1",
+          "p_value": "4E-9",
+          "category": "Other trait",
+          "clinvar_condition": "Chronic obstructive pulmonary disease",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 15.397940008672037,
+          "trait": "Post bronchodilator FEV1/FVC ratio in COPD",
+          "p_value": "4E-6",
+          "category": "Other trait",
+          "clinvar_condition": "Chronic obstructive pulmonary disease",
+          "clinvar_significance": 5
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 17.0,
+          "trait": "Chronic obstructive pulmonary disease",
+          "p_value": "1E-7",
+          "category": "Other disease",
+          "clinvar_condition": "Chronic obstructive pulmonary disease",
+          "clinvar_significance": 5
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "Reduced risk (0.54x) for chronic pulmonary obstructive disease (COPD)",
+          "magnitude": 2,
+          "repute": "Good",
+          "conditions": [],
+          "topics": [
+            "Coriell Personalized Medicine Collaborative"
+          ]
+        }
+      ]
+    },
+    {
+      "rsid": "rs1858830",
+      "our_analysis": [
+        {
+          "genotype": "CG",
+          "importance_score": 50.0,
+          "trait": "MET protein levels",
+          "p_value": "5E-145",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CG",
+          "importance_score": 6.0,
+          "trait": "Blood protein levels",
+          "p_value": "1E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CG",
+          "importance_score": 15.096910013008056,
+          "trait": "Height",
+          "p_value": "8E-16",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CG",
+          "importance_score": 8.397940008672037,
+          "trait": "Height",
+          "p_value": "4E-9",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "1.6x increased autism risk",
+          "magnitude": 1.6,
+          "repute": "Bad",
+          "conditions": [
+            "Autism"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs1861046",
+      "our_analysis": [
+        {
+          "genotype": "GG",
+          "importance_score": 7.221848749616356,
+          "trait": "Conduct disorder",
+          "p_value": "6E-8",
+          "category": "Other disease",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "",
+          "magnitude": 1,
+          "repute": null,
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs2011077",
+      "our_analysis": [
+        {
+          "genotype": "CT",
+          "importance_score": 15.301029995663981,
+          "trait": "Body composition (MOSTest)",
+          "p_value": "5E-16",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 50.0,
+          "trait": "Height",
+          "p_value": "7E-116",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 50.0,
+          "trait": "Height (maximum, inv-normal transformed)",
+          "p_value": "3E-67",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 50.0,
+          "trait": "height (mean, inv-normal transformed)",
+          "p_value": "4E-70",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 50.0,
+          "trait": "height (minimum, inv-normal transformed)",
+          "p_value": "7E-65",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 50.0,
+          "trait": "What is your height? (cm, inv-normal transformed)",
+          "p_value": "2E-52",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 17.221848749616356,
+          "trait": "Height",
+          "p_value": "6E-18",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 13.397940008672037,
+          "trait": "Hip circumference adjusted for BMI",
+          "p_value": "4E-14",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 12.301029995663981,
+          "trait": "Height",
+          "p_value": "5E-13",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 10.0,
+          "trait": "Waist-to-hip ratio adjusted for BMI",
+          "p_value": "1E-10",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 9.221848749616356,
+          "trait": "Height",
+          "p_value": "6E-10",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 9.154901959985743,
+          "trait": "Body mass index",
+          "p_value": "7E-10",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 7.698970004336019,
+          "trait": "Height",
+          "p_value": "2E-8",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 6.522878745280337,
+          "trait": "Sitting height ratio",
+          "p_value": "3E-7",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "In Japanese, 2.4x risk of prostate cancer, 1.7x increased risk of BPH, and 1.5x increased risk of developing metastatic prostate cancer",
+          "magnitude": 1,
+          "repute": "Bad",
+          "conditions": [
+            "Prostate cancer"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs2075650",
+      "our_analysis": [
+        {
+          "genotype": "AA",
+          "importance_score": 21.69897000433602,
+          "trait": "C-reactive protein levels",
+          "p_value": "2E-22",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 21.522878745280337,
+          "trait": "Cerebrospinal fluid AB1-42 levels",
+          "p_value": "3E-22",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 21.397940008672037,
+          "trait": "Memory decline",
+          "p_value": "4E-22",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 20.69897000433602,
+          "trait": "C-reactive protein",
+          "p_value": "2E-21",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 19.0,
+          "trait": "Memory decline",
+          "p_value": "1E-19",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 17.69897000433602,
+          "trait": "Cerebrospinal fluid t-tau:AB1-42 ratio",
+          "p_value": "2E-18",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 16.522878745280337,
+          "trait": "Longevity",
+          "p_value": "3E-17",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 16.397940008672037,
+          "trait": "Cerebrospinal fluid t-tau:AB1-42 ratio",
+          "p_value": "4E-17",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 16.30102999566398,
+          "trait": "Cerebrospinal fluid p-Tau181p:AB1-42 ratio",
+          "p_value": "5E-17",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 15.0,
+          "trait": "Cerebral amyloid deposition (PET imaging)",
+          "p_value": "1E-15",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 15.0,
+          "trait": "Memory decline",
+          "p_value": "1E-15",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 14.397940008672037,
+          "trait": "Memory decline",
+          "p_value": "4E-15",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 14.096910013008056,
+          "trait": "Cerebrospinal fluid AB1-42 levels",
+          "p_value": "8E-15",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 14.0,
+          "trait": "Baseline memory",
+          "p_value": "1E-14",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 13.397940008672037,
+          "trait": "Memory decline in normal cognition",
+          "p_value": "4E-14",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 11.522878745280337,
+          "trait": "Memory decline in normal cognition",
+          "p_value": "3E-12",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 11.397940008672037,
+          "trait": "Baseline memory",
+          "p_value": "4E-12",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 11.0,
+          "trait": "Baseline memory in impaired cognition",
+          "p_value": "1E-11",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 10.221848749616356,
+          "trait": "Verbal short term memory (paragraph recall test)",
+          "p_value": "6E-11",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 9.221848749616356,
+          "trait": "Longevity",
+          "p_value": "6E-10",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 9.045757490560675,
+          "trait": "Waist circumference",
+          "p_value": "9E-10",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 8.698970004336019,
+          "trait": "Middle temporal gyrus volume (24 month visit)",
+          "p_value": "2E-9",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 8.221848749616356,
+          "trait": "Waist-hip ratio",
+          "p_value": "6E-9",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 8.154901959985743,
+          "trait": "Memory decline in impaired cognition",
+          "p_value": "7E-9",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 7.698970004336019,
+          "trait": "Memory decline in normal cognition",
+          "p_value": "2E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 7.522878745280337,
+          "trait": "Cerebrospinal fluid t-tau levels",
+          "p_value": "3E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 7.522878745280337,
+          "trait": "Waist circumference",
+          "p_value": "3E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 7.301029995663981,
+          "trait": "Memory decline in normal cognition",
+          "p_value": "5E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 7.096910013008056,
+          "trait": "Age-related macular degeneration",
+          "p_value": "8E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 7.0,
+          "trait": "C-reactive protein",
+          "p_value": "1E-7",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 6.522878745280337,
+          "trait": "Cerebrospinal fluid AB1-42 levels",
+          "p_value": "3E-7",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 6.0,
+          "trait": "Age-related macular degeneration",
+          "p_value": "1E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 6.0,
+          "trait": "Baseline memory",
+          "p_value": "1E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 6.0,
+          "trait": "Verbal learning (visual presentation)",
+          "p_value": "1E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 5.698970004336019,
+          "trait": "Waist-hip ratio",
+          "p_value": "2E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 5.522878745280337,
+          "trait": "Age-related macular degeneration",
+          "p_value": "3E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 5.3979400086720375,
+          "trait": "Sense of smell",
+          "p_value": "4E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 5.221848749616356,
+          "trait": "Verbal learning",
+          "p_value": "6E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 5.154901959985743,
+          "trait": "Baseline memory",
+          "p_value": "7E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 50.0,
+          "trait": "Body fat percentage and LDL-C (pairwise)",
+          "p_value": "1E-234",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 50.0,
+          "trait": "Body mass index and LDL-C (pairwise)",
+          "p_value": "2E-237",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 50.0,
+          "trait": "Waist-hip ratio and LDL-C (pairwise)",
+          "p_value": "2E-235",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 32.39794000867204,
+          "trait": "Body fat percentage and HDL-C (pairwise)",
+          "p_value": "4E-33",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 32.0,
+          "trait": "Waist-hip ratio and HDL-C (pairwise)",
+          "p_value": "1E-32",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 28.69897000433602,
+          "trait": "Body mass index and HDL-C (pairwise)",
+          "p_value": "2E-29",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 25.69897000433602,
+          "trait": "Waist-hip ratio and triglycerides (pairwise)",
+          "p_value": "2E-26",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 24.69897000433602,
+          "trait": "Body fat percentage and triglycerides (pairwise)",
+          "p_value": "2E-25",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 23.0,
+          "trait": "Body mass index and triglycerides (pairwise)",
+          "p_value": "1E-23",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 18.522878745280337,
+          "trait": "Cholesterol, total",
+          "p_value": "3E-19",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 12.522878745280337,
+          "trait": "Hyperlipidemia",
+          "p_value": "3E-13",
+          "category": "Lipid or lipoprotein measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 14.0,
+          "trait": "Body mass index and coronary artery disease (pairwise)",
+          "p_value": "1E-14",
+          "category": "Cardiovascular disease",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 13.698970004336019,
+          "trait": "Cardiovascular disease risk factors",
+          "p_value": "2E-14",
+          "category": "Cardiovascular disease",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 12.154901959985743,
+          "trait": "Waist-hip ratio and coronary artery disease (pairwise)",
+          "p_value": "7E-13",
+          "category": "Cardiovascular disease",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 9.698970004336019,
+          "trait": "Body fat percentage and coronary artery disease (pairwise)",
+          "p_value": "2E-10",
+          "category": "Cardiovascular disease",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 7.3979400086720375,
+          "trait": "Cardiovascular disease risk factors",
+          "p_value": "4E-8",
+          "category": "Cardiovascular disease",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 25.154901959985743,
+          "trait": "Body mass index",
+          "p_value": "7E-26",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 20.221848749616356,
+          "trait": "Body mass index",
+          "p_value": "6E-21",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 13.0,
+          "trait": "Body mass index",
+          "p_value": "1E-13",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 9.397940008672037,
+          "trait": "Body mass index",
+          "p_value": "4E-10",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 8.522878745280337,
+          "trait": "Body mass index",
+          "p_value": "3E-9",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 8.0,
+          "trait": "Body mass index",
+          "p_value": "1E-8",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 7.0,
+          "trait": "Body mass index",
+          "p_value": "1E-7",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 6.3979400086720375,
+          "trait": "BMI in non-smokers",
+          "p_value": "4E-7",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 6.0,
+          "trait": "Body mass index (joint analysis main effects and smoking interaction)",
+          "p_value": "1E-6",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 5.221848749616356,
+          "trait": "BMI (adjusted for smoking behaviour)",
+          "p_value": "6E-6",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 50.0,
+          "trait": "Alzheimer's disease",
+          "p_value": "9E-116",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 50.0,
+          "trait": "Alzheimer's disease",
+          "p_value": "1E-295",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 50.0,
+          "trait": "Alzheimer's disease",
+          "p_value": "2E-157",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 50.0,
+          "trait": "Alzheimer's disease",
+          "p_value": "2E-71",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 50.0,
+          "trait": "Alzheimer's disease",
+          "p_value": "8E-130",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 50.0,
+          "trait": "Alzheimer's disease or family history of Alzheimer's disease",
+          "p_value": "8E-214",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 39.0,
+          "trait": "Alzheimer's disease",
+          "p_value": "1E-39",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 35.30102999566398,
+          "trait": "Alzheimer's disease (late onset)",
+          "p_value": "5E-36",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 25.096910013008056,
+          "trait": "Alzheimer's disease",
+          "p_value": "8E-26",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 16.154901959985743,
+          "trait": "Alzheimer's disease",
+          "p_value": "7E-17",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 15.698970004336019,
+          "trait": "Alzheimer's disease",
+          "p_value": "2E-16",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 13.221848749616356,
+          "trait": "Posterior cortical atrophy and Alzheimer's disease",
+          "p_value": "6E-14",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 12.397940008672037,
+          "trait": "Alzheimer's disease",
+          "p_value": "4E-13",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 10.522878745280337,
+          "trait": "Alzheimer's disease",
+          "p_value": "3E-11",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 8.045757490560675,
+          "trait": "Cognitive impairment test score",
+          "p_value": "9E-9",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 7.698970004336019,
+          "trait": "Cognitive decline",
+          "p_value": "2E-8",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 7.0,
+          "trait": "Brain imaging",
+          "p_value": "1E-7",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 6.698970004336019,
+          "trait": "Alzheimer's disease",
+          "p_value": "2E-7",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 6.301029995663981,
+          "trait": "Alzheimer's disease (age of onset)",
+          "p_value": "5E-7",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 6.0,
+          "trait": "Alzheimer's disease biomarkers",
+          "p_value": "1E-6",
+          "category": "Neurological disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "AA",
+          "importance_score": 10.522878745280337,
+          "trait": "Metabolic syndrome",
+          "p_value": "3E-11",
+          "category": "Metabolic disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ],
+      "promethease_analysis": [
+        {
+          "genoset": "",
+          "interpretation": "normal; some association with greater longevity",
+          "magnitude": 0,
+          "repute": "Good",
+          "conditions": [
+            "Alzheimer's disease",
+            "Longevity"
+          ],
+          "topics": []
+        }
+      ]
+    }
+  ],
+  "our_unique_snps": [
+    {
+      "rsid": "rs10000282",
+      "info": [
+        {
+          "genotype": "CC",
+          "importance_score": 7.698970004336019,
+          "trait": "Hemoglobin",
+          "p_value": "2E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CC",
+          "importance_score": 7.522878745280337,
+          "trait": "Hematocrit",
+          "p_value": "3E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs10000291",
+      "info": [
+        {
+          "genotype": "CC",
+          "importance_score": 9.522878745280337,
+          "trait": "3-formylindole levels",
+          "p_value": "3E-10",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs1000032",
+      "info": [
+        {
+          "genotype": "TT",
+          "importance_score": 5.045757490560675,
+          "trait": "Bevacizumab-induced composite toxicity (either hypertension or proteinuria)",
+          "p_value": "9E-6",
+          "category": "Cardiovascular disease",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs10000518",
+      "info": [
+        {
+          "genotype": "GG",
+          "importance_score": 5.221848749616356,
+          "trait": "Ankylosing spondylitis",
+          "p_value": "6E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs1000055",
+      "info": [
+        {
+          "genotype": "GG",
+          "importance_score": 13.0,
+          "trait": "Hip circumference adjusted for BMI",
+          "p_value": "1E-13",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 8.698970004336019,
+          "trait": "Hip circumference adjusted for BMI",
+          "p_value": "2E-9",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs1000071",
+      "info": [
+        {
+          "genotype": "AC",
+          "importance_score": 50.0,
+          "trait": "Height",
+          "p_value": "3E-65",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs10000770",
+      "info": [
+        {
+          "genotype": "CC",
+          "importance_score": 11.154901959985743,
+          "trait": "Core binding factor acute myeloid leukemia",
+          "p_value": "7E-12",
+          "category": "Cancer",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CC",
+          "importance_score": 8.522878745280337,
+          "trait": "Core binding factor acute myeloid leukemia",
+          "p_value": "3E-9",
+          "category": "Cancer",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs1000078",
+      "info": [
+        {
+          "genotype": "AA",
+          "importance_score": 5.522878745280337,
+          "trait": "Height",
+          "p_value": "3E-6",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs1000083",
+      "info": [
+        {
+          "genotype": "CT",
+          "importance_score": 5.301029995663981,
+          "trait": "Cisplatin-induced ototoxicity",
+          "p_value": "5E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs1000096",
+      "info": [
+        {
+          "genotype": "CT",
+          "importance_score": 15.698970004336019,
+          "trait": "Body mass index",
+          "p_value": "2E-16",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 15.698970004336019,
+          "trait": "Body mass index",
+          "p_value": "2E-16",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CT",
+          "importance_score": 12.522878745280337,
+          "trait": "Body mass index",
+          "p_value": "3E-13",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs1000113",
+      "info": [
+        {
+          "genotype": "CC",
+          "importance_score": 17.221848749616356,
+          "trait": "Ulcerative colitis",
+          "p_value": "6E-18",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CC",
+          "importance_score": 32.0,
+          "trait": "Inflammatory bowel disease",
+          "p_value": "1E-32",
+          "category": "Other disease",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CC",
+          "importance_score": 25.522878745280337,
+          "trait": "Crohn's disease",
+          "p_value": "3E-26",
+          "category": "Other disease",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "CC",
+          "importance_score": 6.522878745280337,
+          "trait": "Crohn's disease",
+          "p_value": "3E-7",
+          "category": "Other disease",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs1000115",
+      "info": [
+        {
+          "genotype": "GG",
+          "importance_score": 10.397940008672037,
+          "trait": "Height",
+          "p_value": "4E-11",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs10001225",
+      "info": [
+        {
+          "genotype": "CC",
+          "importance_score": 12.0,
+          "trait": "Afamin levels",
+          "p_value": "1E-12",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs10001365",
+      "info": [
+        {
+          "genotype": "GG",
+          "importance_score": 29.522878745280337,
+          "trait": "Smoking initiation (ever regular vs never regular) (MTAG)",
+          "p_value": "3E-30",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 18.522878745280337,
+          "trait": "Externalizing behaviour (multivariate analysis)",
+          "p_value": "3E-19",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 16.045757490560675,
+          "trait": "Age of smoking initiation (MTAG)",
+          "p_value": "9E-17",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 13.096910013008056,
+          "trait": "Smoking initiation (MTAG)",
+          "p_value": "8E-14",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 8.0,
+          "trait": "Lifetime smoking (without educational attainment)",
+          "p_value": "1E-8",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        },
+        {
+          "genotype": "GG",
+          "importance_score": 8.0,
+          "trait": "Metabolic syndrome",
+          "p_value": "1E-8",
+          "category": "Metabolic disorder",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs10001447",
+      "info": [
+        {
+          "genotype": "CC",
+          "importance_score": 5.522878745280337,
+          "trait": "Indoleacetylglutamine levels in elite athletes",
+          "p_value": "3E-6",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs10001548",
+      "info": [
+        {
+          "genotype": "TT",
+          "importance_score": 13.301029995663981,
+          "trait": "Height",
+          "p_value": "5E-14",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs100016",
+      "info": [
+        {
+          "genotype": "CC",
+          "importance_score": 8.154901959985743,
+          "trait": "Height",
+          "p_value": "7E-9",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs10001608",
+      "info": [
+        {
+          "genotype": "CT",
+          "importance_score": 29.154901959985743,
+          "trait": "Height",
+          "p_value": "7E-30",
+          "category": "Body measurement",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs10002427",
+      "info": [
+        {
+          "genotype": "CT",
+          "importance_score": 15.096910013008056,
+          "trait": "Cathepsin O levels",
+          "p_value": "8E-16",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    },
+    {
+      "rsid": "rs10002657",
+      "info": [
+        {
+          "genotype": "AG",
+          "importance_score": 40.221848749616356,
+          "trait": "Phosphatidylglycerol(32:1)_[M+OAc]1- levels",
+          "p_value": "6E-41",
+          "category": "Other trait",
+          "clinvar_condition": null,
+          "clinvar_significance": null
+        }
+      ]
+    }
+  ],
+  "promethease_unique_snps": [
+    {
+      "rsid": "rs1042713",
+      "info": [
+        {
+          "genoset": "gs281",
+          "interpretation": "part of the 88% of the population claimed not to maintain weight loss unless you perform high energy exercise",
+          "magnitude": 2.5,
+          "repute": "Bad",
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs1042778",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "Slightly lower oxytocin & empathy? Possibly higher 'callous-unemotional' trait frequency in children.",
+          "magnitude": 1.5,
+          "repute": "Bad",
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs11761683",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "Migraine",
+          "magnitude": 1,
+          "repute": "Bad",
+          "conditions": [],
+          "topics": []
+        },
+        {
+          "genoset": "",
+          "interpretation": "Migraine",
+          "magnitude": 1,
+          "repute": "Bad",
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs11974297",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "Migraine",
+          "magnitude": 1,
+          "repute": "Bad",
+          "conditions": [],
+          "topics": []
+        },
+        {
+          "genoset": "",
+          "interpretation": "Migraine",
+          "magnitude": 1,
+          "repute": "Bad",
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs16889859",
+      "info": [
+        {
+          "genoset": "gs217",
+          "interpretation": "One or more copies of a test CNV",
+          "magnitude": 0,
+          "repute": null,
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs16891867",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "",
+          "magnitude": 1,
+          "repute": null,
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs1693482",
+      "info": [
+        {
+          "genoset": "gs211",
+          "interpretation": "Ethanol biodisposition",
+          "magnitude": 2,
+          "repute": null,
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs179247",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "&gt;1.3x risk of Graves' disease",
+          "magnitude": 1.3,
+          "repute": "Bad",
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs1801278",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "common/normal",
+          "magnitude": 0,
+          "repute": "Good",
+          "conditions": [
+            "Abdominal aortic aneurysm",
+            "Multiple myeloma"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs1801280",
+      "info": [
+        {
+          "genoset": "gs156",
+          "interpretation": "NAT2 Rapid metabolizer.",
+          "magnitude": 2,
+          "repute": "Good",
+          "conditions": [],
+          "topics": [
+            "NAT2"
+          ]
+        }
+      ]
+    },
+    {
+      "rsid": "rs180177102",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "common/normal",
+          "magnitude": 0,
+          "repute": "Good",
+          "conditions": [
+            "Breast cancer"
+          ],
+          "topics": []
+        },
+        {
+          "genoset": "",
+          "interpretation": "common/normal",
+          "magnitude": 0,
+          "repute": "Good",
+          "conditions": [
+            "Breast cancer"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs180223",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "reduced risk of autoimmune thyroid disease (0.14x)",
+          "magnitude": 2,
+          "repute": "Good",
+          "conditions": [
+            "Graves' disease"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs2044859",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "Migraine",
+          "magnitude": 1,
+          "repute": "Bad",
+          "conditions": [],
+          "topics": []
+        },
+        {
+          "genoset": "",
+          "interpretation": "Migraine",
+          "magnitude": 1,
+          "repute": "Bad",
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs2171492",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "Higher prostate cancer risk",
+          "magnitude": 2,
+          "repute": "Bad",
+          "conditions": [
+            "Prostate cancer"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs2273535",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "slightly higher (~1.5x or less) risk for certain cancers",
+          "magnitude": 2,
+          "repute": "Bad",
+          "conditions": [
+            "Breast cancer",
+            "Cancer",
+            "Colon cancer",
+            "Colorectal cancer",
+            "Lung cancer",
+            "Ovarian cancer"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs2302009",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "normal",
+          "magnitude": 1,
+          "repute": null,
+          "conditions": [
+            "Eosinophilic esophagitis",
+            "GERD"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs2315122",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "the most common genotype as reported on DTC arrays",
+          "magnitude": 0,
+          "repute": "Good",
+          "conditions": [
+            "Colorblind"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs2329340",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "Migraine",
+          "magnitude": 1,
+          "repute": "Bad",
+          "conditions": [],
+          "topics": []
+        },
+        {
+          "genoset": "",
+          "interpretation": "Migraine",
+          "magnitude": 1,
+          "repute": "Bad",
+          "conditions": [],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs243330",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "Lower body mass index",
+          "magnitude": 2,
+          "repute": "Good",
+          "conditions": [
+            "Obesity"
+          ],
+          "topics": []
+        }
+      ]
+    },
+    {
+      "rsid": "rs33977706",
+      "info": [
+        {
+          "genoset": "",
+          "interpretation": "Lower body mass index",
+          "magnitude": 2,
+          "repute": "Good",
+          "conditions": [
+            "Obesity"
+          ],
+          "topics": []
+        },
+        {
+          "genoset": "",
+          "interpretation": "Lower body mass index",
+          "magnitude": 2,
+          "repute": "Good",
+          "conditions": [
+            "Obesity"
+          ],
+          "topics": []
+        }
+      ]
+    }
+  ]
+}

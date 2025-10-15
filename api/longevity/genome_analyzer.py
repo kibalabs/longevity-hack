@@ -1,11 +1,10 @@
 """Genome analysis - core analysis logic."""
 
-import json
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict
+from typing import Tuple
 
 from longevity import model
-
 
 # ClinVar significance scoring (higher = more clinically important)
 CLINVAR_SIGNIFICANCE_SCORES = {
@@ -106,16 +105,18 @@ class GenomeAnalyzer:
             else:
                 condition_name = 'Unknown'
 
-            submissions.append({
-                'accession': rcv.get('accession', 'Unknown'),
-                'clinical_significance': sig_normalized,
-                'significance_score': sig_score,
-                'condition': condition_name,
-                'review_status': review_status,
-                'review_score': review_score,
-                'last_evaluated': rcv.get('last_evaluated', 'Unknown'),
-                'number_submitters': rcv.get('number_submitters', 0),
-            })
+            submissions.append(
+                {
+                    'accession': rcv.get('accession', 'Unknown'),
+                    'clinical_significance': sig_normalized,
+                    'significance_score': sig_score,
+                    'condition': condition_name,
+                    'review_status': review_status,
+                    'review_score': review_score,
+                    'last_evaluated': rcv.get('last_evaluated', 'Unknown'),
+                    'number_submitters': rcv.get('number_submitters', 0),
+                }
+            )
 
             max_sig_score = max(max_sig_score, sig_score)
             max_review_score = max(max_review_score, review_score)
@@ -158,12 +159,7 @@ class GenomeAnalyzer:
 
         return has_header_comment or has_data_line
 
-    async def analyze_genome(
-        self,
-        genomeContent: str,
-        read_gwas_file: callable,
-        read_annotation_file: callable
-    ) -> model.GenomeAnalysisResult:
+    async def analyze_genome(self, genomeContent: str, read_gwas_file: callable, read_annotation_file: callable) -> model.GenomeAnalysisResult:
         """
         Run genome analysis on genome file content.
 
@@ -209,7 +205,7 @@ class GenomeAnalyzer:
                 'chromosome': chromosome,
                 'position': position,
                 'genotype': genotype,
-            }        # Find matches with GWAS data and ClinVar
+            }  # Find matches with GWAS data and ClinVar
         matched_snps = 0
         total_associations = 0
         scored_associations = []
@@ -235,14 +231,16 @@ class GenomeAnalyzer:
 
                     # Store clinically significant variants separately
                     if clinvar_info['max_significance_score'] >= 6:  # Pathogenic or risk factor
-                        clinvar_variants.append({
-                            'rsid': rsid,
-                            'genotype': snp_data['genotype'],
-                            'chromosome': snp_data['chromosome'],
-                            'position': snp_data['position'],
-                            'clinvar': clinvar_info,
-                            'annotation': annotation,
-                        })
+                        clinvar_variants.append(
+                            {
+                                'rsid': rsid,
+                                'genotype': snp_data['genotype'],
+                                'chromosome': snp_data['chromosome'],
+                                'position': snp_data['position'],
+                                'clinvar': clinvar_info,
+                                'annotation': annotation,
+                            }
+                        )
 
             associations = gwas_data.get('associations', [])
             total_associations += len(associations)
@@ -261,6 +259,7 @@ class GenomeAnalyzer:
                         pval_float = float(pvalue)
                         if pval_float > 0:
                             import math
+
                             # -log10(p-value): larger values = more significant
                             # e.g., p=1E-20 gives score of 20, p=5E-8 gives ~7.3
                             pvalue_score = min(-math.log10(pval_float), 50)
@@ -272,19 +271,21 @@ class GenomeAnalyzer:
                 if clinvar_info and clinvar_info['has_clinvar']:
                     importance_score += clinvar_info['max_significance_score'] * 2
 
-                scored_associations.append({
-                    'rsid': rsid,
-                    'genotype': snp_data['genotype'],
-                    'chromosome': snp_data['chromosome'],
-                    'position': snp_data['position'],
-                    'trait': assoc.get('DISEASE/TRAIT') or assoc.get('trait', ''),
-                    'pvalue': pvalue,
-                    'importanceScore': importance_score,
-                    'effectStrength': assoc.get('effect_strength', ''),
-                    'riskAllele': assoc.get('effect_allele') or assoc.get('risk_allele', ''),
-                    'clinvarCondition': clinvar_info['submissions'][0]['condition'] if clinvar_info and clinvar_info['has_clinvar'] else None,
-                    'clinvarSignificance': clinvar_info['max_significance_score'] if clinvar_info and clinvar_info['has_clinvar'] else None,
-                })
+                scored_associations.append(
+                    {
+                        'rsid': rsid,
+                        'genotype': snp_data['genotype'],
+                        'chromosome': snp_data['chromosome'],
+                        'position': snp_data['position'],
+                        'trait': assoc.get('DISEASE/TRAIT') or assoc.get('trait', ''),
+                        'pvalue': pvalue,
+                        'importanceScore': importance_score,
+                        'effectStrength': assoc.get('effect_strength', ''),
+                        'riskAllele': assoc.get('effect_allele') or assoc.get('risk_allele', ''),
+                        'clinvarCondition': clinvar_info['submissions'][0]['condition'] if clinvar_info and clinvar_info['has_clinvar'] else None,
+                        'clinvarSignificance': clinvar_info['max_significance_score'] if clinvar_info and clinvar_info['has_clinvar'] else None,
+                    }
+                )
 
         # Sort by importance score
         scored_associations.sort(key=lambda x: x['importanceScore'], reverse=True)
@@ -302,10 +303,7 @@ class GenomeAnalyzer:
 
         # Build proper model
         associations_models = [model.GenomeAssociation(**assoc) for assoc in scored_associations]
-        phenotype_groups_models = {
-            category: [model.GenomeAssociation(**assoc) for assoc in assocs]
-            for category, assocs in phenotype_groups.items()
-        }
+        phenotype_groups_models = {category: [model.GenomeAssociation(**assoc) for assoc in assocs] for category, assocs in phenotype_groups.items()}
 
         result = model.GenomeAnalysisResult(
             summary=model.GenomeAnalysisSummary(
@@ -329,19 +327,18 @@ class GenomeAnalyzer:
 
         if any(word in trait_lower for word in ['cancer', 'tumor', 'carcinoma', 'melanoma', 'leukemia', 'lymphoma']):
             return 'Cancer'
-        elif any(word in trait_lower for word in ['heart', 'cardiac', 'cardiovascular', 'coronary', 'blood pressure', 'hypertension']):
+        if any(word in trait_lower for word in ['heart', 'cardiac', 'cardiovascular', 'coronary', 'blood pressure', 'hypertension']):
             return 'Cardiovascular disease'
-        elif any(word in trait_lower for word in ['cholesterol', 'ldl', 'hdl', 'triglyceride', 'lipid']):
+        if any(word in trait_lower for word in ['cholesterol', 'ldl', 'hdl', 'triglyceride', 'lipid']):
             return 'Lipid or lipoprotein measurement'
-        elif any(word in trait_lower for word in ['diabetes', 'glucose', 'insulin', 'metabolic']):
+        if any(word in trait_lower for word in ['diabetes', 'glucose', 'insulin', 'metabolic']):
             return 'Metabolic disorder'
-        elif any(word in trait_lower for word in ['alzheimer', 'parkinson', 'neurological', 'brain', 'cognitive', 'dementia']):
+        if any(word in trait_lower for word in ['alzheimer', 'parkinson', 'neurological', 'brain', 'cognitive', 'dementia']):
             return 'Neurological disorder'
-        elif any(word in trait_lower for word in ['height', 'weight', 'bmi', 'body mass']):
+        if any(word in trait_lower for word in ['height', 'weight', 'bmi', 'body mass']):
             return 'Body measurement'
-        elif 'measurement' in trait_lower:
+        if 'measurement' in trait_lower:
             return 'Other measurement'
-        elif 'disease' in trait_lower or 'disorder' in trait_lower:
+        if 'disease' in trait_lower or 'disorder' in trait_lower:
             return 'Other disease'
-        else:
-            return 'Other trait'
+        return 'Other trait'

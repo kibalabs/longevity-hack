@@ -10,6 +10,8 @@ dependencies = [
     "beautifulsoup4>=4.12.0",
     "kiba-core[core-api,database-psql,queue-sqs,requester,storage]==0.5.3.dev42",
     "python-multipart>=0.0.6",
+    "asyncclick>=8.3.0.5",
+    "playwright>=1.55.0",
 ]
 
 [dependency-groups]

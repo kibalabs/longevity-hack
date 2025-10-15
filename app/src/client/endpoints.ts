@@ -89,6 +89,8 @@ export class ListGenomeAnalysisResultsRequest extends RequestData {
   public constructor(
     readonly genomeAnalysisId: string,
     readonly phenotypeGroup: string | null,
+    readonly limit: number | null = null,
+    readonly minImportanceScore: number | null = null,
   ) {
     super();
   }

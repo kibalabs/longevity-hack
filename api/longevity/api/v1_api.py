@@ -37,7 +37,12 @@ def create_v1_routes(appManager: AppManager, database: Database, resourceBuilder
 
     @json_route(requestType=endpoints.ListGenomeAnalysisResultsRequest, responseType=endpoints.ListGenomeAnalysisResultsResponse)
     async def list_genome_analysis_results(request: KibaApiRequest[endpoints.ListGenomeAnalysisResultsRequest]) -> endpoints.ListGenomeAnalysisResultsResponse:
-        genomeAnalysisResults = await appManager.list_genome_analysis_results(genomeAnalysisId=request.data.genomeAnalysisId, phenotypeGroup=request.data.phenotypeGroup)
+        genomeAnalysisResults = await appManager.list_genome_analysis_results(
+            genomeAnalysisId=request.data.genomeAnalysisId,
+            phenotypeGroup=request.data.phenotypeGroup,
+            limit=request.data.limit,
+            minImportanceScore=request.data.minImportanceScore,
+        )
         return endpoints.ListGenomeAnalysisResultsResponse(genomeAnalysisResults=genomeAnalysisResults)
 
     @json_route(requestType=endpoints.GetGenomeAnalysisResultRequest, responseType=endpoints.GetGenomeAnalysisResultResponse)
@@ -62,22 +67,21 @@ def create_v1_routes(appManager: AppManager, database: Database, resourceBuilder
             return JSONResponse({'error': 'No file provided'}, status_code=400)
 
         # Start the upload and analysis process
-        genomeAnalysis = await appManager.upload_and_analyze_genome_file(
-            genomeAnalysisId=genomeAnalysisId,
-            file=file
-        )
+        genomeAnalysis = await appManager.upload_and_analyze_genome_file(genomeAnalysisId=genomeAnalysisId, file=file)
 
         # Return the updated analysis object
-        return JSONResponse({
-            'genomeAnalysis': {
-                'genomeAnalysisId': genomeAnalysis.genomeAnalysisId,
-                'fileName': genomeAnalysis.fileName,
-                'fileType': genomeAnalysis.fileType,
-                'detectedFormat': genomeAnalysis.detectedFormat,
-                'status': genomeAnalysis.status,
-                'createdDate': genomeAnalysis.createdDate,
+        return JSONResponse(
+            {
+                'genomeAnalysis': {
+                    'genomeAnalysisId': genomeAnalysis.genomeAnalysisId,
+                    'fileName': genomeAnalysis.fileName,
+                    'fileType': genomeAnalysis.fileType,
+                    'detectedFormat': genomeAnalysis.detectedFormat,
+                    'status': genomeAnalysis.status,
+                    'createdDate': genomeAnalysis.createdDate,
+                }
             }
-        })
+        )
 
     return [
         Route('/health', health_check, methods=['GET']),

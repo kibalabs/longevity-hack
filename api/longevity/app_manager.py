@@ -6,7 +6,8 @@ from pathlib import Path
 from core.exceptions import NotFoundException
 from core.requester import Requester
 from core.store.database import Database
-from core.util import date_util, file_util
+from core.util import date_util
+from core.util import file_util
 
 from longevity import model
 from longevity.api import v1_resources as resources
@@ -23,10 +24,10 @@ class AppManager:
         self.genomeAnalysisStore: dict[str, resources.GenomeAnalysis] = {}
         self.genomeAnalysisResultsStore: dict[str, list[resources.GenomeAnalysisResult]] = {}
         # Real genome analyzer
-        uploadsDir = Path(__file__).parent.parent / "uploads"
-        outputsDir = Path(__file__).parent.parent / "outputs"
-        gwasDir = Path(__file__).parent.parent / ".data" / "snps-gwas"
-        annotationsDir = Path(__file__).parent.parent / ".data" / "snps"
+        uploadsDir = Path(__file__).parent.parent / 'uploads'
+        outputsDir = Path(__file__).parent.parent / 'outputs'
+        gwasDir = Path(__file__).parent.parent / '.data' / 'snps-gwas'
+        annotationsDir = Path(__file__).parent.parent / '.data' / 'snps'
 
         uploadsDir.mkdir(parents=True, exist_ok=True)
         outputsDir.mkdir(parents=True, exist_ok=True)
@@ -66,7 +67,7 @@ class AppManager:
 
         # Save the uploaded file (async)
         safeName = Path(genomeAnalysis.fileName).name
-        uploadPath = self.uploadsDir / f"{genomeAnalysisId}_{safeName}"
+        uploadPath = self.uploadsDir / f'{genomeAnalysisId}_{safeName}'
         content = await file.read()
 
         # Write file asynchronously to avoid blocking
@@ -87,6 +88,7 @@ class AppManager:
         genomeAnalysis.status = 'parsing'
         self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
         genomeContent = await file_util.read_file(str(inputFilePath))
+
         async def read_gwas_file(rsid: str) -> dict | None:
             gwasFile = self.gwasDir / f'{rsid}.json'
             if not gwasFile.exists():
@@ -100,14 +102,11 @@ class AppManager:
                 return None
             content = await file_util.read_file(str(annotationFile))
             return json.loads(content)
-        analysisResult = await self.genomeAnalyzer.analyze_genome(
-            genomeContent=genomeContent,
-            read_gwas_file=read_gwas_file,
-            read_annotation_file=read_annotation_file
-        )
+
+        analysisResult = await self.genomeAnalyzer.analyze_genome(genomeContent=genomeContent, read_gwas_file=read_gwas_file, read_annotation_file=read_annotation_file)
         genomeAnalysis.status = 'building_baseline'
         self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
-        outputPath = self.outputsDir / f"{genomeAnalysisId}.json"
+        outputPath = self.outputsDir / f'{genomeAnalysisId}.json'
         resultContent = analysisResult.model_dump_json(indent=2)
         await file_util.write_file(str(outputPath), resultContent)
         self._create_real_results(genomeAnalysisId, analysisResult)
@@ -134,9 +133,7 @@ class AppManager:
             # Deduplicate by rsid - keep highest scoring association per SNP
             seenRsids = {}
             for assoc in associations:
-                if assoc.rsid not in seenRsids:
-                    seenRsids[assoc.rsid] = assoc
-                elif assoc.importanceScore > seenRsids[assoc.rsid].importanceScore:
+                if assoc.rsid not in seenRsids or assoc.importanceScore > seenRsids[assoc.rsid].importanceScore:
                     seenRsids[assoc.rsid] = assoc
 
             # Sort by importance score (show all unique SNPs, no limit)
@@ -150,8 +147,7 @@ class AppManager:
                     genotype=assoc.genotype,
                     chromosome=assoc.chromosome,
                     position=int(assoc.position) if assoc.position.isdigit() else 0,
-                    annotation=f"{assoc.trait} - {assoc.effectStrength or 'Unknown'} effect. " +
-                              (f"ClinVar: {assoc.clinvarCondition}" if assoc.clinvarCondition else ""),
+                    annotation=f'{assoc.trait} - {assoc.effectStrength or "Unknown"} effect. ' + (f'ClinVar: {assoc.clinvarCondition}' if assoc.clinvarCondition else ''),
                     confidence='Unknown',  # Not provided by analyzer
                     sources=['GWAS Catalog', 'ClinVar'] if assoc.clinvarCondition else ['GWAS Catalog'],
                     # Additional fields
@@ -170,7 +166,7 @@ class AppManager:
                     genomeAnalysisResultId=str(uuid.uuid4()),
                     genomeAnalysisId=genomeAnalysisId,
                     phenotypeGroup=category,
-                    phenotypeDescription=f"Genetic variants associated with {category.lower()}",
+                    phenotypeDescription=f'Genetic variants associated with {category.lower()}',
                     snps=snps,
                 )
                 results.append(result)
@@ -184,11 +180,43 @@ class AppManager:
 
         return genomeAnalysis
 
-    async def list_genome_analysis_results(self, genomeAnalysisId: str, phenotypeGroup: str | None = None) -> list[resources.GenomeAnalysisResult]:
+    async def list_genome_analysis_results(self, genomeAnalysisId: str, phenotypeGroup: str | None = None, limit: int | None = None, minImportanceScore: float | None = None) -> list[resources.GenomeAnalysisResult]:
         results = self.genomeAnalysisResultsStore.get(genomeAnalysisId, [])
+
+        # Filter by phenotype group if specified
         if phenotypeGroup:
             results = [result for result in results if result.phenotypeGroup == phenotypeGroup]
-        return results
+
+        # Apply filtering and limiting to each result's SNPs
+        filteredResults = []
+        defaultLimit = 20  # Default to top 20 SNPs per category
+
+        for result in results:
+            snps = result.snps
+
+            # Filter by minimum importance score if specified
+            if minImportanceScore is not None:
+                snps = [snp for snp in snps if snp.importanceScore and snp.importanceScore >= minImportanceScore]
+
+            # Sort by importance score (highest first)
+            snps = sorted(snps, key=lambda x: x.importanceScore or 0, reverse=True)
+
+            # Limit the number of SNPs
+            maxSnps = limit if limit is not None else defaultLimit
+            snps = snps[:maxSnps]
+
+            # Create a new result with filtered SNPs
+            if snps:  # Only include categories that have SNPs after filtering
+                filteredResult = resources.GenomeAnalysisResult(
+                    genomeAnalysisResultId=result.genomeAnalysisResultId,
+                    genomeAnalysisId=result.genomeAnalysisId,
+                    phenotypeGroup=result.phenotypeGroup,
+                    phenotypeDescription=result.phenotypeDescription,
+                    snps=snps,
+                )
+                filteredResults.append(filteredResult)
+
+        return filteredResults
 
     async def get_genome_analysis_result(self, genomeAnalysisId: str, genomeAnalysisResultId: str) -> resources.GenomeAnalysisResult:
         results = self.genomeAnalysisResultsStore.get(genomeAnalysisId, [])

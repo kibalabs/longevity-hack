@@ -7,11 +7,10 @@ All core logic is in longevity.genome_analyzer.
 """
 
 import json
-import shutil
-import uuid
 from pathlib import Path
 
 import asyncclick as click
+from core.util import file_util
 
 import _path_fix  # noqa: F401
 from longevity.genome_analyzer import GenomeAnalyzer
@@ -23,47 +22,46 @@ from longevity.genome_analyzer import GenomeAnalyzer
 async def run(inputFilePath: str, outputFilePath: str) -> None:
     """Analyze personal genome data against GWAS catalog and ClinVar."""
 
-    # Create analyzer instance
-    uploadsDir = Path('./.data/uploads')
-    outputsDir = Path('./.data/outputs')
     gwasDir = Path('./.data/snps-gwas')
     annotationsDir = Path('./.data/snps')
 
-    analyzer = GenomeAnalyzer(
-        uploadsDir=uploadsDir,
-        outputsDir=outputsDir,
-        gwasDir=gwasDir,
-        annotationsDir=annotationsDir
-    )
+    analyzer = GenomeAnalyzer(gwasDir=gwasDir, annotationsDir=annotationsDir)
 
-    # Run analysis
     print(f'Analyzing genome file: {inputFilePath}')
     print(f'Output will be saved to: {outputFilePath}')
 
-    # Use a temporary ID for CLI usage
-    analysisId = str(uuid.uuid4())
+    # Read genome file
+    genomeContent = await file_util.read_file(inputFilePath)
 
-    # Copy input file to uploads directory (analyzer expects it there)
-    inputPath = Path(inputFilePath)
-    uploadPath = analyzer.get_upload_path(analysisId, inputPath.name)
+    # Define callbacks for reading GWAS and annotation data
+    async def read_gwas_file(rsid: str):
+        gwasFile = gwasDir / f'{rsid}.json'
+        if not gwasFile.exists():
+            return None
+        content = await file_util.read_file(str(gwasFile))
+        return json.loads(content)
 
-    shutil.copy(inputPath, uploadPath)
+    async def read_annotation_file(rsid: str):
+        annotationFile = annotationsDir / f'{rsid}.json'
+        if not annotationFile.exists():
+            return None
+        content = await file_util.read_file(str(annotationFile))
+        return json.loads(content)
 
     # Run analysis
-    result = await analyzer.analyze_genome_file(analysisId, uploadPath)
+    result = await analyzer.analyze_genome(genomeContent=genomeContent, read_gwas_file=read_gwas_file, read_annotation_file=read_annotation_file)
 
-    # Move output to desired location
+    # Save output
     outputPath = Path(outputFilePath)
     outputPath.parent.mkdir(parents=True, exist_ok=True)
-
-    with open(outputPath, 'w') as f:
-        json.dump(result, f, indent=2)
+    await file_util.write_file(str(outputPath), result.model_dump_json(indent=2))
 
     print(f'\n✓ Analysis complete!')
-    print(f'  Total SNPs: {result["summary"]["total_snps"]:,}')
-    print(f'  Matched SNPs: {result["summary"]["matched_snps"]:,}')
-    print(f'  Total associations: {result["summary"]["total_associations"]:,}')
-    print(f'  ClinVar variants: {result["summary"]["clinvar_count"]:,}')
+    print(f'  Total SNPs: {result.summary.totalSnps:,}')
+    print(f'  Matched SNPs: {result.summary.matchedSnps:,}')
+    print(f'  Total associations: {result.summary.totalAssociations:,}')
+    print(f'  Top categories: {", ".join(result.summary.topCategories[:5])}')
+    print(f'  ClinVar variants: {result.summary.clinvarCount:,}')
     print(f'\nResults saved to: {outputPath}')
 
 
