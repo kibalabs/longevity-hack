@@ -72,3 +72,12 @@ class UploadGenomeFileRequest(BaseModel):
 
 class UploadGenomeFileResponse(BaseModel):
     genomeAnalysis: resources.GenomeAnalysis
+
+
+class AnalyzeCategoryRequest(BaseModel):
+    genomeAnalysisId: str
+    genomeAnalysisResultId: str  # Category ID to analyze
+
+
+class AnalyzeCategoryResponse(BaseModel):
+    categoryAnalysis: resources.CategoryAnalysis

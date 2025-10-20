@@ -191,3 +191,33 @@ export class GetExampleAnalysisIdResponse extends ResponseData {
     );
   };
 }
+
+export class AnalyzeCategoryRequest extends RequestData {
+  public constructor(
+    readonly genomeAnalysisId: string,
+    readonly genomeAnalysisResultId: string,
+  ) {
+    super();
+  }
+
+  public toObject = (): RawObject => {
+    return {
+      genomeAnalysisId: this.genomeAnalysisId,
+      genomeAnalysisResultId: this.genomeAnalysisResultId,
+    };
+  };
+}
+
+export class AnalyzeCategoryResponse extends ResponseData {
+  public constructor(
+    readonly categoryAnalysis: Resources.CategoryAnalysis,
+  ) {
+    super();
+  }
+
+  public static fromObject = (obj: RawObject): AnalyzeCategoryResponse => {
+    return new AnalyzeCategoryResponse(
+      Resources.CategoryAnalysis.fromObject(obj.categoryAnalysis as RawObject),
+    );
+  };
+}

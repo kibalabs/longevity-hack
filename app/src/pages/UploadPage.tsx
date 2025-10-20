@@ -137,8 +137,8 @@ export function UploadPage(): React.ReactElement {
               return new Resources.GenomeAnalysisResult(
                 group.genomeAnalysisResultId,
                 genomeAnalysisId,
-                group.phenotypeGroup,
-                group.phenotypeDescription,
+                group.category,
+                group.categoryDescription,
                 group.topSnps,
               );
             }));

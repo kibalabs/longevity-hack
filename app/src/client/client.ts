@@ -89,4 +89,12 @@ export class LongevityClient extends ServiceClient {
     const data = await response.json();
     return Resources.GenomeAnalysis.fromObject(data.genomeAnalysis);
   };
+
+  public analyzeCategory = async (genomeAnalysisId: string, genomeAnalysisResultId: string): Promise<Resources.CategoryAnalysis> => {
+    const method = RestMethod.POST;
+    const path = `v1/genome-analyses/${genomeAnalysisId}/results/${genomeAnalysisResultId}/analyze`;
+    const request = new Endpoints.AnalyzeCategoryRequest(genomeAnalysisId, genomeAnalysisResultId);
+    const response = await this.makeRequest(method, path, request, Endpoints.AnalyzeCategoryResponse, this.getHeaders());
+    return response.categoryAnalysis;
+  };
 }

@@ -123,6 +123,27 @@ async def create_example_analysis() -> None:
             print(f'\n  EXAMPLE_ANALYSIS_ID = \'{newExampleId}\'')
             print('\n' + '='*80)
 
+            # Generate AI analyses for top categories
+            print('\n' + '='*80)
+            print('🤖 Generating AI analyses for top categories...')
+            print('='*80)
+
+            overview = await appManager.get_genome_analysis_overview(newExampleId)
+
+            # Get top 5 categories by SNP count
+            topCategories = sorted(overview.categoryGroups, key=lambda x: x.totalCount, reverse=True)[:5]
+
+            for i, category in enumerate(topCategories, 1):
+                print(f'\n[{i}/5] Analyzing: {category.category} ({category.totalCount} SNPs)...')
+                analysis = await appManager.analyze_category(
+                    genomeAnalysisId=newExampleId,
+                    genomeAnalysisResultId=category.genomeAnalysisResultId,
+                    useCache=False,  # Force fresh generation
+                )
+                print(f'  ✓ Generated analysis ({len(analysis.analysis)} chars, {analysis.snpsAnalyzed} SNPs, {len(analysis.papersUsed)} papers)')
+
+            print('\n✓ AI analysis generation complete!')
+
     finally:
         await appManager.database.disconnect()
         print('\nDisconnected from database')

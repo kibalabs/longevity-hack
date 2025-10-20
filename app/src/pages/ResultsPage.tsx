@@ -6,6 +6,7 @@ import { Alignment, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-rea
 import * as Resources from '../client/resources';
 import { useGlobals } from '../GlobalsContext';
 import { getRiskBucket, getRiskPriority } from '../util';
+import { getCategoryDisplayName } from '../util/categoryNames';
 
 interface CategorySnpsData {
   snps: Resources.SNP[];
@@ -21,6 +22,8 @@ export function ResultsPage(): React.ReactElement {
   const [overview, setOverview] = React.useState<Resources.GenomeAnalysisOverview | null>(null);
   const [expandedGroups, setExpandedGroups] = React.useState<Set<string>>(new Set());
   const [categorySnpsData, setCategorySnpsData] = React.useState<Map<string, CategorySnpsData>>(new Map());
+  const [categoryAnalyses, setCategoryAnalyses] = React.useState<Map<string, Resources.CategoryAnalysis>>(new Map());
+  const [analyzingCategories, setAnalyzingCategories] = React.useState<Set<string>>(new Set());
 
   React.useEffect((): void => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -89,6 +92,29 @@ export function ResultsPage(): React.ReactElement {
       }
       return newSet;
     });
+  };
+
+  const analyzeCategory = async (genomeAnalysisResultId: string): Promise<void> => {
+    if (!genomeAnalysisId) return;
+
+    setAnalyzingCategories((prev): Set<string> => new Set(prev).add(genomeAnalysisResultId));
+    try {
+      const analysis = await longevityClient.analyzeCategory(genomeAnalysisId, genomeAnalysisResultId);
+      setCategoryAnalyses((prev): Map<string, Resources.CategoryAnalysis> => {
+        const newMap = new Map(prev);
+        newMap.set(genomeAnalysisResultId, analysis);
+        return newMap;
+      });
+    } catch (error) {
+      console.error('Failed to analyze category:', error);
+      alert('Failed to generate AI analysis. Please try again.');
+    } finally {
+      setAnalyzingCategories((prev): Set<string> => {
+        const newSet = new Set(prev);
+        newSet.delete(genomeAnalysisResultId);
+        return newSet;
+      });
+    }
   };
 
   const loadMore = async (genomeAnalysisResultId: string): Promise<void> => {
@@ -214,7 +240,7 @@ export function ResultsPage(): React.ReactElement {
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} childAlignment={Alignment.Center}>
-                      <Text variant='bold'>{group.phenotypeGroup}</Text>
+                      <Text variant='bold'>{getCategoryDisplayName(group.category)}</Text>
                       <div style={{
                         backgroundColor: '#007AFF',
                         color: 'white',
@@ -230,7 +256,7 @@ export function ResultsPage(): React.ReactElement {
                   </div>
                   {!isExpanded && (
                     <div style={{ marginTop: '4px' }}>
-                      <Text variant='note'>{group.phenotypeDescription}</Text>
+                      <Text variant='note'>{group.categoryDescription}</Text>
                     </div>
                   )}
                 </div>
@@ -238,9 +264,102 @@ export function ResultsPage(): React.ReactElement {
                 {/* Expanded Content */}
                 {isExpanded && (
                   <div style={{ padding: '16px' }}>
-                    <div style={{ marginBottom: '12px' }}>
-                      <Text variant='note'>{group.phenotypeDescription}</Text>
+                    <div style={{ marginBottom: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Text variant='note'>{group.categoryDescription}</Text>
+                      {!categoryAnalyses.has(group.genomeAnalysisResultId) && (
+                        <button
+                          onClick={(): void => { void analyzeCategory(group.genomeAnalysisResultId); }}
+                          disabled={analyzingCategories.has(group.genomeAnalysisResultId)}
+                          style={{
+                            padding: '8px 16px',
+                            backgroundColor: analyzingCategories.has(group.genomeAnalysisResultId) ? '#CCCCCC' : '#007AFF',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '6px',
+                            fontSize: '14px',
+                            fontWeight: 600,
+                            cursor: analyzingCategories.has(group.genomeAnalysisResultId) ? 'not-allowed' : 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                          }}
+                        >
+                          {analyzingCategories.has(group.genomeAnalysisResultId) ? '⏳ Analyzing...' : '🤖 Analyze with AI'}
+                        </button>
+                      )}
                     </div>
+
+                    {/* AI Analysis Section */}
+                    {categoryAnalyses.has(group.genomeAnalysisResultId) && (
+                      <div style={{
+                        marginBottom: '16px',
+                        padding: '16px',
+                        backgroundColor: '#F0F8FF',
+                        borderRadius: '8px',
+                        border: '1px solid #B3D9FF',
+                      }}>
+                        <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '12px', color: '#0066CC' }}>
+                          🤖 AI Analysis
+                        </div>
+                        <div style={{ marginBottom: '16px', fontSize: '15px', lineHeight: '1.6', color: '#333' }}>
+                          {categoryAnalyses.get(group.genomeAnalysisResultId)!.analysis.split('\n\n').map((para, idx) => (
+                            <p key={idx} style={{ margin: '8px 0' }}>{para}</p>
+                          ))}
+                        </div>
+                        {categoryAnalyses.get(group.genomeAnalysisResultId)!.papersUsed.length > 0 && (
+                          <div>
+                            <div style={{ fontSize: '14px', fontWeight: 'bold', marginBottom: '8px', color: '#0066CC' }}>
+                              📚 Research Papers ({categoryAnalyses.get(group.genomeAnalysisResultId)!.papersUsed.length})
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                              {categoryAnalyses.get(group.genomeAnalysisResultId)!.papersUsed.map((paper: Resources.PaperReference, index: number): React.ReactElement => {
+                                const firstAuthor = paper.authors?.split(',')[0]?.trim() || '';
+                                const authorDisplay = firstAuthor ? `${firstAuthor} et al.` : '';
+                                const abstractPreview = paper.abstract ? paper.abstract.substring(0, 150) + '...' : '';
+
+                                return (
+                                  <div
+                                    key={paper.pubmedId}
+                                    style={{
+                                      padding: '10px',
+                                      backgroundColor: 'white',
+                                      borderRadius: '6px',
+                                      border: '1px solid #D0E8FF',
+                                    }}
+                                  >
+                                    <div style={{ fontSize: '13px', fontWeight: 600, marginBottom: '4px', color: '#333' }}>
+                                      {index + 1}. {paper.title || 'Untitled'}
+                                    </div>
+                                    {authorDisplay && (
+                                      <div style={{ fontSize: '12px', color: '#666', marginBottom: '2px' }}>
+                                        {authorDisplay} • {paper.journal && paper.year ? `${paper.journal}, ${paper.year}` : (paper.year || '')}
+                                      </div>
+                                    )}
+                                    {abstractPreview && (
+                                      <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px', lineHeight: '1.4' }}>
+                                        {abstractPreview}
+                                      </div>
+                                    )}
+                                    <a
+                                      href={`https://pubmed.ncbi.nlm.nih.gov/${paper.pubmedId}/`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      style={{
+                                        fontSize: '12px',
+                                        color: '#007AFF',
+                                        textDecoration: 'none',
+                                      }}
+                                    >
+                                      PubMed: {paper.pubmedId} →
+                                    </a>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
 
                     <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
                       {displaySnps.map((snp: Resources.SNP, index: number): React.ReactElement => (

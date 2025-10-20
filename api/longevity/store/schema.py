@@ -4,7 +4,6 @@ from sqlalchemy.dialects.postgresql import JSONB
 from longevity import model
 from longevity.store.entity_repository import EntityRepository
 
-
 metadata = sqlalchemy.MetaData()
 
 BigInt = sqlalchemy.Numeric(precision=78, scale=0)
@@ -79,11 +78,77 @@ GenomeAnalysisResultsTable = sqlalchemy.Table(
     metadata,
     sqlalchemy.Column(key='resultId', name='result_id', type_=sqlalchemy.Text, primary_key=True, nullable=False),
     sqlalchemy.Column(key='genomeAnalysisId', name='genome_analysis_id', type_=sqlalchemy.Text, nullable=False, index=True),
-    sqlalchemy.Column(key='phenotypeGroup', name='phenotype_group', type_=sqlalchemy.Text, nullable=False, index=True),
-    sqlalchemy.Column(key='phenotypeDescription', name='phenotype_description', type_=sqlalchemy.Text, nullable=True),
-    sqlalchemy.Column(key='snps', name='snps', type_=JSONB, nullable=False),
+    sqlalchemy.Column(key='category', name='category', type_=sqlalchemy.Text, nullable=False, index=True),
+    sqlalchemy.Column(key='categoryDescription', name='category_description', type_=sqlalchemy.Text, nullable=True),
     sqlalchemy.Column(key='createdDate', name='created_date', type_=sqlalchemy.DateTime, nullable=False),
     sqlalchemy.Column(key='updatedDate', name='updated_date', type_=sqlalchemy.DateTime, nullable=False),
 )
 
 GenomeAnalysisResultsRepository = EntityRepository(table=GenomeAnalysisResultsTable, modelClass=model.GenomeAnalysisCategoryResult)
+
+GenomeAnalysisSnpsTable = sqlalchemy.Table(
+    'tbl_genome_analysis_snps',
+    metadata,
+    sqlalchemy.Column(key='snpResultId', name='snp_result_id', type_=sqlalchemy.Text, primary_key=True, nullable=False),
+    sqlalchemy.Column(key='createdDate', name='created_date', type_=sqlalchemy.DateTime, nullable=False),
+    sqlalchemy.Column(key='updatedDate', name='updated_date', type_=sqlalchemy.DateTime, nullable=False),
+    sqlalchemy.Column(key='resultId', name='result_id', type_=sqlalchemy.Text, nullable=False, index=True),
+    sqlalchemy.Column(key='genomeAnalysisId', name='genome_analysis_id', type_=sqlalchemy.Text, nullable=False, index=True),
+    sqlalchemy.Column(key='rsid', name='rsid', type_=sqlalchemy.Text, nullable=False, index=True),
+    sqlalchemy.Column(key='genotype', name='genotype', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='chromosome', name='chromosome', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='position', name='position', type_=sqlalchemy.Integer, nullable=False),
+    sqlalchemy.Column(key='trait', name='trait', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='importanceScore', name='importance_score', type_=sqlalchemy.Float, nullable=False, index=True),
+    sqlalchemy.Column(key='pValue', name='p_value', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='riskAllele', name='risk_allele', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='oddsRatio', name='odds_ratio', type_=sqlalchemy.Float, nullable=True),
+    sqlalchemy.Column(key='riskAlleleFrequency', name='risk_allele_frequency', type_=sqlalchemy.Float, nullable=True),
+    sqlalchemy.Column(key='userHasRiskAllele', name='user_has_risk_allele', type_=sqlalchemy.Boolean, nullable=False),
+    sqlalchemy.Column(key='clinvarCondition', name='clinvar_condition', type_=sqlalchemy.Text, nullable=True),
+    sqlalchemy.Column(key='clinvarSignificance', name='clinvar_significance', type_=sqlalchemy.Integer, nullable=True),
+    sqlalchemy.Column(key='studyDescription', name='study_description', type_=sqlalchemy.Text, nullable=True),
+    sqlalchemy.Column(key='pubmedId', name='pubmed_id', type_=sqlalchemy.Text, nullable=True),
+    sqlalchemy.Column(key='annotation', name='annotation', type_=sqlalchemy.Text, nullable=False),
+)
+
+sqlalchemy.Index('idx_genome_analysis_snps_result_importance', GenomeAnalysisSnpsTable.c.resultId, GenomeAnalysisSnpsTable.c.importanceScore.desc())
+sqlalchemy.Index('idx_genome_analysis_snps_analysis_category', GenomeAnalysisSnpsTable.c.genomeAnalysisId, GenomeAnalysisSnpsTable.c.resultId)
+
+GenomeAnalysisSnpsRepository = EntityRepository(table=GenomeAnalysisSnpsTable, modelClass=model.GenomeAnalysisSnp)
+
+PubmedPapersTable = sqlalchemy.Table(
+    'tbl_pubmed_papers',
+    metadata,
+    sqlalchemy.Column(key='pubmedId', name='pubmed_id', type_=sqlalchemy.Text, primary_key=True, nullable=False),
+    sqlalchemy.Column(key='createdDate', name='created_date', type_=sqlalchemy.DateTime, nullable=False, index=True),
+    sqlalchemy.Column(key='updatedDate', name='updated_date', type_=sqlalchemy.DateTime, nullable=False, index=True),
+    sqlalchemy.Column(key='title', name='title', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='abstract', name='abstract', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='fullText', name='full_text', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='authors', name='authors', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='journal', name='journal', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='year', name='year', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='fetchedDate', name='fetched_date', type_=sqlalchemy.DateTime, nullable=False, index=True),
+)
+
+PubmedPapersRepository = EntityRepository(table=PubmedPapersTable, modelClass=model.PubmedPaper)
+
+CategoryAnalysesTable = sqlalchemy.Table(
+    'tbl_category_analyses',
+    metadata,
+    sqlalchemy.Column(key='analysisId', name='analysis_id', type_=sqlalchemy.Text, primary_key=True, nullable=False),
+    sqlalchemy.Column(key='createdDate', name='created_date', type_=sqlalchemy.DateTime, nullable=False),
+    sqlalchemy.Column(key='updatedDate', name='updated_date', type_=sqlalchemy.DateTime, nullable=False),
+    sqlalchemy.Column(key='genomeAnalysisId', name='genome_analysis_id', type_=sqlalchemy.Text, nullable=False, index=True),
+    sqlalchemy.Column(key='resultId', name='result_id', type_=sqlalchemy.Text, nullable=False, index=True),
+    sqlalchemy.Column(key='category', name='category', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='categoryDescription', name='category_description', type_=sqlalchemy.Text, nullable=True),
+    sqlalchemy.Column(key='analysis', name='analysis', type_=sqlalchemy.Text, nullable=False),
+    sqlalchemy.Column(key='papersUsed', name='papers_used', type_=JSONB, nullable=False),
+    sqlalchemy.Column(key='snpsAnalyzed', name='snps_analyzed', type_=sqlalchemy.Integer, nullable=False),
+)
+
+sqlalchemy.Index('idx_category_analyses_genome_result', CategoryAnalysesTable.c.genomeAnalysisId, CategoryAnalysesTable.c.resultId)
+
+CategoryAnalysesRepository = EntityRepository(table=CategoryAnalysesTable, modelClass=model.CategoryAnalysisCached)

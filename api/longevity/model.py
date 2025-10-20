@@ -37,10 +37,11 @@ class GenomeAssociation(BaseModel):
     riskAllele: str | None = None
     clinvarCondition: str | None = None
     clinvarSignificance: int | None = None
-    traitCategory: str
+    manualCategory: str | None = None  # Manual expert-curated category (trait-specific)
     oddsRatio: float | None = None  # OR value showing relative risk (e.g., 1.22 means 22% increased risk)
     riskAlleleFrequency: float | None = None  # Population frequency of risk allele
     studyDescription: str | None = None  # Brief description of the study
+    pubmedId: str | None = None  # PubMed ID for the research paper
     userHasRiskAllele: bool | None = None  # Whether user's genotype contains the risk allele
 
 
@@ -92,8 +93,6 @@ class SnpClinvar(BaseModel):
 
 
 class UserSnp(BaseModel):
-    """A single SNP from a user's genome file."""
-
     rsid: str
     chromosome: str
     position: str
@@ -101,8 +100,6 @@ class UserSnp(BaseModel):
 
 
 class GwasAssociation(BaseModel):
-    """Single GWAS association for a SNP."""
-
     trait: str
     traitCategory: str | None = None
     pvalue: str | None = None
@@ -119,8 +116,6 @@ class GwasAssociation(BaseModel):
 
 
 class GenomeAnalysis(BaseModel):
-    """Metadata and summary statistics for a genome analysis."""
-
     genomeAnalysisId: str
     userId: str
     fileName: str
@@ -134,11 +129,59 @@ class GenomeAnalysis(BaseModel):
 
 
 class GenomeAnalysisCategoryResult(BaseModel):
-    """Category-level results for a genome analysis with JSONB SNP data."""
-
     resultId: str
     genomeAnalysisId: str
-    phenotypeGroup: str
-    phenotypeDescription: str
-    snps: list[dict]  # List of SNP dictionaries (will be converted to/from SNP resources)
+    category: str
+    categoryDescription: str | None = None
     createdDate: datetime
+    updatedDate: datetime
+
+
+class GenomeAnalysisSnp(BaseModel):
+    snpResultId: str
+    createdDate: datetime
+    updatedDate: datetime
+    resultId: str
+    genomeAnalysisId: str
+    rsid: str
+    genotype: str
+    chromosome: str
+    position: int
+    trait: str
+    importanceScore: float
+    pValue: str
+    riskAllele: str
+    oddsRatio: float | None = None
+    riskAlleleFrequency: float | None = None
+    userHasRiskAllele: bool
+    clinvarCondition: str | None = None
+    clinvarSignificance: int | None = None
+    studyDescription: str | None = None
+    pubmedId: str | None = None
+    annotation: str
+
+
+class PubmedPaper(BaseModel):
+    pubmedId: str
+    createdDate: datetime
+    updatedDate: datetime
+    title: str
+    abstract: str
+    fullText: str
+    authors: str
+    journal: str
+    year: str
+    fetchedDate: datetime
+
+
+class CategoryAnalysisCached(BaseModel):
+    analysisId: str
+    createdDate: datetime
+    updatedDate: datetime
+    genomeAnalysisId: str
+    resultId: str
+    category: str
+    categoryDescription: str | None = None
+    analysis: str
+    papersUsed: list[dict[str, str | None]]  # JSON list of paper references
+    snpsAnalyzed: int

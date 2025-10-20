@@ -6,15 +6,16 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from sqlalchemy import func, select
-from starlette.datastructures import UploadFile
-
 from core.exceptions import NotFoundException
 from core.queues.message_queue import MessageQueue
 from core.requester import Requester
 from core.store.database import Database
 from core.util import date_util
 from core.util import file_util
+from sqlalchemy import func
+from sqlalchemy import select
+from starlette.datastructures import UploadFile
+
 from longevity import model
 from longevity.api import v1_resources as resources
 from longevity.constants import EXAMPLE_ANALYSIS_ID
@@ -171,63 +172,66 @@ class AppManager:
 
     async def _create_real_results(self, genomeAnalysisId: str, analysisData: model.GenomeAnalysisResult) -> None:
         """Create genome analysis results from real analysis output."""
-        # Group associations by trait category
+        # Group associations by manual category (ONLY manual categories - skip unmapped SNPs)
         categoryGroups: dict[str, list[Any]] = defaultdict(list)
         for assoc in analysisData.associations:
-            categoryGroups[assoc.traitCategory].append(assoc)
+            # Only include SNPs with manual categories
+            if assoc.manualCategory:
+                categoryGroups[assoc.manualCategory].append(assoc)
 
         # Create results for each category
-        for category, associations in categoryGroups.items():
-            # Deduplicate by rsid - keep highest scoring association per SNP
-            seenRsids = {}
-            for assoc in associations:
-                if assoc.rsid not in seenRsids or assoc.importanceScore > seenRsids[assoc.rsid].importanceScore:
-                    seenRsids[assoc.rsid] = assoc
+        async with self.database.create_transaction() as connection:
+            for category, associations in categoryGroups.items():
+                # Deduplicate by rsid - keep highest scoring association per SNP
+                seenRsids = {}
+                for assoc in associations:
+                    if assoc.rsid not in seenRsids or assoc.importanceScore > seenRsids[assoc.rsid].importanceScore:
+                        seenRsids[assoc.rsid] = assoc
 
-            # Sort by importance score (show all unique SNPs, no limit)
-            uniqueAssociations = sorted(seenRsids.values(), key=lambda x: x.importanceScore, reverse=True)
+                # Sort by importance score (show all unique SNPs, no limit)
+                uniqueAssociations = sorted(seenRsids.values(), key=lambda x: x.importanceScore, reverse=True)
 
-            # Convert to SNP resources
-            snps = []
-            for assoc in uniqueAssociations:
-                snp = resources.SNP(
-                    rsid=assoc.rsid,
-                    genotype=assoc.genotype,
-                    chromosome=assoc.chromosome,
-                    position=int(assoc.position) if assoc.position.isdigit() else 0,
-                    annotation=f'{assoc.trait} - {assoc.effectStrength or "Unknown"} effect. ' + (f'ClinVar: {assoc.clinvarCondition}' if assoc.clinvarCondition else ''),
-                    confidence='Unknown',  # Not provided by analyzer
-                    sources=['GWAS Catalog', 'ClinVar'] if assoc.clinvarCondition else ['GWAS Catalog'],
-                    # Additional fields
-                    trait=assoc.trait,
-                    importanceScore=assoc.importanceScore,
-                    pValue=str(assoc.pvalue) if assoc.pvalue else None,
-                    effectStrength=assoc.effectStrength,
-                    riskAllele=assoc.riskAllele,
-                    clinvarCondition=assoc.clinvarCondition,
-                    clinvarSignificance=assoc.clinvarSignificance,
-                    oddsRatio=assoc.oddsRatio,
-                    riskAlleleFrequency=assoc.riskAlleleFrequency,
-                    studyDescription=assoc.studyDescription,
-                    userHasRiskAllele=assoc.userHasRiskAllele,
-                    riskLevel=None,  # Will be set below
-                )
-                # Calculate and set risk level
-                snp.riskLevel = self._get_risk_level(snp)
-                snps.append(snp)
+                if uniqueAssociations:
+                    resultId = str(uuid.uuid4())
 
-            if snps:
-                resultId = str(uuid.uuid4())
+                    # Create category result record
+                    await schema.GenomeAnalysisResultsRepository.create(
+                        database=self.database,
+                        connection=connection,
+                        resultId=resultId,
+                        genomeAnalysisId=genomeAnalysisId,
+                        category=category,
+                        categoryDescription=f'Genetic variants associated with {category.lower()}',
+                    )
 
-                # Save to database
-                await schema.GenomeAnalysisResultsRepository.create(
-                    database=self.database,
-                    resultId=resultId,
-                    genomeAnalysisId=genomeAnalysisId,
-                    phenotypeGroup=category,
-                    phenotypeDescription=f'Genetic variants associated with {category.lower()}',
-                    snps=[snp.model_dump() for snp in snps],  # Convert to dict for JSON storage
-                )
+                    # Insert SNPs as individual rows
+                    for assoc in uniqueAssociations:
+                        snpResultId = str(uuid.uuid4())
+                        annotation = f'{assoc.trait} - {assoc.effectStrength or "Unknown"} effect. ' + (f'ClinVar: {assoc.clinvarCondition}' if assoc.clinvarCondition else '')
+
+                        await schema.GenomeAnalysisSnpsRepository.create(
+                            database=self.database,
+                            connection=connection,
+                            snpResultId=snpResultId,
+                            resultId=resultId,
+                            genomeAnalysisId=genomeAnalysisId,
+                            rsid=assoc.rsid,
+                            genotype=assoc.genotype,
+                            chromosome=assoc.chromosome,
+                            position=int(assoc.position) if assoc.position.isdigit() else None,
+                            trait=assoc.trait,
+                            importanceScore=assoc.importanceScore,
+                            pValue=str(assoc.pvalue) if assoc.pvalue else None,
+                            riskAllele=assoc.riskAllele,
+                            oddsRatio=assoc.oddsRatio,
+                            riskAlleleFrequency=assoc.riskAlleleFrequency,
+                            userHasRiskAllele=assoc.userHasRiskAllele,
+                            clinvarCondition=assoc.clinvarCondition,
+                            clinvarSignificance=assoc.clinvarSignificance,
+                            studyDescription=assoc.studyDescription,
+                            pubmedId=assoc.pubmedId,
+                            annotation=annotation,
+                        )
 
     async def get_genome_analysis(self, genomeAnalysisId: str) -> resources.GenomeAnalysis:
         startTime = time.time()
@@ -272,14 +276,21 @@ class AppManager:
         # Fetch only metadata for all categories (no SNPs for fast loading)
         stepStart = time.time()
 
-        # Query to get just the category metadata
-        query = select(
-            schema.GenomeAnalysisResultsTable.c.resultId,
-            schema.GenomeAnalysisResultsTable.c.phenotypeGroup,
-            schema.GenomeAnalysisResultsTable.c.phenotypeDescription,
-            func.jsonb_array_length(schema.GenomeAnalysisResultsTable.c.snps).label('totalCount'),
-        ).where(
-            schema.GenomeAnalysisResultsTable.c.genomeAnalysisId == genomeAnalysisId
+        # Query to get category metadata with SNP counts
+        query = (
+            select(
+                schema.GenomeAnalysisResultsTable.c.resultId,
+                schema.GenomeAnalysisResultsTable.c.category,
+                schema.GenomeAnalysisResultsTable.c.categoryDescription,
+                func.count(schema.GenomeAnalysisSnpsTable.c.snpResultId).label('totalCount'),
+            )
+            .select_from(schema.GenomeAnalysisResultsTable.outerjoin(schema.GenomeAnalysisSnpsTable, schema.GenomeAnalysisResultsTable.c.resultId == schema.GenomeAnalysisSnpsTable.c.resultId))
+            .where(schema.GenomeAnalysisResultsTable.c.genomeAnalysisId == genomeAnalysisId)
+            .group_by(
+                schema.GenomeAnalysisResultsTable.c.resultId,
+                schema.GenomeAnalysisResultsTable.c.category,
+                schema.GenomeAnalysisResultsTable.c.categoryDescription,
+            )
         )
 
         result = await self.database.execute(query=query)
@@ -292,8 +303,8 @@ class AppManager:
         for row in rows:
             categoryGroup = resources.GenomeAnalysisCategoryGroup(
                 genomeAnalysisResultId=row['resultId'],
-                phenotypeGroup=row['phenotypeGroup'],
-                phenotypeDescription=row['phenotypeDescription'],
+                category=row['category'],
+                categoryDescription=row['categoryDescription'],
                 totalCount=row['totalCount'],
                 topSnps=[],  # Empty - frontend loads SNPs when category is opened
             )
@@ -314,35 +325,96 @@ class AppManager:
 
     async def list_category_snps(self, genomeAnalysisId: str, genomeAnalysisResultId: str, offset: int = 0, limit: int = 20, minImportanceScore: float | None = None) -> resources.CategorySnpsPage:  # noqa: ARG002
         """Get paginated SNPs for a specific category."""
-        # Get result from database
+        # Get category result from database
         dbResult = await schema.GenomeAnalysisResultsRepository.get(
             database=self.database,
             idValue=genomeAnalysisResultId,
         )
 
-        # Convert JSON SNPs back to SNP resources
-        snps = [resources.SNP.model_validate(snpDict) for snpDict in dbResult.snps]
+        # Build query for SNPs
+        query = select(schema.GenomeAnalysisSnpsTable).where(schema.GenomeAnalysisSnpsTable.c.resultId == genomeAnalysisResultId)
 
         # Filter by minimum importance score if specified
         if minImportanceScore is not None:
-            snps = [snp for snp in snps if snp.importanceScore and snp.importanceScore >= minImportanceScore]
+            query = query.where(schema.GenomeAnalysisSnpsTable.c.importanceScore >= minImportanceScore)
 
-        # Sort by risk priority, then importance score (highest first)
-        snps = sorted(snps, key=lambda x: (self._get_risk_priority(x), x.importanceScore or 0), reverse=True)
+        # Order by importance score (highest first)
+        query = query.order_by(schema.GenomeAnalysisSnpsTable.c.importanceScore.desc())
 
-        totalCount = len(snps)
+        # Get total count
+        countQuery = select(func.count()).select_from(query.subquery())
+        countResult = await self.database.execute(query=countQuery)
+        totalCount = countResult.scalar() or 0
 
         # Apply pagination
-        paginatedSnps = snps[offset : offset + limit]
+        query = query.offset(offset).limit(limit)
+
+        # Execute query
+        result = await self.database.execute(query=query)
+        dbSnps = []
+        for row in result.mappings():
+            dbSnp = model.GenomeAnalysisSnp(
+                snpResultId=row['snp_result_id'],
+                resultId=row['result_id'],
+                genomeAnalysisId=row['genome_analysis_id'],
+                rsid=row['rsid'],
+                genotype=row['genotype'],
+                chromosome=row['chromosome'],
+                position=row['position'],
+                trait=row['trait'],
+                importanceScore=row['importance_score'],
+                pValue=row['p_value'],
+                riskAllele=row['risk_allele'],
+                oddsRatio=row['odds_ratio'],
+                riskAlleleFrequency=row['risk_allele_frequency'],
+                userHasRiskAllele=row['user_has_risk_allele'],
+                clinvarCondition=row['clinvar_condition'],
+                clinvarSignificance=row['clinvar_significance'],
+                studyDescription=row['study_description'],
+                pubmedId=row['pubmed_id'],
+                annotation=row['annotation'],
+                createdDate=row['created_date'],
+                updatedDate=row['updated_date'],
+            )
+            dbSnps.append(dbSnp)
+
+        # Convert to SNP resources
+        snps = []
+        for dbSnp in dbSnps:
+            snp = resources.SNP(
+                rsid=dbSnp.rsid,
+                genotype=dbSnp.genotype,
+                chromosome=dbSnp.chromosome or '',
+                position=dbSnp.position or 0,
+                annotation=dbSnp.annotation or '',
+                confidence='Unknown',
+                sources=['GWAS Catalog', 'ClinVar'] if dbSnp.clinvarCondition else ['GWAS Catalog'],
+                trait=dbSnp.trait,
+                importanceScore=dbSnp.importanceScore,
+                pValue=dbSnp.pValue,
+                effectStrength=None,
+                riskAllele=dbSnp.riskAllele,
+                clinvarCondition=dbSnp.clinvarCondition,
+                clinvarSignificance=dbSnp.clinvarSignificance,
+                manualCategory=dbResult.category,
+                oddsRatio=dbSnp.oddsRatio,
+                riskAlleleFrequency=dbSnp.riskAlleleFrequency,
+                studyDescription=dbSnp.studyDescription,
+                userHasRiskAllele=dbSnp.userHasRiskAllele,
+                riskLevel=None,
+                pubmedId=dbSnp.pubmedId,
+            )
+            snp.riskLevel = self._get_risk_level(snp)
+            snps.append(snp)
 
         return resources.CategorySnpsPage(
             genomeAnalysisResultId=dbResult.resultId,
-            phenotypeGroup=dbResult.phenotypeGroup,
-            phenotypeDescription=dbResult.phenotypeDescription,
+            category=dbResult.category,
+            categoryDescription=dbResult.categoryDescription,
             totalCount=totalCount,
             offset=offset,
             limit=limit,
-            snps=paginatedSnps,
+            snps=snps,
         )
 
     async def get_genome_analysis_result(self, genomeAnalysisId: str, genomeAnalysisResultId: str) -> resources.GenomeAnalysisResult:  # noqa: ARG002
@@ -352,14 +424,71 @@ class AppManager:
             idValue=genomeAnalysisResultId,
         )
 
-        # Convert JSON SNPs back to SNP resources
-        snps = [resources.SNP.model_validate(snpDict) for snpDict in dbResult.snps]
+        # Get all SNPs for this result
+        query = select(schema.GenomeAnalysisSnpsTable).where(schema.GenomeAnalysisSnpsTable.c.resultId == genomeAnalysisResultId).order_by(schema.GenomeAnalysisSnpsTable.c.importanceScore.desc())
+
+        result = await self.database.execute(query=query)
+        dbSnps = []
+        for row in result.mappings():
+            dbSnp = model.GenomeAnalysisSnp(
+                snpResultId=row['snp_result_id'],
+                resultId=row['result_id'],
+                genomeAnalysisId=row['genome_analysis_id'],
+                rsid=row['rsid'],
+                genotype=row['genotype'],
+                chromosome=row['chromosome'],
+                position=row['position'],
+                trait=row['trait'],
+                importanceScore=row['importance_score'],
+                pValue=row['p_value'],
+                riskAllele=row['risk_allele'],
+                oddsRatio=row['odds_ratio'],
+                riskAlleleFrequency=row['risk_allele_frequency'],
+                userHasRiskAllele=row['user_has_risk_allele'],
+                clinvarCondition=row['clinvar_condition'],
+                clinvarSignificance=row['clinvar_significance'],
+                studyDescription=row['study_description'],
+                pubmedId=row['pubmed_id'],
+                annotation=row['annotation'],
+                createdDate=row['created_date'],
+                updatedDate=row['updated_date'],
+            )
+            dbSnps.append(dbSnp)
+
+        # Convert to SNP resources
+        snps = []
+        for dbSnp in dbSnps:
+            snp = resources.SNP(
+                rsid=dbSnp.rsid,
+                genotype=dbSnp.genotype,
+                chromosome=dbSnp.chromosome or '',
+                position=dbSnp.position or 0,
+                annotation=dbSnp.annotation or '',
+                confidence='Unknown',
+                sources=['GWAS Catalog', 'ClinVar'] if dbSnp.clinvarCondition else ['GWAS Catalog'],
+                trait=dbSnp.trait,
+                importanceScore=dbSnp.importanceScore,
+                pValue=dbSnp.pValue,
+                effectStrength=None,
+                riskAllele=dbSnp.riskAllele,
+                clinvarCondition=dbSnp.clinvarCondition,
+                clinvarSignificance=dbSnp.clinvarSignificance,
+                manualCategory=dbResult.category,
+                oddsRatio=dbSnp.oddsRatio,
+                riskAlleleFrequency=dbSnp.riskAlleleFrequency,
+                studyDescription=dbSnp.studyDescription,
+                userHasRiskAllele=dbSnp.userHasRiskAllele,
+                riskLevel=None,
+                pubmedId=dbSnp.pubmedId,
+            )
+            snp.riskLevel = self._get_risk_level(snp)
+            snps.append(snp)
 
         return resources.GenomeAnalysisResult(
             genomeAnalysisResultId=dbResult.resultId,
             genomeAnalysisId=dbResult.genomeAnalysisId,
-            phenotypeGroup=dbResult.phenotypeGroup,
-            phenotypeDescription=dbResult.phenotypeDescription,
+            category=dbResult.category,
+            categoryDescription=dbResult.categoryDescription,
             snps=snps,
         )
 
@@ -436,3 +565,107 @@ class AppManager:
         }
 
         return riskPriorities.get(riskLevel, 0)
+
+    async def analyze_category(self, genomeAnalysisId: str, genomeAnalysisResultId: str, useCache: bool = True) -> resources.CategoryAnalysis:
+        """Analyze a category using AI and research papers.
+
+        Args:
+            genomeAnalysisId: ID of the genome analysis
+            genomeAnalysisResultId: ID of the category to analyze
+            useCache: Whether to use cached analysis if available (default: True)
+
+        Returns:
+            CategoryAnalysis with AI-generated insights
+        """
+        import uuid
+
+        from longevity.category_analyzer import CategoryAnalyzer
+        from longevity.gemini_client import GeminiClient
+        from longevity.pubmed_client import PubMedClient
+
+        # Check cache first
+        if useCache:
+            async with self.database.create_transaction() as connection:
+                cachedAnalyses = await schema.CategoryAnalysesRepository.list_many(
+                    database=self.database,
+                    connection=connection,
+                    fieldFilters=[
+                        StringFieldFilter(fieldName='genomeAnalysisId', eq=genomeAnalysisId),
+                        StringFieldFilter(fieldName='resultId', eq=genomeAnalysisResultId),
+                    ],
+                )
+                if cachedAnalyses:
+                    cached = cachedAnalyses[0]
+                    logging.info(f'Using cached analysis for {genomeAnalysisId}/{genomeAnalysisResultId}')
+                    return resources.CategoryAnalysis(
+                        category=cached.category,
+                        categoryDescription=cached.categoryDescription or '',
+                        analysis=cached.analysis,
+                        papersUsed=[resources.PaperReference(**paper) for paper in cached.papersUsed],
+                        snpsAnalyzed=cached.snpsAnalyzed,
+                    )
+
+        # Get all SNPs for this category
+        categorySnpsPage = await self.list_category_snps(
+            genomeAnalysisId=genomeAnalysisId,
+            genomeAnalysisResultId=genomeAnalysisResultId,
+            offset=0,
+            limit=100,  # Get more SNPs for better analysis
+            minImportanceScore=None,
+        )
+
+        # Convert resources.SNP to dict for analyzer
+        snps = [
+            {
+                'rsid': snp.rsid,
+                'genotype': snp.genotype,
+                'trait': snp.trait,
+                'importanceScore': snp.importanceScore,
+                'pValue': snp.pValue,
+                'riskAllele': snp.riskAllele,
+                'oddsRatio': snp.oddsRatio,
+                'riskAlleleFrequency': snp.riskAlleleFrequency,
+                'userHasRiskAllele': snp.userHasRiskAllele,
+                'riskLevel': snp.riskLevel,
+                'pubmedId': getattr(snp, 'pubmedId', None),
+            }
+            for snp in categorySnpsPage.snps
+        ]
+
+        # Initialize clients
+        pubmedClient = PubMedClient(database=self.database, requester=self.requester)
+        geminiClient = GeminiClient()
+
+        # Analyze
+        analyzer = CategoryAnalyzer(pubmed_client=pubmedClient, gemini_client=geminiClient)
+        analysisResult = await analyzer.analyze_category(
+            category=categorySnpsPage.category,
+            category_description=categorySnpsPage.categoryDescription,
+            snps=snps,
+        )
+
+        # Convert to resource model
+        papersUsed = [resources.PaperReference(**paper) for paper in analysisResult['papersUsed']]
+
+        # Save to cache
+        analysisId = str(uuid.uuid4())
+        await schema.CategoryAnalysesRepository.create(
+            database=self.database,
+            analysisId=analysisId,
+            genomeAnalysisId=genomeAnalysisId,
+            resultId=genomeAnalysisResultId,
+            category=analysisResult['category'],
+            categoryDescription=analysisResult['categoryDescription'],
+            analysis=analysisResult['analysis'],
+            papersUsed=analysisResult['papersUsed'],
+            snpsAnalyzed=analysisResult['snpsAnalyzed'],
+        )
+        logging.info(f'Saved analysis to cache: {analysisId}')
+
+        return resources.CategoryAnalysis(
+            category=analysisResult['category'],
+            categoryDescription=analysisResult['categoryDescription'],
+            analysis=analysisResult['analysis'],
+            papersUsed=papersUsed,
+            snpsAnalyzed=analysisResult['snpsAnalyzed'],
+        )

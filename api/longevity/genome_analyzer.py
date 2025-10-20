@@ -9,7 +9,9 @@ from core.store.retriever import StringFieldFilter
 from core.util import list_util
 
 from longevity import model
+from longevity.manual_categories import get_manual_category
 from longevity.store import schema
+from longevity.manual_categories import MANUAL_CATEGORIES
 
 # ClinVar significance scoring (higher = more clinically important)
 CLINVAR_SIGNIFICANCE_SCORES = {
@@ -332,6 +334,9 @@ class GenomeAnalyzer:
                 risk_allele = assoc.effectAllele or ''
                 user_has_risk_allele = True if (risk_allele and genotype not in ['--', '']) else None
 
+                # Get manual category if available (trait-specific to handle pleiotropic SNPs)
+                manual_category = get_manual_category(rsid=rsid, trait=assoc.trait)
+
                 scored_associations.append(
                     model.GenomeAssociation(
                         rsid=rsid,
@@ -346,9 +351,11 @@ class GenomeAnalyzer:
                         clinvarCondition=clinvar_info.submissions[0].condition if clinvar_info and clinvar_info.submissions else None,
                         clinvarSignificance=clinvar_info.maxSignificanceScore if clinvar_info else None,
                         traitCategory=assoc.traitCategory or 'Other',
+                        manualCategory=manual_category,
                         oddsRatio=odds_ratio,
                         riskAlleleFrequency=risk_allele_freq,
                         studyDescription=assoc.studyDescription,
+                        pubmedId=assoc.pubmedId,
                         userHasRiskAllele=user_has_risk_allele,
                     )
                 )
@@ -372,6 +379,8 @@ class GenomeAnalyzer:
 
     async def analyze_genome(self, genomeContent: str) -> model.GenomeAnalysisResult:
         analysis_start = time.time()
+        manual_rsids = set(rsid for rsid, _ in MANUAL_CATEGORIES.keys())
+        logging.info(f'Manual categories contain {len(manual_rsids)} unique RSIDs to match')
         logging.info('=' * 80)
         logging.info('STARTING GENOME ANALYSIS')
         logging.info('=' * 80)
@@ -416,7 +425,10 @@ class GenomeAnalyzer:
 
         parse_time = time.time() - parse_start
         logging.info(f'✓ Genome parsing completed: {len(userSnps)} SNPs parsed in {parse_time:.2f}s')
-        logging.info(f'Genome parsing completed: {len(userSnps)} SNPs parsed in {parse_time:.2f}s')
+
+        # Filter to only SNPs we care about (those in manual categories)
+        filtered_snps = {rsid: snp for rsid, snp in userSnps.items() if rsid in manual_rsids}
+        logging.info(f'✓ Filtered to {len(filtered_snps)} SNPs that match manual categories (from {len(userSnps)} total)')
 
         # Process SNPs in batches
         batch_processing_start = time.time()
@@ -424,10 +436,9 @@ class GenomeAnalyzer:
         clinvarCount = 0
         scoredAssociations = []
 
-        chunks = list(list_util.generate_chunks(list(userSnps.values()), chunkSize=self.batch_size))
+        chunks = list(list_util.generate_chunks(list(filtered_snps.values()), chunkSize=self.batch_size))
         total_batches = len(chunks)
-        logging.info(f'Processing {len(userSnps)} SNPs in {total_batches} batches of {self.batch_size}')
-        logging.info(f'Processing {len(userSnps)} SNPs in {total_batches} batches of {self.batch_size}')
+        logging.info(f'Processing {len(filtered_snps)} filtered SNPs in {total_batches} batches of {self.batch_size}')
 
         for batch_num, snp_data_chunk in enumerate(chunks, 1):
             batch_start = time.time()
@@ -457,7 +468,7 @@ class GenomeAnalyzer:
 
         result = model.GenomeAnalysisResult(
             summary=model.GenomeAnalysisSummary(
-                totalSnps=len(userSnps),
+                totalSnps=len(userSnps),  # Keep original total
                 matchedSnps=matchedSnpsCount,
                 totalAssociations=len(scoredAssociations),
                 clinvarCount=clinvarCount,

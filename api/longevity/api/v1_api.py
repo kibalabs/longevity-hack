@@ -71,6 +71,11 @@ def create_v1_routes(appManager: AppManager, database: Database, resourceBuilder
         genomeAnalysisId = await appManager.get_example_analysis_id()
         return endpoints.GetExampleAnalysisIdResponse(genomeAnalysisId=genomeAnalysisId)
 
+    @json_route(requestType=endpoints.AnalyzeCategoryRequest, responseType=endpoints.AnalyzeCategoryResponse)
+    async def analyze_category(request: KibaApiRequest[endpoints.AnalyzeCategoryRequest]) -> endpoints.AnalyzeCategoryResponse:
+        categoryAnalysis = await appManager.analyze_category(genomeAnalysisId=request.data.genomeAnalysisId, genomeAnalysisResultId=request.data.genomeAnalysisResultId)
+        return endpoints.AnalyzeCategoryResponse(categoryAnalysis=categoryAnalysis)
+
     async def upload_genome_file(request: Request) -> JSONResponse:
         """Handle multipart file upload for genome analysis."""
         genomeAnalysisId = request.path_params['genomeAnalysisId']
@@ -107,5 +112,6 @@ def create_v1_routes(appManager: AppManager, database: Database, resourceBuilder
         Route('/genome-analyses/{genomeAnalysisId}/overview', get_genome_analysis_overview, methods=['GET']),
         Route('/genome-analyses/{genomeAnalysisId}/results/{genomeAnalysisResultId}/snps', list_category_snps, methods=['GET']),
         Route('/genome-analyses/{genomeAnalysisId}/results/{genomeAnalysisResultId}', get_genome_analysis_result, methods=['GET']),
+        Route('/genome-analyses/{genomeAnalysisId}/results/{genomeAnalysisResultId}/analyze', analyze_category, methods=['POST']),
         Route('/example-analysis', get_example_analysis_id, methods=['GET']),
     ]

@@ -66,8 +66,8 @@ export class GenomeAnalysisResult {
   public constructor(
     readonly genomeAnalysisResultId: string,
     readonly genomeAnalysisId: string,
-    readonly phenotypeGroup: string,
-    readonly phenotypeDescription: string,
+    readonly category: string,
+    readonly categoryDescription: string,
     readonly snps: SNP[],
   ) { }
 
@@ -75,8 +75,8 @@ export class GenomeAnalysisResult {
     return new GenomeAnalysisResult(
       String(obj.genomeAnalysisResultId),
       String(obj.genomeAnalysisId),
-      String(obj.phenotypeGroup),
-      String(obj.phenotypeDescription),
+      String(obj.category),
+      String(obj.categoryDescription),
       ((obj.snps || []) as RawObject[]).map(SNP.fromObject),
     );
   };
@@ -85,8 +85,8 @@ export class GenomeAnalysisResult {
 export class GenomeAnalysisCategoryGroup {
   public constructor(
     readonly genomeAnalysisResultId: string,
-    readonly phenotypeGroup: string,
-    readonly phenotypeDescription: string,
+    readonly category: string,
+    readonly categoryDescription: string,
     readonly totalCount: number,
     readonly topSnps: SNP[],
   ) { }
@@ -94,8 +94,8 @@ export class GenomeAnalysisCategoryGroup {
   public static fromObject = (obj: RawObject): GenomeAnalysisCategoryGroup => {
     return new GenomeAnalysisCategoryGroup(
       String(obj.genomeAnalysisResultId),
-      String(obj.phenotypeGroup),
-      String(obj.phenotypeDescription),
+      String(obj.category),
+      String(obj.categoryDescription),
       Number(obj.totalCount),
       ((obj.topSnps || []) as RawObject[]).map(SNP.fromObject),
     );
@@ -139,8 +139,8 @@ export class GenomeAnalysisOverview {
 export class CategorySnpsPage {
   public constructor(
     readonly genomeAnalysisResultId: string,
-    readonly phenotypeGroup: string,
-    readonly phenotypeDescription: string,
+    readonly category: string,
+    readonly categoryDescription: string,
     readonly totalCount: number,
     readonly offset: number,
     readonly limit: number,
@@ -150,8 +150,8 @@ export class CategorySnpsPage {
   public static fromObject = (obj: RawObject): CategorySnpsPage => {
     return new CategorySnpsPage(
       String(obj.genomeAnalysisResultId),
-      String(obj.phenotypeGroup),
-      String(obj.phenotypeDescription),
+      String(obj.category),
+      String(obj.categoryDescription),
       Number(obj.totalCount),
       Number(obj.offset),
       Number(obj.limit),
@@ -202,6 +202,48 @@ export class GenomeAnalysis {
       String(obj.status),
       String(obj.createdDate),
       obj.summary ? GenomeAnalysisSummary.fromObject(obj.summary as RawObject) : null,
+    );
+  };
+}
+
+export class PaperReference {
+  public constructor(
+    readonly pubmedId: string,
+    readonly title: string | null,
+    readonly authors: string | null,
+    readonly journal: string | null,
+    readonly year: string | null,
+    readonly abstract: string | null,
+  ) { }
+
+  public static fromObject = (obj: RawObject): PaperReference => {
+    return new PaperReference(
+      String(obj.pubmedId),
+      obj.title ? String(obj.title) : null,
+      obj.authors ? String(obj.authors) : null,
+      obj.journal ? String(obj.journal) : null,
+      obj.year ? String(obj.year) : null,
+      obj.abstract ? String(obj.abstract) : null,
+    );
+  };
+}
+
+export class CategoryAnalysis {
+  public constructor(
+    readonly category: string,
+    readonly categoryDescription: string,
+    readonly analysis: string,
+    readonly papersUsed: PaperReference[],
+    readonly snpsAnalyzed: number,
+  ) { }
+
+  public static fromObject = (obj: RawObject): CategoryAnalysis => {
+    return new CategoryAnalysis(
+      String(obj.category),
+      String(obj.categoryDescription),
+      String(obj.analysis),
+      ((obj.papersUsed || []) as RawObject[]).map(PaperReference.fromObject),
+      Number(obj.snpsAnalyzed),
     );
   };
 }
