@@ -1,7 +1,5 @@
 # Application constants
-# Add your constants here as needed
 
-# Example constants:
-# API_VERSION = "1.0.0"
-# DEFAULT_TIMEOUT = 30
-# MAX_RETRY_ATTEMPTS = 3
+# Example genome analysis ID used for demo/testing purposes
+# Update this ID if you recreate the example analysis
+EXAMPLE_ANALYSIS_ID = '9069bc08-a629-401c-93ae-9fc842253100'

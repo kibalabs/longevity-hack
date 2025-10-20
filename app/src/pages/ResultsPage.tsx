@@ -38,6 +38,17 @@ export function ResultsPage(): React.ReactElement {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Auto-load SNPs when a category is expanded for the first time
+  React.useEffect((): void => {
+    expandedGroups.forEach((groupId): void => {
+      const data = categorySnpsData.get(groupId);
+      // If expanded but no data exists yet, and not currently loading, trigger load
+      if (data && data.snps.length === 0 && !data.isLoading && data.hasMore) {
+        void loadMore(groupId);
+      }
+    });
+  }, [expandedGroups, categorySnpsData]);
+
   const sortSnps = (snps: Resources.SNP[]): Resources.SNP[] => {
     return [...snps].sort((a, b) => {
       const priorityA = getRiskPriority(a.riskLevel);
@@ -62,14 +73,14 @@ export function ResultsPage(): React.ReactElement {
         newSet.delete(groupId);
       } else {
         newSet.add(groupId);
-        // Initialize with top 5 SNPs if not already loaded
+        // Initialize category data if not already present
         if (!categorySnpsData.has(groupId)) {
           setCategorySnpsData((prevData): Map<string, CategorySnpsData> => {
             const newMap = new Map(prevData);
             newMap.set(groupId, {
-              snps: sortSnps(group.topSnps),
+              snps: [],
               totalCount: group.totalCount,
-              hasMore: group.totalCount > 5,
+              hasMore: group.totalCount > 0,
               isLoading: false,
             });
             return newMap;
@@ -84,7 +95,10 @@ export function ResultsPage(): React.ReactElement {
     if (!genomeAnalysisId) return;
 
     const currentData = categorySnpsData.get(genomeAnalysisResultId);
-    if (!currentData || currentData.isLoading) return;
+    if (!currentData) return;
+
+    // If already loading, don't start another request
+    if (currentData.isLoading) return;
 
     // Set loading state
     setCategorySnpsData((prev): Map<string, CategorySnpsData> => {
@@ -393,7 +407,7 @@ export function ResultsPage(): React.ReactElement {
                             }
                           }}
                         >
-                          {loadedData?.isLoading ? 'Loading...' : `Load More (${Math.min(20, group.totalCount - displaySnps.length)} of ${group.totalCount - displaySnps.length} remaining)`}
+                          {loadedData?.isLoading ? 'Loading...' : `Load More`}
                         </button>
                       </div>
                     )}

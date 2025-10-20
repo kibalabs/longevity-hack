@@ -1,3 +1,6 @@
+import logging
+import time
+
 from core.api.api_request import KibaApiRequest
 from core.api.json_route import json_route
 from core.store.database import Database
@@ -37,7 +40,14 @@ def create_v1_routes(appManager: AppManager, database: Database, resourceBuilder
 
     @json_route(requestType=endpoints.GetGenomeAnalysisOverviewRequest, responseType=endpoints.GetGenomeAnalysisOverviewResponse)
     async def get_genome_analysis_overview(request: KibaApiRequest[endpoints.GetGenomeAnalysisOverviewRequest]) -> endpoints.GetGenomeAnalysisOverviewResponse:
+        startTime = time.time()
+        logging.info(f'[PERF] API get_genome_analysis_overview started for {request.data.genomeAnalysisId}')
+
         overview = await appManager.get_genome_analysis_overview(genomeAnalysisId=request.data.genomeAnalysisId)
+
+        totalTime = time.time() - startTime
+        logging.info(f'[PERF] API get_genome_analysis_overview completed in {totalTime:.2f}s')
+
         return endpoints.GetGenomeAnalysisOverviewResponse(overview=overview)
 
     @json_route(requestType=endpoints.ListCategorySnpsRequest, responseType=endpoints.ListCategorySnpsResponse)

@@ -38,13 +38,13 @@ class GenomeAnalysisResult(BaseModel):
 
 
 class GenomeAnalysisCategoryGroup(BaseModel):
-    """A category group with basic info and top SNPs."""
+    """A category group with basic info. SNPs are loaded on-demand by frontend."""
 
     genomeAnalysisResultId: str
     phenotypeGroup: str
     phenotypeDescription: str
     totalCount: int  # Total number of SNPs in this category
-    topSnps: list[SNP]  # Top 5 SNPs by importance
+    topSnps: list[SNP] = []  # Empty in overview, frontend loads on-demand when category opens
 
 
 class GenomeAnalysisSummary(BaseModel):

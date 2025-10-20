@@ -1,6 +1,12 @@
+import logging
+import time
 import uuid
 from collections import defaultdict
 from pathlib import Path
+from typing import Any
+
+from sqlalchemy import func, select
+from starlette.datastructures import UploadFile
 
 from core.exceptions import NotFoundException
 from core.queues.message_queue import MessageQueue
@@ -8,16 +14,13 @@ from core.requester import Requester
 from core.store.database import Database
 from core.util import date_util
 from core.util import file_util
-from starlette.datastructures import UploadFile
-
 from longevity import model
 from longevity.api import v1_resources as resources
+from longevity.constants import EXAMPLE_ANALYSIS_ID
 from longevity.genome_analyzer import GenomeAnalyzer
 from longevity.messages import AnalyzeGenomeMessageContent
 from longevity.store import schema
 from longevity.store.entity_repository import StringFieldFilter
-
-EXAMPLE_ANALYSIS_ID = 'example-analysis-123'
 
 
 class AppManager:
@@ -30,14 +33,22 @@ class AppManager:
         self.uploadsDir.mkdir(parents=True, exist_ok=True)
         self.outputsDir.mkdir(parents=True, exist_ok=True)
         self.genomeAnalyzer = GenomeAnalyzer(database=self.database)
-        self._create_example_analysis()
 
-    async def create_genome_analysis(self, fileName: str, fileType: str) -> resources.GenomeAnalysis:
-        genomeAnalysisId = str(uuid.uuid4())
+    async def create_genome_analysis(self, fileName: str, fileType: str, genomeAnalysisId: str | None = None, userId: str = 'anonymous') -> resources.GenomeAnalysis:
+        """Create a genome analysis record.
+
+        Args:
+            fileName: Name of the genome file
+            fileType: Type of the file (e.g., 'text/plain')
+            genomeAnalysisId: Optional specific ID (for example analysis). If None, generates UUID.
+            userId: User ID (default: 'anonymous')
+        """
+        if genomeAnalysisId is None:
+            genomeAnalysisId = str(uuid.uuid4())
         dbGenomeAnalysis = await schema.GenomeAnalysesRepository.create(
             database=self.database,
             genomeAnalysisId=genomeAnalysisId,
-            userId='anonymous',
+            userId=userId,
             fileName=fileName,
             status='waiting_for_upload',
             totalSnps=None,
@@ -219,11 +230,17 @@ class AppManager:
                 )
 
     async def get_genome_analysis(self, genomeAnalysisId: str) -> resources.GenomeAnalysis:
+        startTime = time.time()
+        logging.info(f'[PERF] get_genome_analysis started for {genomeAnalysisId}')
+
         # Get from database
         dbGenomeAnalysis = await schema.GenomeAnalysesRepository.get(
             database=self.database,
             idValue=genomeAnalysisId,
         )
+
+        logging.info(f'[PERF] get_genome_analysis completed in {time.time() - startTime:.2f}s')
+
         # Convert to resource
         return resources.GenomeAnalysis(
             genomeAnalysisId=dbGenomeAnalysis.genomeAnalysisId,
@@ -243,36 +260,51 @@ class AppManager:
         )
 
     async def get_genome_analysis_overview(self, genomeAnalysisId: str) -> resources.GenomeAnalysisOverview:
-        """Get overview of genome analysis with all categories and top 5 SNPs per category."""
-        # Get genome analysis from database
-        genomeAnalysis = await self.get_genome_analysis(genomeAnalysisId)
+        """Get overview of genome analysis with all categories (no SNPs - loaded on demand)."""
+        startTime = time.time()
+        logging.info(f'[PERF] get_genome_analysis_overview started for {genomeAnalysisId}')
 
-        # Get results from database
-        dbResults = await schema.GenomeAnalysisResultsRepository.list_many(
-            database=self.database,
-            fieldFilters=[StringFieldFilter(fieldName='genomeAnalysisId', eq=genomeAnalysisId)],
+        # Get genome analysis from database
+        stepStart = time.time()
+        genomeAnalysis = await self.get_genome_analysis(genomeAnalysisId)
+        logging.info(f'[PERF] get_genome_analysis took {time.time() - stepStart:.2f}s')
+
+        # Fetch only metadata for all categories (no SNPs for fast loading)
+        stepStart = time.time()
+
+        # Query to get just the category metadata
+        query = select(
+            schema.GenomeAnalysisResultsTable.c.resultId,
+            schema.GenomeAnalysisResultsTable.c.phenotypeGroup,
+            schema.GenomeAnalysisResultsTable.c.phenotypeDescription,
+            func.jsonb_array_length(schema.GenomeAnalysisResultsTable.c.snps).label('totalCount'),
+        ).where(
+            schema.GenomeAnalysisResultsTable.c.genomeAnalysisId == genomeAnalysisId
         )
 
-        # Convert database results to resources
+        result = await self.database.execute(query=query)
+        rows = result.mappings().all()
+        logging.info(f'[PERF] Fetched {len(rows)} categories with metadata in {time.time() - stepStart:.2f}s')
+
+        # Build category groups (no SNPs - frontend will load them on demand)
+        stepStart = time.time()
         categoryGroups = []
-        for dbResult in dbResults:
-            # Convert JSON SNPs back to SNP resources
-            snps = [resources.SNP.model_validate(snpDict) for snpDict in dbResult.snps]
-
-            # Sort SNPs by risk priority, then importance score
-            sortedSnps = sorted(snps, key=lambda x: (self._get_risk_priority(x), x.importanceScore or 0), reverse=True)
-
+        for row in rows:
             categoryGroup = resources.GenomeAnalysisCategoryGroup(
-                genomeAnalysisResultId=dbResult.resultId,
-                phenotypeGroup=dbResult.phenotypeGroup,
-                phenotypeDescription=dbResult.phenotypeDescription,
-                totalCount=len(snps),
-                topSnps=sortedSnps[:5],  # Top 5 SNPs
+                genomeAnalysisResultId=row['resultId'],
+                phenotypeGroup=row['phenotypeGroup'],
+                phenotypeDescription=row['phenotypeDescription'],
+                totalCount=row['totalCount'],
+                topSnps=[],  # Empty - frontend loads SNPs when category is opened
             )
             categoryGroups.append(categoryGroup)
 
         # Sort category groups by total count (descending)
         categoryGroups = sorted(categoryGroups, key=lambda x: x.totalCount, reverse=True)
+        logging.info(f'[PERF] Built and sorted {len(categoryGroups)} category groups in {time.time() - stepStart:.2f}s')
+
+        totalTime = time.time() - startTime
+        logging.info(f'[PERF] get_genome_analysis_overview completed in {totalTime:.2f}s')
 
         return resources.GenomeAnalysisOverview(
             genomeAnalysisId=genomeAnalysisId,
@@ -331,247 +363,22 @@ class AppManager:
             snps=snps,
         )
 
-    def _create_mock_results(self, genomeAnalysisId: str, fileName: str, fileType: str) -> None:  # noqa: ARG002
-        # Mock SNP data for different phenotype groups
-        drugResponseSnps = [
-            resources.SNP(
-                rsid='rs1801133',
-                genotype='CT',
-                chromosome='1',
-                position=11856378,
-                annotation='MTHFR gene - associated with folate metabolism and methotrexate response',
-                confidence='High (replicated in multiple studies)',
-                sources=['dbSNP', 'ClinVar', 'GWAS Catalog'],
-            ),
-            resources.SNP(
-                rsid='rs4680',
-                genotype='AG',
-                chromosome='22',
-                position=19963748,
-                annotation='COMT gene - affects dopamine breakdown, linked to stress response and pain medication efficacy',
-                confidence='High (well-established)',
-                sources=['dbSNP', 'PharmGKB', 'GWAS Catalog'],
-            ),
-            resources.SNP(
-                rsid='rs1051740',
-                genotype='TT',
-                chromosome='11',
-                position=67584651,
-                annotation='CYP2A6 gene - nicotine metabolism and smoking cessation drug response',
-                confidence='High (validated in clinical trials)',
-                sources=['dbSNP', 'PharmGKB'],
-            ),
-            resources.SNP(
-                rsid='rs1799853',
-                genotype='GG',
-                chromosome='10',
-                position=96702047,
-                annotation='CYP2C9 gene - warfarin metabolism and dosing requirements',
-                confidence='Very High (FDA recognized)',
-                sources=['dbSNP', 'PharmGKB', 'ClinVar'],
-            ),
-            resources.SNP(
-                rsid='rs4149056',
-                genotype='TT',
-                chromosome='12',
-                position=21331549,
-                annotation='SLCO1B1 gene - statin-induced myopathy risk',
-                confidence='High (clinical guideline available)',
-                sources=['dbSNP', 'PharmGKB', 'CPIC'],
-            ),
-        ]
+    async def delete_genome_analysis(self, genomeAnalysisId: str) -> None:
+        """Delete a genome analysis and all its results.
 
-        sleepSnps = [
-            resources.SNP(
-                rsid='rs73598374',
-                genotype='AA',
-                chromosome='2',
-                position=48950954,
-                annotation='ABCG2 gene - slow caffeine metabolizer, associated with caffeine sensitivity',
-                confidence='Moderate (multiple small studies)',
-                sources=['dbSNP', 'ClinVar'],
-            ),
-            resources.SNP(
-                rsid='rs2472297',
-                genotype='TT',
-                chromosome='15',
-                position=74758169,
-                annotation='CYP1A2 gene - caffeine metabolism rate',
-                confidence='High (replicated studies)',
-                sources=['dbSNP', 'GWAS Catalog'],
-            ),
-            resources.SNP(
-                rsid='rs1801260',
-                genotype='CT',
-                chromosome='4',
-                position=56305131,
-                annotation='CLOCK gene - circadian rhythm regulation, morning vs evening preference',
-                confidence='Moderate (emerging research)',
-                sources=['dbSNP', 'GWAS Catalog'],
-            ),
-            resources.SNP(
-                rsid='rs228697',
-                genotype='CC',
-                chromosome='6',
-                position=32006008,
-                annotation='ADORA2A gene - adenosine receptor affecting sleep quality and caffeine response',
-                confidence='Moderate (multiple studies)',
-                sources=['dbSNP', 'PubMed'],
-            ),
-        ]
-
-        longevitySnps = [
-            resources.SNP(
-                rsid='rs7412',
-                genotype='CC',
-                chromosome='19',
-                position=44908684,
-                annotation="APOE ε2/ε3/ε4 variants - associated with Alzheimer's risk and longevity. CC genotype indicates ε3/ε3 (most common, neutral risk)",
-                confidence='Very High (extensively studied)',
-                sources=['dbSNP', 'ClinVar', 'OMIM', 'AlzGene'],
-            ),
-            resources.SNP(
-                rsid='rs429358',
-                genotype='TT',
-                chromosome='19',
-                position=44908822,
-                annotation="APOE ε4 variant - combined with rs7412, determines APOE genotype. TT indicates no ε4 alleles (lower Alzheimer's risk)",
-                confidence='Very High (extensively studied)',
-                sources=['dbSNP', 'ClinVar', 'OMIM'],
-            ),
-            resources.SNP(
-                rsid='rs1042522',
-                genotype='GC',
-                chromosome='17',
-                position=7676154,
-                annotation='TP53 gene - tumor suppressor, associated with cancer risk and cellular aging',
-                confidence='High (well-established)',
-                sources=['dbSNP', 'ClinVar', 'COSMIC'],
-            ),
-            resources.SNP(
-                rsid='rs2802292',
-                genotype='GT',
-                chromosome='6',
-                position=31356116,
-                annotation='FOXO3 gene - associated with exceptional longevity across multiple populations',
-                confidence='High (replicated in centenarian studies)',
-                sources=['dbSNP', 'GWAS Catalog', 'PubMed'],
-            ),
-            resources.SNP(
-                rsid='rs1333049',
-                genotype='CC',
-                chromosome='9',
-                position=22125504,
-                annotation='CDKN2A/B locus - associated with cardiovascular disease and biological aging',
-                confidence='Very High (large-scale GWAS)',
-                sources=['dbSNP', 'GWAS Catalog', 'CARDIoGRAMplusC4D'],
-            ),
-        ]
-
-        cardiovascularSnps = [
-            resources.SNP(
-                rsid='rs1801252',
-                genotype='GG',
-                chromosome='5',
-                position=148826877,
-                annotation='ADRB1 gene - beta-blocker response in heart disease treatment',
-                confidence='High (pharmacogenomic studies)',
-                sources=['dbSNP', 'PharmGKB'],
-            ),
-            resources.SNP(
-                rsid='rs1799983',
-                genotype='GT',
-                chromosome='7',
-                position=150696111,
-                annotation='NOS3 gene - nitric oxide production, blood pressure regulation',
-                confidence='Moderate (association studies)',
-                sources=['dbSNP', 'GWAS Catalog'],
-            ),
-            resources.SNP(
-                rsid='rs662799',
-                genotype='AG',
-                chromosome='11',
-                position=116778201,
-                annotation='APOA5 gene - triglyceride levels and cardiovascular disease risk',
-                confidence='High (replicated studies)',
-                sources=['dbSNP', 'GWAS Catalog'],
-            ),
-        ]
-
-        metabolicSnps = [
-            resources.SNP(
-                rsid='rs9939609',
-                genotype='AT',
-                chromosome='16',
-                position=53820527,
-                annotation='FTO gene - obesity risk and metabolic rate, associated with BMI variation',
-                confidence='Very High (genome-wide significant)',
-                sources=['dbSNP', 'GWAS Catalog', 'GIANT Consortium'],
-            ),
-            resources.SNP(
-                rsid='rs7903146',
-                genotype='CT',
-                chromosome='10',
-                position=112998590,
-                annotation='TCF7L2 gene - type 2 diabetes risk, strongest common genetic risk factor',
-                confidence='Very High (extensively replicated)',
-                sources=['dbSNP', 'GWAS Catalog', 'DIAGRAM'],
-            ),
-            resources.SNP(
-                rsid='rs1801282',
-                genotype='CG',
-                chromosome='3',
-                position=12351626,
-                annotation='PPARG gene - insulin sensitivity and type 2 diabetes risk',
-                confidence='High (meta-analysis confirmed)',
-                sources=['dbSNP', 'ClinVar', 'GWAS Catalog'],
-            ),
-            resources.SNP(
-                rsid='rs780094',
-                genotype='CT',
-                chromosome='2',
-                position=27508073,
-                annotation='GCKR gene - affects glucose and lipid metabolism, fasting glucose levels',
-                confidence='High (large cohort studies)',
-                sources=['dbSNP', 'GWAS Catalog'],
-            ),
-        ]
-
-        immuneSnps = [
-            resources.SNP(
-                rsid='rs1800629',
-                genotype='GG',
-                chromosome='6',
-                position=31543031,
-                annotation='TNF gene - tumor necrosis factor production, inflammatory response',
-                confidence='Moderate (multiple associations)',
-                sources=['dbSNP', 'ClinVar'],
-            ),
-            resources.SNP(
-                rsid='rs2476601',
-                genotype='AA',
-                chromosome='1',
-                position=113834946,
-                annotation='PTPN22 gene - autoimmune disease risk (rheumatoid arthritis, type 1 diabetes)',
-                confidence='High (multiple autoimmune conditions)',
-                sources=['dbSNP', 'ClinVar', 'ImmunoBase'],
-            ),
-            resources.SNP(
-                rsid='rs3135388',
-                genotype='AA',
-                chromosome='6',
-                position=32665748,
-                annotation='HLA-DRB1 region - immune system recognition, autoimmune disease susceptibility',
-                confidence='Moderate (HLA complex)',
-                sources=['dbSNP', 'ImmunoBase'],
-            ),
-        ]
-        # Mock results are not persisted - this function is for demonstration purposes only
-
-    def _create_example_analysis(self) -> None:
-        """Create a pre-existing completed example analysis."""
-        # Note: Example analysis is created in-memory only for demo purposes
-        # In production, this should create actual database records
+        Args:
+            genomeAnalysisId: ID of the genome analysis to delete
+        """
+        # Delete all results first
+        await schema.GenomeAnalysisResultsRepository.delete(
+            database=self.database,
+            fieldFilters=[StringFieldFilter(fieldName='genomeAnalysisId', eq=genomeAnalysisId)],
+        )
+        # Delete the genome analysis
+        await schema.GenomeAnalysesRepository.delete(
+            database=self.database,
+            fieldFilters=[StringFieldFilter(fieldName='genomeAnalysisId', eq=genomeAnalysisId)],
+        )
 
     def _get_risk_level(self, snp: resources.SNP) -> str:
         """Calculate risk level for a SNP (very_high, high, moderate, slight, lower, unknown)."""

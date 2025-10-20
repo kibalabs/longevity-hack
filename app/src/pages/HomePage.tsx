@@ -45,7 +45,7 @@ export function HomePage(): React.ReactElement {
     setErrorMessage(null);
     try {
       const exampleId = await longevityClient.getExampleAnalysisId();
-      navigator.navigateTo(`/upload?id=${exampleId}`);
+      navigator.navigateTo(`/results/${exampleId}`);
     } catch (error) {
       console.error('Failed to load example:', error);
       setErrorMessage('Failed to load example. Please try again.');

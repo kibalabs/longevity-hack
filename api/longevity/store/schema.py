@@ -1,9 +1,8 @@
 import sqlalchemy
+from sqlalchemy.dialects.postgresql import JSONB
 
 from longevity import model
 from longevity.store.entity_repository import EntityRepository
-
-# from sqlalchemy.dialects import postgresql as sqlalchemy_psql
 
 
 metadata = sqlalchemy.MetaData()
@@ -82,7 +81,7 @@ GenomeAnalysisResultsTable = sqlalchemy.Table(
     sqlalchemy.Column(key='genomeAnalysisId', name='genome_analysis_id', type_=sqlalchemy.Text, nullable=False, index=True),
     sqlalchemy.Column(key='phenotypeGroup', name='phenotype_group', type_=sqlalchemy.Text, nullable=False, index=True),
     sqlalchemy.Column(key='phenotypeDescription', name='phenotype_description', type_=sqlalchemy.Text, nullable=True),
-    sqlalchemy.Column(key='snps', name='snps', type_=sqlalchemy.JSON, nullable=False),
+    sqlalchemy.Column(key='snps', name='snps', type_=JSONB, nullable=False),
     sqlalchemy.Column(key='createdDate', name='created_date', type_=sqlalchemy.DateTime, nullable=False),
     sqlalchemy.Column(key='updatedDate', name='updated_date', type_=sqlalchemy.DateTime, nullable=False),
 )
