@@ -79,9 +79,7 @@ class AppManager:
         )
         if not dbGenomeAnalysis:
             raise NotFoundException(message=f'GenomeAnalysis with id {genomeAnalysisId} not found')
-        uploadDirectory = Path('./uploads')
-        await file_util.create_directory(str(uploadDirectory))
-        uploadPath = uploadDirectory / f'{genomeAnalysisId}_{file.filename}'
+        uploadPath = self.uploadsDir / f'{genomeAnalysisId}_{file.filename}'
         content = await file.read()
         contentStr = content.decode('utf-8')
         await file_util.write_file(str(uploadPath), contentStr)
