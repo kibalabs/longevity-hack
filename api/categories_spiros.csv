@@ -1,0 +1,90 @@
+rsid,chr,pos_b38,effect_allele,other_allele,effect_description,effect_direction,odds_ratio,beta,outcome,category,pmids_or_dois
+rs429358,19,44908684,C,T,APOE ?4; higher AD risk; lower longevity,risk?,,,Alzheimer's disease,Alzheimer,10.1038/s41588-019-0358-2 snpedia.com+1
+rs7412,19,44908822,T,C,APOE ?2; lower AD risk; longer lifespan,risk?,,,Alzheimer's disease,Alzheimer,10.1038/s41588-019-0358-2 snpedia.com+1
+rs11591147,1,55039974,T,G,PCSK9 R46L loss-of-function; LDL?; CAD risk?,risk?,,,Coronary artery disease,Cardiological,10.1056/NEJMoa054013 snpedia.com
+rs12740374,1,109274968,T,G,SORT1 enhancer variant; hepatic SORT1?; LDL-C?,LDL-C?,,,LDL cholesterol,Cardiological,10.1038/nature09266 snpedia.com
+rs6511720,19,11091630,T,G,LDLR intron-1 variant; LDL?; CAD risk?,risk?,,,Coronary artery disease,Cardiological,10.1371/journal.pone.0167676;10.1016/S0021-9150(15)00631-0 PLOS+1
+rs10455872,6,160589086,G,A,LPA variant; Lp(a)?; higher CAD risk,risk?,,,Coronary artery disease,Cardiological,10.1056/NEJMoa0902604 snpedia.com
+rs12917707,16,20356368,G,T,UMOD eQTL; uromodulin?; CKD risk,risk?,,,Chronic kidney disease,Kidney Disease,10.1371/journal.pgen.1001039;10.1038/ki.2010.86 snpedia.com
+rs2107595,7,,A,G,HDAC9 regulatory variant; higher HDAC9; large-artery stroke,risk?,,,Large-artery ischemic stroke,Cardiological,10.1161/STROKEAHA.119.026112;10.1371/journal.pone.0160449 AHA Journals+1
+rs7903146,10,112998590,T,C,TCF7L2 intronic variant; insulin secretion?; T2D risk,risk?,,,Type 2 diabetes,T2D,10.1038/ng0207-121;10.2337/db06-1646 Thermo Fisher Scientific+1
+rs5219,11,17388025,T,C,KCNJ11 E23K; ?-cell KATP; T2D risk,risk?,,,Type 2 diabetes,T2D,10.1056/NEJMoa030732 snpedia.com
+rs9939609,16,53786615,A,T,FTO intronic variant; appetite/energy balance; BMI?,BMI?,,,Body mass index,Obesity_BMI,10.1126/science.1141634;10.1038/s10038-023-01141-5 snpedia.com+1
+rs2802292,6,108587315,G,T,FOXO3 longevity-linked; stress resistance; increased lifespan,Longevity?,,,Exceptional longevity,Longevity,10.1007/s11357-021-00431-0;10.1093/biomed/oqaa031
+rs1333049,9,,C,G,CDKN2A/B 9p21; atherosclerosis locus; higher CAD risk,risk?,,,Coronary artery disease,Cardiological,17478681;17460697
+rs9349379,6,,A,G,PHACTR1/EDN1; vascular tone; CAD risk,risk?,,,Coronary artery disease,Cardiological,19060906;23562506
+rs9818870,3,,T,C,MRAS locus; endothelial function; CAD risk,risk?,,,Coronary artery disease,Cardiological,17634449
+rs1746048,10,,C,T,CXCL12 chemokine locus; CAD risk,risk?,,,Coronary artery disease,Cardiological,19060906
+rs11556924,7,,C,T,ZC3HC1 (NIPA) cell-cycle; CAD risk,risk?,,,Coronary artery disease,Cardiological,23562504
+rs579459,9,,T,C,ABO blood group; thrombosis/inflammation; CAD risk,risk?,,,Coronary artery disease,Cardiological,22641274
+rs2200733,4,,T,C,PITX2 atrial development; AF risk,risk?,,,Atrial fibrillation,AF,17964045
+rs2106261,16,,T,C,ZFHX3 transcription factor; AF risk,risk?,,,Atrial fibrillation,AF,19684580
+rs13376333,1,,T,C,KCNN3 (SK3 channel) variant; AF risk,risk?,,,Atrial fibrillation,AF,19684580
+rs1739843,1,,T,C,HSPB7/BAG3 region; cardiomyopathy/HF risk,risk?,,,Heart failure,Cardiological,20458012
+rs2234962,10,,T,C,BAG3 missense; dilated cardiomyopathy/HF risk,risk?,,,Heart failure,Cardiological,21822266
+rs11191548,10,,C,T,CYP17A1; steroidogenesis; BP?,risk?,,,Hypertension,Cardiological,19430479
+rs198389,1,,G,A,NPPA/NPPA promoter; natriuretic peptides; BP?,risk?,,,Hypertension,Cardiological,19430479
+rs17319721,4,,A,G,SHROOM3 kidney development; CKD risk,risk?,,,Chronic kidney disease,CKD,20383145
+rs1150459,5,,A,G,DAB2 endocytosis; CKD risk,risk?,,,Chronic kidney disease,CKD,22001756
+rs1800795,7,,C,G,IL6 promoter -174C; CRP?/inflammation?,CRP?,,,C-reactive protein,Inflammation,15229189
+rs2228145,1,,C,A,IL6R Asp358Ala; IL-6 signaling?; CRP?,CRP?,,,C-reactive protein,Inflammation,21376623;10.1016/S0140-6736(12)60110-X
+rs1205,1,,T,C,CRP 3' UTR variant; CRP?,CRP?,,,C-reactive protein,Inflammation,15265136
+rs12740374,1,109274968,T,G,SORT1 enhancer variant; hepatic SORT1?; LDL-C?,LDL-C?,,,LDL cholesterol,Cardiological,20596045;20686566
+rs12916,5,,T,C,HMGCR intronic; LDL-C?; mimics statin effect,LDL-C?,,,LDL cholesterol,Cardiological,24097068
+rs58542926,19,,T,C,TM6SF2 E167K; VLDL secretion?; TG? LDL?,LDL-C?,,,LDL cholesterol,Cardiological,24686805;24681760
+rs12678919,8,,G,A,LPL intronic; TG? HDL?,TG?,,,Triglycerides,Cardiological,20686565;20686566
+rs10468017,15,,T,C,LIPC promoter; hepatic lipase; HDL?,HDL-C?,,,HDL cholesterol,Cardiological,18193046
+rs3764261,16,,A,G,CETP intronic; CETP?; HDL?,HDL-C?,,,HDL cholesterol,Cardiological,18193046
+rs780094,2,,T,C,GCKR P446L; TG?; FG?,TG?,,,Triglycerides,Cardiological,18193046;19060910
+rs11206510,1,,T,C,PCSK9 regulatory; LDL-C?; CAD risk?,risk?,,,Coronary artery disease,Cardiological,23562506
+rs11591147,1,55039974,T,G,PCSK9 R46L loss-of-function; LDL?; CAD risk?,risk?,,,Coronary artery disease,Cardiological,16228305;18193046
+rs693,2,,A,G,APOB synonymous; LDL-C?,LDL-C?,,,LDL cholesterol,Cardiological,23318413
+rs7903146,10,112998590,T,C,TCF7L2 intronic; insulin secretion?; T2D risk,risk?,,,Type 2 diabetes,T2D,16415884;16715102
+rs13266634,8,,C,T,SLC30A8 R325W; ?-cell zinc transporter; T2D risk,risk?,,,Type 2 diabetes,T2D,17463246
+rs7756992,6,,G,A,CDKAL1 intronic; insulin secretion?; T2D risk,risk?,,,Type 2 diabetes,T2D,17463246
+rs4402960,3,,T,G,IGF2BP2 intronic; insulin secretion?; T2D risk,risk?,,,Type 2 diabetes,T2D,17463248
+rs10811661,9,,T,C,CDKN2A/B 9p21; ?-cell mass; T2D risk,risk?,,,Type 2 diabetes,T2D,17463249
+rs2237892,11,,C,T,KCNQ1 intronic (EAS); insulin secretion?; T2D risk,risk?,,,Type 2 diabetes,T2D,18604266;18604265
+rs5219,11,17388025,T,C,KCNJ11 E23K; ?-cell KATP; T2D risk,risk?,,,Type 2 diabetes,T2D,14693951
+rs9939609,16,53786615,A,T,FTO intronic; appetite/energy balance; BMI?,BMI?,,,Body mass index,Obesity_BMI,17658951
+rs17782313,18,,C,T,MC4R near; appetite regulation; BMI?,BMI?,,,Body mass index,Obesity_BMI,18454148
+rs1558902,16,,A,T,FTO intronic; BMI? (independent),BMI?,,,Body mass index,Obesity_BMI,18193041
+rs1801282,3,,G,C,PPARG Pro12Ala; insulin sensitivity; T2D risk?,risk?,,,Type 2 diabetes,T2D,10053012;10973249
+rs429358,19,44908684,C,T,APOE ?4; higher AD risk; lower longevity,risk?,,,Alzheimer's disease,Alzheimer,10.1038/s41588-019-0358-2
+rs7412,19,44908822,T,C,APOE ?2; lower AD risk; longer lifespan,risk?,,,Alzheimer's disease,Alzheimer,10.1038/s41588-019-0358-2
+rs3851179,11,,A,G,PICALM locus; endocytosis; AD risk,risk?,,,Alzheimer's disease,Alzheimer,19734903
+rs744373,2,,G,A,BIN1 locus; clathrin-mediated endocytosis; AD risk,risk?,,,Alzheimer's disease,Alzheimer,19734904
+rs11136000,8,,T,C,CLU (apolipoprotein J); AD risk,risk?,,,Alzheimer's disease,Alzheimer,19734903
+rs3764650,19,,G,T,ABCA7 transporter; AD risk,risk?,,,Alzheimer's disease,Alzheimer,21686102
+rs6656401,1,,A,G,CR1 complement receptor; AD risk,risk?,,,Alzheimer's disease,Alzheimer,19734903
+rs11218343,11,,C,T,SORL1 coding; endosomal trafficking; AD risk?,risk?,,,Alzheimer's disease,Alzheimer,23934111
+rs75932628,6,,T,C,TREM2 R47H; microglia; large AD risk,risk?,,,Alzheimer's disease,Alzheimer,23150908;23150934
+rs34637584,12,,A,G,LRRK2 G2019S; PD risk (familial/sporadic),risk?,,,Parkinson's disease,Parkinson,16222291
+rs356219,4,,G,A,SNCA 3' region; ?-synuclein; PD risk,risk?,,,Parkinson's disease,Parkinson,18309287
+rs2230288,1,,T,C,GBA E326K; lysosomal; PD risk,risk?,,,Parkinson's disease,Parkinson,18619311;18987351
+rs2736100,5,,C,A,TERT intronic; telomere biology; multiple cancers risk,risk?,,,Lung cancer,Lung Cancer,20139978
+rs16969968,15,,A,G,CHRNA5 D398N; smoking heaviness; lung CA risk,risk?,,,Lung cancer,Lung Cancer,20418890
+rs6983267,8,,G,T,8q24 enhancer; MYC regulation; CRC/prostate risk,risk?,,,Colorectal cancer,Colorectal Cancer,17322881;17401363
+rs4939827,18,,C,T,SMAD7 intronic; TGF-? signaling; CRC risk,risk?,,,Colorectal cancer,Colorectal Cancer,18372901
+rs4779584,15,,T,C,GREM1/SCG5 locus; CRC risk,risk?,,,Colorectal cancer,Colorectal Cancer,18398448
+rs3803662,16,,T,C,TOX3/LOC643714; breast cancer risk (F),risk?,,,Breast cancer (female),Brease Cancer,17457362
+rs2981582,10,,T,C,FGFR2 intronic; breast cancer risk (F),risk?,,,Breast cancer (female),Brease Cancer,17529973
+rs13281615,8,,G,A,8q24 locus; breast cancer risk (F),risk?,,,Breast cancer (female),Brease Cancer,17529976
+rs17468277,2,,C,T,CASP8 variant; apoptosis; breast cancer risk (F),risk?,,,Breast cancer (female),Brease Cancer,17529967
+rs2735839,19,,A,G,KLK3 (PSA) region; prostate cancer risk (M),risk?,,,Prostate cancer (male),Prostate Cancer,17603485
+rs138213197,17,,T,C,HOXB13 G84E; hereditary prostate cancer (M),risk?,,,Prostate cancer (male),Prostate Cancer,22236224
+rs505922,9,,A,G,ABO locus; pancreatic cancer risk,risk?,,,Pancreatic cancer,Prostate Cancer,19029985
+rs1805007,16,,T,C,MC1R R151C; pigmentation; melanoma risk,risk?,,,Melanoma,Melanoma,17637780
+rs143383,20,,T,C,GDF5 5'UTR; cartilage development; OA risk,risk?,,,Osteoarthritis,Osteoarthritis,17625524
+rs3736228,11,,T,C,LRP5 missense; Wnt signaling; lower BMD,risk?,,,Bone mineral density,Osteoporosis,22504420
+rs4355801,8,,G,A,TNFRSF11B (OPG); bone remodeling; BMD?,risk?,,,Bone mineral density,Osteoporosis,18193045
+rs851056,17,,C,T,SOST enhancer; sclerostin; BMD?,risk?,,,Bone mineral density,Osteoporosis,18852512
+rs55872725,3,,A,G,ANKRD16/RSPO3; hand grip strength?,Grip?,,,Grip strength,Sarcopenia,30104704
+rs12928404,12,,A,G,ATXN2/BRAP; hand grip strength?,Grip?,,,Grip strength,Sarcopenia,30104704
+rs2802292,6,108587315,G,T,FOXO3 longevity-linked; stress resistance; increased lifespan,Longevity?,,,Exceptional longevity,General Longevity,34330828;32410662
+rs429358,19,44908684,C,T,APOE ?4; shorter lifespan; mortality?,Lifespan?,,,Parental lifespan,General Longevity,31243390
+rs7412,19,44908822,T,C,APOE ?2; longer lifespan; mortality?,Lifespan?,,,Parental lifespan,General Longevity,31243390
+rs2736100,5,,C,A,TERT; epigenetic age acceleration?,GrimAgeAccel?,,,DNAm GrimAge acceleration,General Longevity,33589650
+rs16926246,2,,T,C,GCK promoter; fasting glucose?,FG?,,,Fasting glucose,Obesity_BMI,19060910
+rs560887,2,,G,A,G6PC2 intronic; fasting glucose?,FG?,,,Fasting glucose,Obesity_BMI,19060910
+rs1799945,6,,G,C,HFE H63D; iron?; mortality risk?,risk?,,,All-cause mortality,General Longevity,31243390

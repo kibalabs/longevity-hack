@@ -22,7 +22,6 @@ from core.store.retriever import IntegerFieldFilter
 from core.store.retriever import Order
 from core.store.retriever import RandomOrder
 from core.store.retriever import StringFieldFilter
-from core.util import chain_util
 from core.util import date_util
 from pydantic import BaseModel
 from sqlalchemy import Table
@@ -71,9 +70,6 @@ class EntityRepository(typing.Generic[EntityType]):  # noqa: UP046
             value = str(value)
         if isinstance(column.type, sqlalchemy.DateTime):
             value = date_util.datetime_to_utc(dt=value)  # type: ignore[arg-type]
-        # NOTE(krishan711): need a special type for addresses
-        if column.key.lower().endswith('address'):
-            value = chain_util.normalize_address(value=value)  # type: ignore[arg-type]
         return value
 
     def _convert_value_to_db(self, column: sqlalchemy.Column[typing.Any], value: typing.Any | None) -> typing.Any | None:  # type: ignore[explicit-any]
@@ -85,9 +81,6 @@ class EntityRepository(typing.Generic[EntityType]):  # noqa: UP046
             value = date_util.datetime_to_utc_naive_datetime(dt=value)  # type: ignore[arg-type]
         if isinstance(column.type, sqlalchemy.JSON) and isinstance(value, BaseModel):
             value = value.model_dump()
-        # NOTE(krishan711): need a special type for addresses
-        if column.key.lower().endswith('address'):
-            value = chain_util.normalize_address(value=value)  # type: ignore[arg-type]
         return value
 
     def from_row(self, row: RowMapping) -> EntityType:

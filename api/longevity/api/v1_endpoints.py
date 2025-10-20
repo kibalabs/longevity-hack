@@ -28,15 +28,24 @@ class GetGenomeAnalysisResponse(BaseModel):
     genomeAnalysis: resources.GenomeAnalysis
 
 
-class ListGenomeAnalysisResultsRequest(BaseModel):
+class GetGenomeAnalysisOverviewRequest(BaseModel):
     genomeAnalysisId: str
-    phenotypeGroup: str | None = None
-    limit: int | None = None  # Max SNPs per category (default: 20)
+
+
+class GetGenomeAnalysisOverviewResponse(BaseModel):
+    overview: resources.GenomeAnalysisOverview
+
+
+class ListCategorySnpsRequest(BaseModel):
+    genomeAnalysisId: str
+    genomeAnalysisResultId: str  # Category ID
+    offset: int = 0  # Number of SNPs to skip (default: 0)
+    limit: int = 20  # Max SNPs to return (default: 20)
     minImportanceScore: float | None = None  # Filter by minimum importance score
 
 
-class ListGenomeAnalysisResultsResponse(BaseModel):
-    genomeAnalysisResults: list[resources.GenomeAnalysisResult]
+class ListCategorySnpsResponse(BaseModel):
+    categorySnpsPage: resources.CategorySnpsPage
 
 
 class GetGenomeAnalysisResultRequest(BaseModel):

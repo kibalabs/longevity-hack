@@ -1,10 +1,15 @@
-"""Genome analysis - core analysis logic."""
-
-from pathlib import Path
-from typing import Dict
+import math
+import time
 from typing import Tuple
 
+import sqlalchemy
+from core import logging
+from core.store.database import Database
+from core.store.retriever import StringFieldFilter
+from core.util import list_util
+
 from longevity import model
+from longevity.store import schema
 
 # ClinVar significance scoring (higher = more clinically important)
 CLINVAR_SIGNIFICANCE_SCORES = {
@@ -36,11 +41,11 @@ REVIEW_STATUS_SCORES = {
 
 
 class GenomeAnalyzer:
-    """Handles genome analysis logic (no file I/O)."""
+    """Handles genome analysis logic."""
 
-    def __init__(self, gwasDir: Path = None, annotationsDir: Path = None):
-        self.gwasDir = gwasDir or Path('./.data/snps-gwas')
-        self.annotationsDir = annotationsDir or Path('./.data/snps')
+    def __init__(self, database: Database, batch_size: int = 10000):
+        self.database = database
+        self.batch_size = batch_size
 
     @staticmethod
     def parse_genotype(genotype: str) -> Tuple[str, str]:
@@ -67,71 +72,159 @@ class GenomeAnalyzer:
                 return score
         return 0
 
-    def extract_clinvar_info(self, snp_annotation: dict) -> Dict:
-        """Extract and score ClinVar information from SNP annotation."""
-        clinvar = snp_annotation.get('clinvar', {})
+    async def read_gwas_from_database_batch(self, snps: list[model.UserSnp]) -> dict[str, list[model.GwasAssociation]]:
+        """Read GWAS associations from database for multiple SNPs, filtering by rsid AND user's alleles."""
+        start_time = time.time()
+        if not snps:
+            return {}
 
-        if not clinvar or 'rcv' not in clinvar:
-            return {
-                'has_clinvar': False,
-                'max_significance_score': 0,
-                'submissions': [],
-            }
+        # Build list of (rsid, effect_allele) tuples for VALUES clause
+        # This allows PostgreSQL to use the composite index efficiently
+        rsid_allele_pairs = set()  # Use set to automatically deduplicate
+        for snp in snps:
+            rsid = snp.rsid
+            genotype = snp.genotype
+            if genotype in ['--', '']:
+                continue
+            alleles = list(set(genotype))  # Get unique alleles from genotype
 
-        gene = clinvar.get('gene', {})
-        gene_symbol = gene.get('symbol', 'Unknown') if isinstance(gene, dict) else 'Unknown'
-        rcv_entries = clinvar.get('rcv', [])
+            # Add a pair for each unique allele in the user's genotype
+            for allele in alleles:
+                rsid_allele_pairs.add((rsid, allele))
 
-        # Handle case where rcv is a single dict instead of list
-        if isinstance(rcv_entries, dict):
-            rcv_entries = [rcv_entries]
+        if not rsid_allele_pairs:
+            return {}
 
-        submissions = []
-        max_sig_score = 0
-        max_review_score = 0
+        # Convert to list for the query
+        rsid_allele_pairs = list(rsid_allele_pairs)
 
-        for rcv in rcv_entries:
-            sig_raw = rcv.get('clinical_significance', 'Unknown')
-            sig_normalized, sig_score = self.parse_clinvar_significance(sig_raw)
-            review_status = rcv.get('review_status', 'Unknown')
-            review_score = self.get_review_status_score(review_status)
+        # Use a temporary table approach for better performance with large datasets
+        query_start = time.time()
+        logging.info(f'      → Query will search for {len(rsid_allele_pairs)} (rsid, allele) pairs...')
 
-            condition_info = rcv.get('conditions', {})
-            # Handle both dict and list formats for conditions
-            if isinstance(condition_info, list):
-                condition_name = condition_info[0].get('name', 'Unknown') if condition_info else 'Unknown'
-            elif isinstance(condition_info, dict):
-                condition_name = condition_info.get('name', 'Unknown')
-            else:
-                condition_name = 'Unknown'
+        # Create temporary table with user's SNP pairs
+        await self.database.execute(
+            sqlalchemy.text("""
+            CREATE TEMP TABLE IF NOT EXISTS temp_user_snps (
+                rsid TEXT NOT NULL,
+                effect_allele TEXT NOT NULL
+            ) ON COMMIT DROP
+        """)
+        )
 
-            submissions.append(
-                {
-                    'accession': rcv.get('accession', 'Unknown'),
-                    'clinical_significance': sig_normalized,
-                    'significance_score': sig_score,
-                    'condition': condition_name,
-                    'review_status': review_status,
-                    'review_score': review_score,
-                    'last_evaluated': rcv.get('last_evaluated', 'Unknown'),
-                    'number_submitters': rcv.get('number_submitters', 0),
-                }
+        # Insert user's SNP pairs into temp table
+        if rsid_allele_pairs:
+            values = ','.join([f"('{rsid}', '{allele}')" for rsid, allele in rsid_allele_pairs])
+            await self.database.execute(
+                sqlalchemy.text(f"""
+                INSERT INTO temp_user_snps (rsid, effect_allele)
+                VALUES {values}
+            """)
             )
 
-            max_sig_score = max(max_sig_score, sig_score)
-            max_review_score = max(max_review_score, review_score)
+        # Join temp table with GWAS table using the composite index
+        query = sqlalchemy.text("""
+            SELECT g.*
+            FROM tbl_snps_gwas g
+            INNER JOIN temp_user_snps u
+                ON g.rsid = u.rsid AND g.effect_allele = u.effect_allele
+        """)
+        result = await self.database.execute(query)
+        records = result.fetchall()
 
-        # Sort submissions by significance score, then review score
-        submissions.sort(key=lambda x: (x['significance_score'], x['review_score']), reverse=True)
+        # Clean up temp table
+        await self.database.execute(sqlalchemy.text('DROP TABLE IF EXISTS temp_user_snps'))
 
-        return {
-            'has_clinvar': True,
-            'gene': gene_symbol,
-            'max_significance_score': max_sig_score,
-            'max_review_score': max_review_score,
-            'submission_count': len(submissions),
-            'submissions': submissions,
-        }
+        query_time = time.time() - query_start
+
+        logging.info(f'GWAS query executed: {len(rsid_allele_pairs)} (rsid, allele) pairs, {len(records)} records returned in {query_time:.2f}s')
+
+        # Group records by rsid
+        rsid_map: dict[str, list[model.GwasAssociation]] = {}
+        for record in records:
+            rsid = record.rsid if hasattr(record, 'rsid') else record[0]
+            if rsid not in rsid_map:
+                rsid_map[rsid] = []
+            # Handle both SQLAlchemy Row objects and raw database rows
+            rsid_map[rsid].append(
+                model.GwasAssociation(
+                    trait=record.trait if hasattr(record, 'trait') else record[1],
+                    traitCategory=record.trait_category if hasattr(record, 'trait_category') else record[2],
+                    pvalue=record.pvalue if hasattr(record, 'pvalue') else record[3],
+                    pvalueMlog=record.pvalue_mlog if hasattr(record, 'pvalue_mlog') else record[4],
+                    effectAllele=record.effect_allele if hasattr(record, 'effect_allele') else record[5],
+                    effectType=record.effect_type if hasattr(record, 'effect_type') else record[6],
+                    orOrBeta=record.or_or_beta if hasattr(record, 'or_or_beta') else record[7],
+                    riskAlleleFrequency=record.risk_allele_frequency if hasattr(record, 'risk_allele_frequency') else record[8],
+                    studyDescription=record.study_description if hasattr(record, 'study_description') else record[9],
+                    pubmedId=record.pubmed_id if hasattr(record, 'pubmed_id') else record[10],
+                    chromosome=record.chromosome if hasattr(record, 'chromosome') else record[11],
+                    position=record.position if hasattr(record, 'position') else record[12],
+                    mappedGene=record.mapped_gene if hasattr(record, 'mapped_gene') else record[13],
+                )
+            )
+
+        total_time = time.time() - start_time
+        logging.info(f'GWAS batch completed: {len(rsid_map)} unique SNPs with associations in {total_time:.2f}s')
+        return rsid_map
+
+    async def read_clinvar_from_database_batch(self, rsids: list[str]) -> dict[str, model.ClinvarInfo]:
+        """Read ClinVar data from database for multiple RSIDs and extract scored info."""
+        start_time = time.time()
+        if not rsids:
+            return {}
+
+        records = await schema.SnpsClinvarRepository.list_many(database=self.database, fieldFilters=[StringFieldFilter(fieldName='rsid', containedIn=rsids)])
+
+        logging.info(f'ClinVar query executed: {len(rsids)} RSIDs requested, {len(records)} records returned')
+
+        # Group records by rsid
+        rsid_map: dict[str, dict] = {}
+        for record in records:
+            if record.rsid not in rsid_map:
+                rsid_map[record.rsid] = {'gene': record.gene or 'Unknown', 'submissions': []}
+
+            # Parse and score this submission
+            sig_normalized, sig_score = self.parse_clinvar_significance(record.clinicalSignificance or 'Unknown')
+            review_score = self.get_review_status_score(record.reviewStatus or 'Unknown')
+
+            rsid_map[record.rsid]['submissions'].append(
+                model.ClinvarSubmission(
+                    accession=record.accession or 'Unknown',
+                    clinicalSignificance=sig_normalized,
+                    significanceScore=sig_score,
+                    condition=record.condition or 'Unknown',
+                    reviewStatus=record.reviewStatus or 'Unknown',
+                    reviewScore=review_score,
+                    lastEvaluated=record.lastEvaluated or 'Unknown',
+                    numberSubmitters=record.numberSubmitters or 0,
+                )
+            )
+
+        # Build ClinvarInfo objects with scoring
+        result = {}
+        for rsid, data in rsid_map.items():
+            submissions = data['submissions']
+
+            # Calculate max scores
+            max_sig_score = max((s.significanceScore for s in submissions), default=0)
+            max_review_score = max((s.reviewScore for s in submissions), default=0)
+
+            # Sort submissions by significance score, then review score
+            submissions.sort(key=lambda x: (x.significanceScore, x.reviewScore), reverse=True)
+
+            result[rsid] = model.ClinvarInfo(
+                hasClinvar=True,
+                gene=data['gene'],
+                maxSignificanceScore=max_sig_score,
+                maxReviewScore=max_review_score,
+                submissionCount=len(submissions),
+                submissions=submissions,
+            )
+
+        total_time = time.time() - start_time
+        logging.info(f'ClinVar batch completed: {len(result)} SNPs with ClinVar data in {total_time:.2f}s')
+        return result
 
     @staticmethod
     def detect_23andme_format(content: str) -> bool:
@@ -159,18 +252,131 @@ class GenomeAnalyzer:
 
         return has_header_comment or has_data_line
 
-    async def analyze_genome(self, genomeContent: str, read_gwas_file: callable, read_annotation_file: callable) -> model.GenomeAnalysisResult:
-        """
-        Run genome analysis on genome file content.
+    async def analyze_snps_batch(self, snps: list[model.UserSnp]) -> list[model.SnpAnalysisResult]:
+        """Analyze multiple SNPs in batch."""
+        batch_start = time.time()
+        if not snps:
+            return []
 
-        Args:
-            genomeContent: The raw content of the genome file
-            read_gwas_file: Async function(rsid: str) -> dict | None - reads GWAS data for an rsid
-            read_annotation_file: Async function(rsid: str) -> dict | None - reads annotation data for an rsid
+        rsids = [snp.rsid for snp in snps]
 
-        Returns:
-            Analysis results as a proper model.
-        """
+        # Fetch all GWAS and ClinVar data in batches
+        logging.info(f'      → Querying GWAS database for {len(snps)} SNPs...')
+        gwas_start = time.time()
+        gwas_data_map = await self.read_gwas_from_database_batch(snps)
+        gwas_time = time.time() - gwas_start
+        logging.info(f'      ✓ GWAS query completed in {gwas_time:.2f}s - {sum(len(v) for v in gwas_data_map.values())} associations found')
+
+        logging.info(f'      → Querying ClinVar database for {len(rsids)} RSIDs...')
+        clinvar_start = time.time()
+        clinvar_info_map = await self.read_clinvar_from_database_batch(rsids)
+        clinvar_time = time.time() - clinvar_start
+        logging.info(f'      ✓ ClinVar query completed in {clinvar_time:.2f}s - {len(clinvar_info_map)} entries found')
+
+        # Process each SNP
+        logging.info(f'      → Processing and scoring {len(snps)} SNPs...')
+        processing_start = time.time()
+        results = []
+        for snp in snps:
+            rsid = snp.rsid
+            chromosome = snp.chromosome
+            position = snp.position
+            genotype = snp.genotype
+
+            associations = gwas_data_map.get(rsid, [])
+            if not associations:
+                results.append(model.SnpAnalysisResult(associations=[], hasClinvar=False))
+                continue
+
+            clinvar_info = clinvar_info_map.get(rsid)
+            has_clinvar = clinvar_info is not None
+
+            scored_associations = []
+            # Score each association
+            for assoc in associations:
+                # Calculate importance score
+                importance_score = 0
+
+                # P-value contribution
+                pvalue = assoc.pvalue
+                if pvalue:
+                    try:
+                        pval_float = float(pvalue)
+                        if pval_float > 0:
+                            pvalue_score = min(-math.log10(pval_float), 50)
+                            importance_score += pvalue_score
+                    except (ValueError, TypeError):
+                        pass
+
+                if has_clinvar and clinvar_info:
+                    importance_score += clinvar_info.maxSignificanceScore * 2
+
+                # Extract odds ratio
+                odds_ratio = None
+                if assoc.orOrBeta and assoc.effectType == 'OR':
+                    try:
+                        odds_ratio = float(assoc.orOrBeta)
+                    except (ValueError, TypeError):
+                        pass
+
+                # Extract risk allele frequency
+                risk_allele_freq = None
+                if assoc.riskAlleleFrequency:
+                    try:
+                        risk_allele_freq = float(assoc.riskAlleleFrequency)
+                    except (ValueError, TypeError):
+                        pass
+
+                # Determine if user has risk allele
+                # Since we filter at DB level, we know user has this allele
+                risk_allele = assoc.effectAllele or ''
+                user_has_risk_allele = True if (risk_allele and genotype not in ['--', '']) else None
+
+                scored_associations.append(
+                    model.GenomeAssociation(
+                        rsid=rsid,
+                        genotype=genotype,
+                        chromosome=chromosome,
+                        position=position,
+                        trait=assoc.trait,
+                        pvalue=pvalue,
+                        importanceScore=importance_score,
+                        effectStrength='',
+                        riskAllele=risk_allele,
+                        clinvarCondition=clinvar_info.submissions[0].condition if clinvar_info and clinvar_info.submissions else None,
+                        clinvarSignificance=clinvar_info.maxSignificanceScore if clinvar_info else None,
+                        traitCategory=assoc.traitCategory or 'Other',
+                        oddsRatio=odds_ratio,
+                        riskAlleleFrequency=risk_allele_freq,
+                        studyDescription=assoc.studyDescription,
+                        userHasRiskAllele=user_has_risk_allele,
+                    )
+                )
+
+            results.append(
+                model.SnpAnalysisResult(
+                    associations=scored_associations,
+                    hasClinvar=has_clinvar,
+                )
+            )
+
+        processing_time = time.time() - processing_start
+        logging.info(f'      ✓ Processing completed in {processing_time:.2f}s')
+
+        total_batch_time = time.time() - batch_start
+
+        total_associations = sum(len(r.associations) for r in results)
+        logging.info(f'Batch analysis completed: {len(snps)} SNPs processed, {total_associations} associations found. Times - GWAS: {gwas_time:.2f}s, ClinVar: {clinvar_time:.2f}s, Processing: {processing_time:.2f}s, Total: {total_batch_time:.2f}s')
+
+        return results
+
+    async def analyze_genome(self, genomeContent: str) -> model.GenomeAnalysisResult:
+        analysis_start = time.time()
+        logging.info('=' * 80)
+        logging.info('STARTING GENOME ANALYSIS')
+        logging.info('=' * 80)
+        logging.info('Starting genome analysis')
+
         # Detect file format
         if not self.detect_23andme_format(genomeContent):
             raise ValueError(
@@ -182,7 +388,8 @@ class GenomeAnalyzer:
             )
 
         # Parse genome file content
-        userSnps = {}
+        parse_start = time.time()
+        userSnps: dict[str, model.UserSnp] = {}
         firstLine = True
 
         for line in genomeContent.split('\n'):
@@ -200,145 +407,72 @@ class GenomeAnalyzer:
             rsid, chromosome, position, genotype = parts[:4]
             if genotype == '--':
                 continue
-            userSnps[rsid] = {
-                'rsid': rsid,
-                'chromosome': chromosome,
-                'position': position,
-                'genotype': genotype,
-            }  # Find matches with GWAS data and ClinVar
-        matched_snps = 0
-        total_associations = 0
-        scored_associations = []
-        clinvar_variants = []
-        snps_with_clinvar = 0
+            userSnps[rsid] = model.UserSnp(
+                rsid=rsid,
+                chromosome=chromosome,
+                position=position,
+                genotype=genotype,
+            )
 
-        for rsid, snp_data in userSnps.items():
-            # Try to load GWAS data for this SNP
-            gwas_data = await read_gwas_file(rsid)
-            if not gwas_data:
-                continue
+        parse_time = time.time() - parse_start
+        logging.info(f'✓ Genome parsing completed: {len(userSnps)} SNPs parsed in {parse_time:.2f}s')
+        logging.info(f'Genome parsing completed: {len(userSnps)} SNPs parsed in {parse_time:.2f}s')
 
-            matched_snps += 1
+        # Process SNPs in batches
+        batch_processing_start = time.time()
+        matchedSnpsCount = 0
+        clinvarCount = 0
+        scoredAssociations = []
 
-            # Try to load annotation data (for ClinVar, gnomAD, etc.)
-            annotation = await read_annotation_file(rsid)
-            clinvar_info = None
-            if annotation:
-                clinvar_info = self.extract_clinvar_info(annotation)
+        chunks = list(list_util.generate_chunks(list(userSnps.values()), chunkSize=self.batch_size))
+        total_batches = len(chunks)
+        logging.info(f'Processing {len(userSnps)} SNPs in {total_batches} batches of {self.batch_size}')
+        logging.info(f'Processing {len(userSnps)} SNPs in {total_batches} batches of {self.batch_size}')
 
-                if clinvar_info['has_clinvar']:
-                    snps_with_clinvar += 1
+        for batch_num, snp_data_chunk in enumerate(chunks, 1):
+            batch_start = time.time()
+            logging.info(f'  → Batch {batch_num}/{total_batches}: Processing {len(snp_data_chunk)} SNPs...')
+            logging.info(f'Processing batch {batch_num}/{total_batches} ({len(snp_data_chunk)} SNPs)')
 
-                    # Store clinically significant variants separately
-                    if clinvar_info['max_significance_score'] >= 6:  # Pathogenic or risk factor
-                        clinvar_variants.append(
-                            {
-                                'rsid': rsid,
-                                'genotype': snp_data['genotype'],
-                                'chromosome': snp_data['chromosome'],
-                                'position': snp_data['position'],
-                                'clinvar': clinvar_info,
-                                'annotation': annotation,
-                            }
-                        )
+            results = await self.analyze_snps_batch(snp_data_chunk)
+            for result in results:
+                scoredAssociations.extend(result.associations)
+                matchedSnpsCount += 1 if len(result.associations) > 0 else 0
+                clinvarCount += 1 if result.hasClinvar else 0
 
-            associations = gwas_data.get('associations', [])
-            total_associations += len(associations)
+            batch_time = time.time() - batch_start
+            logging.info(f'  ✓ Batch {batch_num}/{total_batches} completed in {batch_time:.2f}s - {matchedSnpsCount} matched, {len(scoredAssociations)} associations')
+            logging.info(f'Batch {batch_num}/{total_batches} completed in {batch_time:.2f}s. Progress: {matchedSnpsCount} matched SNPs, {len(scoredAssociations)} total associations')
 
-            # Score each association
-            for assoc in associations:
-                # Calculate importance score (simplified version)
-                importance_score = 0
+        batch_processing_time = time.time() - batch_processing_start
+        logging.info(f'All batches completed in {batch_processing_time:.2f}s')
 
-                # P-value contribution - GWAS Catalog uses 'P-VALUE' field
-                # P-values are typically in scientific notation (e.g., 5E-8)
-                # Use -log10(p-value) for scoring, capped at 50
-                pvalue = assoc.get('P-VALUE') or assoc.get('pvalue')
-                if pvalue:
-                    try:
-                        pval_float = float(pvalue)
-                        if pval_float > 0:
-                            import math
-
-                            # -log10(p-value): larger values = more significant
-                            # e.g., p=1E-20 gives score of 20, p=5E-8 gives ~7.3
-                            pvalue_score = min(-math.log10(pval_float), 50)
-                            importance_score += pvalue_score
-                    except (ValueError, TypeError):
-                        pass
-
-                # Add ClinVar score if available
-                if clinvar_info and clinvar_info['has_clinvar']:
-                    importance_score += clinvar_info['max_significance_score'] * 2
-
-                scored_associations.append(
-                    {
-                        'rsid': rsid,
-                        'genotype': snp_data['genotype'],
-                        'chromosome': snp_data['chromosome'],
-                        'position': snp_data['position'],
-                        'trait': assoc.get('DISEASE/TRAIT') or assoc.get('trait', ''),
-                        'pvalue': pvalue,
-                        'importanceScore': importance_score,
-                        'effectStrength': assoc.get('effect_strength', ''),
-                        'riskAllele': assoc.get('effect_allele') or assoc.get('risk_allele', ''),
-                        'clinvarCondition': clinvar_info['submissions'][0]['condition'] if clinvar_info and clinvar_info['has_clinvar'] else None,
-                        'clinvarSignificance': clinvar_info['max_significance_score'] if clinvar_info and clinvar_info['has_clinvar'] else None,
-                    }
-                )
-
-        # Sort by importance score
-        scored_associations.sort(key=lambda x: x['importanceScore'], reverse=True)
-
-        # Group by phenotype (all associations, not just top 50)
-        phenotype_groups = {}
-        for assoc in scored_associations:
-            trait = assoc['trait']
-            # Simple categorization based on keywords
-            category = GenomeAnalyzer._categorize_trait(trait)
-
-            if category not in phenotype_groups:
-                phenotype_groups[category] = []
-            phenotype_groups[category].append(assoc)
-
-        # Build proper model
-        associations_models = [model.GenomeAssociation(**assoc) for assoc in scored_associations]
-        phenotype_groups_models = {category: [model.GenomeAssociation(**assoc) for assoc in assocs] for category, assocs in phenotype_groups.items()}
+        # Sort associations
+        logging.info('Sorting associations by importance score...')
+        sort_start = time.time()
+        scoredAssociations.sort(key=lambda x: x.importanceScore, reverse=True)
+        sort_time = time.time() - sort_start
+        logging.info(f'✓ Sorting completed in {sort_time:.2f}s')
+        logging.info(f'Association sorting completed in {sort_time:.2f}s')
 
         result = model.GenomeAnalysisResult(
             summary=model.GenomeAnalysisSummary(
                 totalSnps=len(userSnps),
-                matchedSnps=matched_snps,
-                totalAssociations=total_associations,
-                topCategories=list(phenotype_groups.keys())[:8],
-                clinvarCount=snps_with_clinvar,
+                matchedSnps=matchedSnpsCount,
+                totalAssociations=len(scoredAssociations),
+                clinvarCount=clinvarCount,
             ),
-            phenotypeGroups=phenotype_groups_models,
-            top50Associations=associations_models[:50],
-            clinvarVariants=clinvar_variants[:20],
+            associations=scoredAssociations,
         )
 
+        total_time = time.time() - analysis_start
+        logging.info('=' * 80)
+        logging.info(f'ANALYSIS COMPLETE in {total_time:.2f}s')
+        logging.info(f'  Total SNPs: {len(userSnps)}')
+        logging.info(f'  Matched SNPs: {matchedSnpsCount}')
+        logging.info(f'  Total Associations: {len(scoredAssociations)}')
+        logging.info(f'  ClinVar entries: {clinvarCount}')
+        logging.info('=' * 80)
+        logging.info(f'Genome analysis completed in {total_time:.2f}s. Summary: {len(userSnps)} total SNPs, {matchedSnpsCount} matched, {len(scoredAssociations)} associations, {clinvarCount} with ClinVar data')
+
         return result
-
-    @staticmethod
-    def _categorize_trait(trait: str) -> str:
-        """Categorize trait into phenotype group."""
-        trait_lower = trait.lower()
-
-        if any(word in trait_lower for word in ['cancer', 'tumor', 'carcinoma', 'melanoma', 'leukemia', 'lymphoma']):
-            return 'Cancer'
-        if any(word in trait_lower for word in ['heart', 'cardiac', 'cardiovascular', 'coronary', 'blood pressure', 'hypertension']):
-            return 'Cardiovascular disease'
-        if any(word in trait_lower for word in ['cholesterol', 'ldl', 'hdl', 'triglyceride', 'lipid']):
-            return 'Lipid or lipoprotein measurement'
-        if any(word in trait_lower for word in ['diabetes', 'glucose', 'insulin', 'metabolic']):
-            return 'Metabolic disorder'
-        if any(word in trait_lower for word in ['alzheimer', 'parkinson', 'neurological', 'brain', 'cognitive', 'dementia']):
-            return 'Neurological disorder'
-        if any(word in trait_lower for word in ['height', 'weight', 'bmi', 'body mass']):
-            return 'Body measurement'
-        if 'measurement' in trait_lower:
-            return 'Other measurement'
-        if 'disease' in trait_lower or 'disorder' in trait_lower:
-            return 'Other disease'
-        return 'Other trait'

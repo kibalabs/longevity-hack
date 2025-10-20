@@ -35,15 +35,21 @@ def create_v1_routes(appManager: AppManager, database: Database, resourceBuilder
         genomeAnalysis = await appManager.get_genome_analysis(genomeAnalysisId=request.data.genomeAnalysisId)
         return endpoints.GetGenomeAnalysisResponse(genomeAnalysis=genomeAnalysis)
 
-    @json_route(requestType=endpoints.ListGenomeAnalysisResultsRequest, responseType=endpoints.ListGenomeAnalysisResultsResponse)
-    async def list_genome_analysis_results(request: KibaApiRequest[endpoints.ListGenomeAnalysisResultsRequest]) -> endpoints.ListGenomeAnalysisResultsResponse:
-        genomeAnalysisResults = await appManager.list_genome_analysis_results(
+    @json_route(requestType=endpoints.GetGenomeAnalysisOverviewRequest, responseType=endpoints.GetGenomeAnalysisOverviewResponse)
+    async def get_genome_analysis_overview(request: KibaApiRequest[endpoints.GetGenomeAnalysisOverviewRequest]) -> endpoints.GetGenomeAnalysisOverviewResponse:
+        overview = await appManager.get_genome_analysis_overview(genomeAnalysisId=request.data.genomeAnalysisId)
+        return endpoints.GetGenomeAnalysisOverviewResponse(overview=overview)
+
+    @json_route(requestType=endpoints.ListCategorySnpsRequest, responseType=endpoints.ListCategorySnpsResponse)
+    async def list_category_snps(request: KibaApiRequest[endpoints.ListCategorySnpsRequest]) -> endpoints.ListCategorySnpsResponse:
+        categorySnpsPage = await appManager.list_category_snps(
             genomeAnalysisId=request.data.genomeAnalysisId,
-            phenotypeGroup=request.data.phenotypeGroup,
+            genomeAnalysisResultId=request.data.genomeAnalysisResultId,
+            offset=request.data.offset,
             limit=request.data.limit,
             minImportanceScore=request.data.minImportanceScore,
         )
-        return endpoints.ListGenomeAnalysisResultsResponse(genomeAnalysisResults=genomeAnalysisResults)
+        return endpoints.ListCategorySnpsResponse(categorySnpsPage=categorySnpsPage)
 
     @json_route(requestType=endpoints.GetGenomeAnalysisResultRequest, responseType=endpoints.GetGenomeAnalysisResultResponse)
     async def get_genome_analysis_result(request: KibaApiRequest[endpoints.GetGenomeAnalysisResultRequest]) -> endpoints.GetGenomeAnalysisResultResponse:
@@ -88,7 +94,8 @@ def create_v1_routes(appManager: AppManager, database: Database, resourceBuilder
         Route('/genome-analyses', create_genome_analysis, methods=['POST']),
         Route('/genome-analyses/{genomeAnalysisId}', get_genome_analysis, methods=['GET']),
         Route('/genome-analyses/{genomeAnalysisId}/upload', upload_genome_file, methods=['POST']),
-        Route('/genome-analyses/{genomeAnalysisId}/results', list_genome_analysis_results, methods=['GET']),
+        Route('/genome-analyses/{genomeAnalysisId}/overview', get_genome_analysis_overview, methods=['GET']),
+        Route('/genome-analyses/{genomeAnalysisId}/results/{genomeAnalysisResultId}/snps', list_category_snps, methods=['GET']),
         Route('/genome-analyses/{genomeAnalysisId}/results/{genomeAnalysisResultId}', get_genome_analysis_result, methods=['GET']),
         Route('/example-analysis', get_example_analysis_id, methods=['GET']),
     ]

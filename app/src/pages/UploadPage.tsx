@@ -132,8 +132,16 @@ export function UploadPage(): React.ReactElement {
 
         // Load results when analysis is complete
         if (analysis.status === 'completed') {
-          longevityClient.listGenomeAnalysisResults(genomeAnalysisId).then((results: Resources.GenomeAnalysisResult[]): void => {
-            setGenomeAnalysisResults(results);
+          longevityClient.getGenomeAnalysisOverview(genomeAnalysisId).then((overview: Resources.GenomeAnalysisOverview): void => {
+            setGenomeAnalysisResults(overview.categoryGroups.map((group): Resources.GenomeAnalysisResult => {
+              return new Resources.GenomeAnalysisResult(
+                group.genomeAnalysisResultId,
+                genomeAnalysisId,
+                group.phenotypeGroup,
+                group.phenotypeDescription,
+                group.topSnps,
+              );
+            }));
             // Immediately set displayedStatus to 'completed' to avoid blank screen
             setDisplayedStatus('completed');
             // Stop polling by clearing the interval

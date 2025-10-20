@@ -1,135 +1,172 @@
-import asyncio
-import json
 import uuid
+from collections import defaultdict
 from pathlib import Path
 
 from core.exceptions import NotFoundException
+from core.queues.message_queue import MessageQueue
 from core.requester import Requester
 from core.store.database import Database
 from core.util import date_util
 from core.util import file_util
+from starlette.datastructures import UploadFile
 
 from longevity import model
 from longevity.api import v1_resources as resources
 from longevity.genome_analyzer import GenomeAnalyzer
+from longevity.messages import AnalyzeGenomeMessageContent
+from longevity.store import schema
+from longevity.store.entity_repository import StringFieldFilter
 
 EXAMPLE_ANALYSIS_ID = 'example-analysis-123'
 
 
 class AppManager:
-    def __init__(self, database: Database, requester: Requester) -> None:
+    def __init__(self, database: Database, requester: Requester, workQueue: MessageQueue[Any]) -> None:
         self.database = database
         self.requester = requester
-        # In-memory mock storage for the hackathon
-        self.genomeAnalysisStore: dict[str, resources.GenomeAnalysis] = {}
-        self.genomeAnalysisResultsStore: dict[str, list[resources.GenomeAnalysisResult]] = {}
-        # Real genome analyzer
-        uploadsDir = Path(__file__).parent.parent / 'uploads'
-        outputsDir = Path(__file__).parent.parent / 'outputs'
-        gwasDir = Path(__file__).parent.parent / '.data' / 'snps-gwas'
-        annotationsDir = Path(__file__).parent.parent / '.data' / 'snps'
-
-        uploadsDir.mkdir(parents=True, exist_ok=True)
-        outputsDir.mkdir(parents=True, exist_ok=True)
-
-        self.uploadsDir = uploadsDir
-        self.outputsDir = outputsDir
-        self.gwasDir = gwasDir
-        self.annotationsDir = annotationsDir
-        self.genomeAnalyzer = GenomeAnalyzer(gwasDir=gwasDir, annotationsDir=annotationsDir)
+        self.workQueue = workQueue
+        self.uploadsDir = Path(__file__).parent.parent / 'uploads'
+        self.outputsDir = Path(__file__).parent.parent / 'outputs'
+        self.uploadsDir.mkdir(parents=True, exist_ok=True)
+        self.outputsDir.mkdir(parents=True, exist_ok=True)
+        self.genomeAnalyzer = GenomeAnalyzer(database=self.database)
         self._create_example_analysis()
 
     async def create_genome_analysis(self, fileName: str, fileType: str) -> resources.GenomeAnalysis:
         genomeAnalysisId = str(uuid.uuid4())
-        genomeAnalysis = resources.GenomeAnalysis(
+        dbGenomeAnalysis = await schema.GenomeAnalysesRepository.create(
+            database=self.database,
             genomeAnalysisId=genomeAnalysisId,
+            userId='anonymous',
             fileName=fileName,
-            fileType=fileType,
-            detectedFormat=None,  # Will be detected during analysis
-            status='waiting_for_upload',  # Changed from 'uploading'
-            createdDate=date_util.datetime_to_string(date_util.datetime_from_now()),
+            status='waiting_for_upload',
+            totalSnps=None,
+            matchedSnps=None,
+            totalAssociations=None,
+            clinvarCount=None,
         )
-        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
+        genomeAnalysis = resources.GenomeAnalysis(
+            genomeAnalysisId=dbGenomeAnalysis.genomeAnalysisId,
+            fileName=dbGenomeAnalysis.fileName,
+            fileType=fileType,
+            detectedFormat=None,
+            status=dbGenomeAnalysis.status,
+            createdDate=date_util.datetime_to_string(dbGenomeAnalysis.createdDate),
+            summary=None,
+        )
         return genomeAnalysis
 
     async def get_example_analysis_id(self) -> str:
         return EXAMPLE_ANALYSIS_ID
 
-    async def upload_and_analyze_genome_file(self, genomeAnalysisId: str, file) -> resources.GenomeAnalysis:
-        """Upload genome file and start analysis asynchronously."""
-        genomeAnalysis = self.genomeAnalysisStore.get(genomeAnalysisId)
-        if not genomeAnalysis:
-            raise NotFoundException
-
-        # Update status to uploading
-        genomeAnalysis.status = 'uploading'
-        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
-
-        # Save the uploaded file (async)
-        safeName = Path(genomeAnalysis.fileName).name
-        uploadPath = self.uploadsDir / f'{genomeAnalysisId}_{safeName}'
-        content = await file.read()
-
-        # Write file asynchronously to avoid blocking
-        await file_util.write_file_bytes(str(uploadPath), content)
-
-        # Update status to validating
-        genomeAnalysis.status = 'validating'
-        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
-
-        # Start analysis in background
-        asyncio.create_task(self._run_genome_analysis(genomeAnalysisId, uploadPath))
-
-        return genomeAnalysis
-
-    async def _run_genome_analysis(self, genomeAnalysisId: str, inputFilePath: Path) -> None:
-        """Run the genome analysis in the background."""
-        genomeAnalysis = self.genomeAnalysisStore[genomeAnalysisId]
-        genomeAnalysis.status = 'parsing'
-        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
-        genomeContent = await file_util.read_file(str(inputFilePath))
-
-        async def read_gwas_file(rsid: str) -> dict | None:
-            gwasFile = self.gwasDir / f'{rsid}.json'
-            if not gwasFile.exists():
-                return None
-            content = await file_util.read_file(str(gwasFile))
-            return json.loads(content)
-
-        async def read_annotation_file(rsid: str) -> dict | None:
-            annotationFile = self.annotationsDir / f'{rsid}.json'
-            if not annotationFile.exists():
-                return None
-            content = await file_util.read_file(str(annotationFile))
-            return json.loads(content)
-
-        analysisResult = await self.genomeAnalyzer.analyze_genome(genomeContent=genomeContent, read_gwas_file=read_gwas_file, read_annotation_file=read_annotation_file)
-        genomeAnalysis.status = 'building_baseline'
-        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
-        outputPath = self.outputsDir / f'{genomeAnalysisId}.json'
-        resultContent = analysisResult.model_dump_json(indent=2)
-        await file_util.write_file(str(outputPath), resultContent)
-        self._create_real_results(genomeAnalysisId, analysisResult)
-        genomeAnalysis.status = 'completed'
-        genomeAnalysis.detectedFormat = '23andme'
-        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
-
-    def _create_real_results(self, genomeAnalysisId: str, analysisData: model.GenomeAnalysisResult) -> None:
-        """Create genome analysis results from real analysis output."""
-        # Update analysis with summary
-        genomeAnalysis = self.genomeAnalysisStore[genomeAnalysisId]
-        genomeAnalysis.summary = resources.GenomeAnalysisSummary(
-            totalSnps=analysisData.summary.totalSnps,
-            matchedSnps=analysisData.summary.matchedSnps,
-            totalAssociations=analysisData.summary.totalAssociations,
-            topCategories=analysisData.summary.topCategories,
-            clinvarCount=analysisData.summary.clinvarCount,
+    async def upload_and_analyze_genome_file(self, genomeAnalysisId: str, file: UploadFile) -> resources.GenomeAnalysis:
+        dbGenomeAnalysis = await schema.GenomeAnalysesRepository.get(
+            database=self.database,
+            idValue=genomeAnalysisId,
         )
-        self.genomeAnalysisStore[genomeAnalysisId] = genomeAnalysis
+        if not dbGenomeAnalysis:
+            raise NotFoundException(message=f'GenomeAnalysis with id {genomeAnalysisId} not found')
+        uploadDirectory = Path('./uploads')
+        await file_util.create_directory(str(uploadDirectory))
+        uploadPath = uploadDirectory / f'{genomeAnalysisId}_{file.filename}'
+        content = await file.read()
+        contentStr = content.decode('utf-8')
+        await file_util.write_file(str(uploadPath), contentStr)
+        await schema.GenomeAnalysesRepository.update(
+            database=self.database,
+            genomeAnalysisId=genomeAnalysisId,
+            status='queued',
+        )
+        await self.workQueue.send_message(
+            message=AnalyzeGenomeMessageContent(
+                genomeAnalysisId=genomeAnalysisId,
+                filePath=str(uploadPath),
+            ).to_message(),
+        )
+        dbGenomeAnalysis = await schema.GenomeAnalysesRepository.get(
+            database=self.database,
+            idValue=genomeAnalysisId,
+        )
+        return resources.GenomeAnalysis(
+            genomeAnalysisId=dbGenomeAnalysis.genomeAnalysisId,
+            fileName=dbGenomeAnalysis.fileName,
+            fileType=file.content_type or 'text/plain',
+            detectedFormat=None,
+            status=dbGenomeAnalysis.status,
+            createdDate=date_util.datetime_to_string(dbGenomeAnalysis.createdDate),
+            summary=resources.GenomeAnalysisSummary(
+                totalSnps=dbGenomeAnalysis.totalSnps,
+                matchedSnps=dbGenomeAnalysis.matchedSnps,
+                totalAssociations=dbGenomeAnalysis.totalAssociations,
+                clinvarCount=dbGenomeAnalysis.clinvarCount,
+            )
+            if dbGenomeAnalysis.totalSnps is not None
+            else None,
+        )
 
-        # Use phenotype_groups from the analyzer
-        results = []
-        for category, associations in analysisData.phenotypeGroups.items():
+    async def run_genome_analysis(self, genomeAnalysisId: str, inputFilePath: str) -> None:
+        """Run the genome analysis - each status update is committed immediately for UI visibility."""
+        try:
+            # Update status to parsing in database (commit immediately)
+            async with self.database.create_transaction() as connection:
+                await schema.GenomeAnalysesRepository.update(
+                    database=self.database,
+                    connection=connection,
+                    genomeAnalysisId=genomeAnalysisId,
+                    status='parsing',
+                )
+
+            genomeContent = await file_util.read_file(inputFilePath)
+
+            analysisResult = await self.genomeAnalyzer.analyze_genome(genomeContent=genomeContent)
+
+            # Update status to building_baseline in database (commit immediately)
+            async with self.database.create_transaction() as connection:
+                await schema.GenomeAnalysesRepository.update(
+                    database=self.database,
+                    connection=connection,
+                    genomeAnalysisId=genomeAnalysisId,
+                    status='building_baseline',
+                )
+
+            outputPath = self.outputsDir / f'{genomeAnalysisId}.json'
+            resultContent = analysisResult.model_dump_json(indent=2)
+            await file_util.write_file(str(outputPath), resultContent)
+
+            await self._create_real_results(genomeAnalysisId, analysisResult)
+
+            # Update status to completed with summary in database (commit immediately)
+            async with self.database.create_transaction() as connection:
+                await schema.GenomeAnalysesRepository.update(
+                    database=self.database,
+                    connection=connection,
+                    genomeAnalysisId=genomeAnalysisId,
+                    status='completed',
+                    totalSnps=analysisResult.summary.totalSnps,
+                    matchedSnps=analysisResult.summary.matchedSnps,
+                    totalAssociations=analysisResult.summary.totalAssociations,
+                    clinvarCount=analysisResult.summary.clinvarCount,
+                )
+        except Exception:
+            # Update status to failed on error (commit immediately)
+            async with self.database.create_transaction() as connection:
+                await schema.GenomeAnalysesRepository.update(
+                    database=self.database,
+                    connection=connection,
+                    genomeAnalysisId=genomeAnalysisId,
+                    status='failed',
+                )
+            raise
+
+    async def _create_real_results(self, genomeAnalysisId: str, analysisData: model.GenomeAnalysisResult) -> None:
+        """Create genome analysis results from real analysis output."""
+        # Group associations by trait category
+        categoryGroups: dict[str, list[Any]] = defaultdict(list)
+        for assoc in analysisData.associations:
+            categoryGroups[assoc.traitCategory].append(assoc)
+
+        # Create results for each category
+        for category, associations in categoryGroups.items():
             # Deduplicate by rsid - keep highest scoring association per SNP
             seenRsids = {}
             for assoc in associations:
@@ -158,72 +195,141 @@ class AppManager:
                     riskAllele=assoc.riskAllele,
                     clinvarCondition=assoc.clinvarCondition,
                     clinvarSignificance=assoc.clinvarSignificance,
+                    oddsRatio=assoc.oddsRatio,
+                    riskAlleleFrequency=assoc.riskAlleleFrequency,
+                    studyDescription=assoc.studyDescription,
+                    userHasRiskAllele=assoc.userHasRiskAllele,
+                    riskLevel=None,  # Will be set below
                 )
+                # Calculate and set risk level
+                snp.riskLevel = self._get_risk_level(snp)
                 snps.append(snp)
 
             if snps:
-                result = resources.GenomeAnalysisResult(
-                    genomeAnalysisResultId=str(uuid.uuid4()),
+                resultId = str(uuid.uuid4())
+
+                # Save to database
+                await schema.GenomeAnalysisResultsRepository.create(
+                    database=self.database,
+                    resultId=resultId,
                     genomeAnalysisId=genomeAnalysisId,
                     phenotypeGroup=category,
                     phenotypeDescription=f'Genetic variants associated with {category.lower()}',
-                    snps=snps,
+                    snps=[snp.model_dump() for snp in snps],  # Convert to dict for JSON storage
                 )
-                results.append(result)
-
-        self.genomeAnalysisResultsStore[genomeAnalysisId] = results
 
     async def get_genome_analysis(self, genomeAnalysisId: str) -> resources.GenomeAnalysis:
-        genomeAnalysis = self.genomeAnalysisStore.get(genomeAnalysisId)
-        if not genomeAnalysis:
-            raise NotFoundException
+        # Get from database
+        dbGenomeAnalysis = await schema.GenomeAnalysesRepository.get(
+            database=self.database,
+            idValue=genomeAnalysisId,
+        )
+        # Convert to resource
+        return resources.GenomeAnalysis(
+            genomeAnalysisId=dbGenomeAnalysis.genomeAnalysisId,
+            fileName=dbGenomeAnalysis.fileName,
+            fileType='text/plain',  # Default, could be stored in DB later
+            detectedFormat='23andme',  # Default for now
+            status=dbGenomeAnalysis.status,
+            createdDate=date_util.datetime_to_string(dbGenomeAnalysis.createdDate),
+            summary=resources.GenomeAnalysisSummary(
+                totalSnps=dbGenomeAnalysis.totalSnps or 0,
+                matchedSnps=dbGenomeAnalysis.matchedSnps or 0,
+                totalAssociations=dbGenomeAnalysis.totalAssociations or 0,
+                clinvarCount=dbGenomeAnalysis.clinvarCount or 0,
+            )
+            if dbGenomeAnalysis.totalSnps is not None
+            else None,
+        )
 
-        return genomeAnalysis
+    async def get_genome_analysis_overview(self, genomeAnalysisId: str) -> resources.GenomeAnalysisOverview:
+        """Get overview of genome analysis with all categories and top 5 SNPs per category."""
+        # Get genome analysis from database
+        genomeAnalysis = await self.get_genome_analysis(genomeAnalysisId)
 
-    async def list_genome_analysis_results(self, genomeAnalysisId: str, phenotypeGroup: str | None = None, limit: int | None = None, minImportanceScore: float | None = None) -> list[resources.GenomeAnalysisResult]:
-        results = self.genomeAnalysisResultsStore.get(genomeAnalysisId, [])
+        # Get results from database
+        dbResults = await schema.GenomeAnalysisResultsRepository.list_many(
+            database=self.database,
+            fieldFilters=[StringFieldFilter(fieldName='genomeAnalysisId', eq=genomeAnalysisId)],
+        )
 
-        # Filter by phenotype group if specified
-        if phenotypeGroup:
-            results = [result for result in results if result.phenotypeGroup == phenotypeGroup]
+        # Convert database results to resources
+        categoryGroups = []
+        for dbResult in dbResults:
+            # Convert JSON SNPs back to SNP resources
+            snps = [resources.SNP.model_validate(snpDict) for snpDict in dbResult.snps]
 
-        # Apply filtering and limiting to each result's SNPs
-        filteredResults = []
-        defaultLimit = 20  # Default to top 20 SNPs per category
+            # Sort SNPs by risk priority, then importance score
+            sortedSnps = sorted(snps, key=lambda x: (self._get_risk_priority(x), x.importanceScore or 0), reverse=True)
 
-        for result in results:
-            snps = result.snps
+            categoryGroup = resources.GenomeAnalysisCategoryGroup(
+                genomeAnalysisResultId=dbResult.resultId,
+                phenotypeGroup=dbResult.phenotypeGroup,
+                phenotypeDescription=dbResult.phenotypeDescription,
+                totalCount=len(snps),
+                topSnps=sortedSnps[:5],  # Top 5 SNPs
+            )
+            categoryGroups.append(categoryGroup)
 
-            # Filter by minimum importance score if specified
-            if minImportanceScore is not None:
-                snps = [snp for snp in snps if snp.importanceScore and snp.importanceScore >= minImportanceScore]
+        # Sort category groups by total count (descending)
+        categoryGroups = sorted(categoryGroups, key=lambda x: x.totalCount, reverse=True)
 
-            # Sort by importance score (highest first)
-            snps = sorted(snps, key=lambda x: x.importanceScore or 0, reverse=True)
+        return resources.GenomeAnalysisOverview(
+            genomeAnalysisId=genomeAnalysisId,
+            summary=genomeAnalysis.summary or resources.GenomeAnalysisSummary(),
+            categoryGroups=categoryGroups,
+        )
 
-            # Limit the number of SNPs
-            maxSnps = limit if limit is not None else defaultLimit
-            snps = snps[:maxSnps]
+    async def list_category_snps(self, genomeAnalysisId: str, genomeAnalysisResultId: str, offset: int = 0, limit: int = 20, minImportanceScore: float | None = None) -> resources.CategorySnpsPage:  # noqa: ARG002
+        """Get paginated SNPs for a specific category."""
+        # Get result from database
+        dbResult = await schema.GenomeAnalysisResultsRepository.get(
+            database=self.database,
+            idValue=genomeAnalysisResultId,
+        )
 
-            # Create a new result with filtered SNPs
-            if snps:  # Only include categories that have SNPs after filtering
-                filteredResult = resources.GenomeAnalysisResult(
-                    genomeAnalysisResultId=result.genomeAnalysisResultId,
-                    genomeAnalysisId=result.genomeAnalysisId,
-                    phenotypeGroup=result.phenotypeGroup,
-                    phenotypeDescription=result.phenotypeDescription,
-                    snps=snps,
-                )
-                filteredResults.append(filteredResult)
+        # Convert JSON SNPs back to SNP resources
+        snps = [resources.SNP.model_validate(snpDict) for snpDict in dbResult.snps]
 
-        return filteredResults
+        # Filter by minimum importance score if specified
+        if minImportanceScore is not None:
+            snps = [snp for snp in snps if snp.importanceScore and snp.importanceScore >= minImportanceScore]
 
-    async def get_genome_analysis_result(self, genomeAnalysisId: str, genomeAnalysisResultId: str) -> resources.GenomeAnalysisResult:
-        results = self.genomeAnalysisResultsStore.get(genomeAnalysisId, [])
-        for result in results:
-            if result.genomeAnalysisResultId == genomeAnalysisResultId:
-                return result
-        raise NotFoundException
+        # Sort by risk priority, then importance score (highest first)
+        snps = sorted(snps, key=lambda x: (self._get_risk_priority(x), x.importanceScore or 0), reverse=True)
+
+        totalCount = len(snps)
+
+        # Apply pagination
+        paginatedSnps = snps[offset : offset + limit]
+
+        return resources.CategorySnpsPage(
+            genomeAnalysisResultId=dbResult.resultId,
+            phenotypeGroup=dbResult.phenotypeGroup,
+            phenotypeDescription=dbResult.phenotypeDescription,
+            totalCount=totalCount,
+            offset=offset,
+            limit=limit,
+            snps=paginatedSnps,
+        )
+
+    async def get_genome_analysis_result(self, genomeAnalysisId: str, genomeAnalysisResultId: str) -> resources.GenomeAnalysisResult:  # noqa: ARG002
+        # Get result from database
+        dbResult = await schema.GenomeAnalysisResultsRepository.get(
+            database=self.database,
+            idValue=genomeAnalysisResultId,
+        )
+
+        # Convert JSON SNPs back to SNP resources
+        snps = [resources.SNP.model_validate(snpDict) for snpDict in dbResult.snps]
+
+        return resources.GenomeAnalysisResult(
+            genomeAnalysisResultId=dbResult.resultId,
+            genomeAnalysisId=dbResult.genomeAnalysisId,
+            phenotypeGroup=dbResult.phenotypeGroup,
+            phenotypeDescription=dbResult.phenotypeDescription,
+            snps=snps,
+        )
 
     def _create_mock_results(self, genomeAnalysisId: str, fileName: str, fileType: str) -> None:  # noqa: ARG002
         # Mock SNP data for different phenotype groups
@@ -460,62 +566,66 @@ class AppManager:
                 sources=['dbSNP', 'ImmunoBase'],
             ),
         ]
-
-        results = [
-            resources.GenomeAnalysisResult(
-                genomeAnalysisResultId=str(uuid.uuid4()),
-                genomeAnalysisId=genomeAnalysisId,
-                phenotypeGroup='Drug Response',
-                phenotypeDescription='How your genes may affect medication metabolism and efficacy',
-                snps=drugResponseSnps,
-            ),
-            resources.GenomeAnalysisResult(
-                genomeAnalysisResultId=str(uuid.uuid4()),
-                genomeAnalysisId=genomeAnalysisId,
-                phenotypeGroup='Sleep & Stimulants',
-                phenotypeDescription='Genetic factors influencing sleep patterns and caffeine sensitivity',
-                snps=sleepSnps,
-            ),
-            resources.GenomeAnalysisResult(
-                genomeAnalysisResultId=str(uuid.uuid4()),
-                genomeAnalysisId=genomeAnalysisId,
-                phenotypeGroup='Longevity & Aging',
-                phenotypeDescription='Variants associated with lifespan and age-related conditions',
-                snps=longevitySnps,
-            ),
-            resources.GenomeAnalysisResult(
-                genomeAnalysisResultId=str(uuid.uuid4()),
-                genomeAnalysisId=genomeAnalysisId,
-                phenotypeGroup='Cardiovascular Health',
-                phenotypeDescription='Genetic variants affecting heart health and blood pressure',
-                snps=cardiovascularSnps,
-            ),
-            resources.GenomeAnalysisResult(
-                genomeAnalysisResultId=str(uuid.uuid4()),
-                genomeAnalysisId=genomeAnalysisId,
-                phenotypeGroup='Metabolic Traits',
-                phenotypeDescription='Genes influencing weight, blood sugar, and metabolic function',
-                snps=metabolicSnps,
-            ),
-            resources.GenomeAnalysisResult(
-                genomeAnalysisResultId=str(uuid.uuid4()),
-                genomeAnalysisId=genomeAnalysisId,
-                phenotypeGroup='Immune System',
-                phenotypeDescription='Genetic factors affecting immune response and autoimmune risk',
-                snps=immuneSnps,
-            ),
-        ]
-        self.genomeAnalysisResultsStore[genomeAnalysisId] = results
+        # Mock results are not persisted - this function is for demonstration purposes only
 
     def _create_example_analysis(self) -> None:
         """Create a pre-existing completed example analysis."""
-        exampleAnalysis = resources.GenomeAnalysis(
-            genomeAnalysisId=EXAMPLE_ANALYSIS_ID,
-            fileName='example_genome_23andme.txt',
-            fileType='text/plain',
-            detectedFormat='23andme',
-            status='completed',
-            createdDate=date_util.datetime_to_string(date_util.datetime_from_now()),
-        )
-        self.genomeAnalysisStore[EXAMPLE_ANALYSIS_ID] = exampleAnalysis
-        self._create_mock_results(EXAMPLE_ANALYSIS_ID, exampleAnalysis.fileName, exampleAnalysis.fileType)
+        # Note: Example analysis is created in-memory only for demo purposes
+        # In production, this should create actual database records
+
+    def _get_risk_level(self, snp: resources.SNP) -> str:
+        """Calculate risk level for a SNP (very_high, high, moderate, slight, lower, unknown)."""
+        importanceScore = snp.importanceScore or 0
+        userHasRiskAllele = snp.userHasRiskAllele or False
+        oddsRatio = snp.oddsRatio or 1.0
+        riskAlleleFrequency = snp.riskAlleleFrequency or 0
+
+        # If risk allele is very common (>80% of population), it's basically baseline/normal
+        # Downgrade the risk level since it's "priced in" to the population baseline
+        isCommonVariant = riskAlleleFrequency > 0.8
+
+        # Very high risk: strong research + user has risk allele + high odds ratio + not too common
+        if importanceScore >= 30 and userHasRiskAllele and oddsRatio >= 2.0 and not isCommonVariant:
+            return 'very_high'
+
+        # High risk: strong research + user has risk allele + moderate odds ratio + not too common
+        if importanceScore >= 30 and userHasRiskAllele and oddsRatio >= 1.5 and not isCommonVariant:
+            return 'high'
+
+        # Moderately higher risk: moderate research + user has risk allele + high odds ratio + not too common
+        if importanceScore >= 15 and userHasRiskAllele and oddsRatio >= 2.0 and not isCommonVariant:
+            return 'moderate'
+
+        # Moderately higher risk: strong research + user has risk allele (even if common, but lower priority)
+        if importanceScore >= 30 and userHasRiskAllele:
+            return 'moderate' if not isCommonVariant else 'slight'
+
+        # Slightly higher risk: moderate research + user has risk allele + moderate odds ratio
+        if importanceScore >= 15 and userHasRiskAllele and oddsRatio >= 1.5:
+            return 'slight'
+
+        # Slightly higher risk: moderate research + user has risk allele
+        if importanceScore >= 15 and userHasRiskAllele:
+            return 'slight'
+
+        # Lower risk: user does NOT have risk allele
+        if not userHasRiskAllele:
+            return 'lower'
+
+        # Unknown risk: missing data
+        return 'unknown'
+
+    def _get_risk_priority(self, snp: resources.SNP) -> int:
+        """Calculate risk priority for sorting SNPs (0-100, higher = more important)."""
+        riskLevel = self._get_risk_level(snp)
+
+        riskPriorities = {
+            'very_high': 100,
+            'high': 90,
+            'moderate': 75,  # Average of 80 and 70
+            'slight': 55,  # Average of 60 and 50
+            'lower': 1,
+            'unknown': 0,
+        }
+
+        return riskPriorities.get(riskLevel, 0)

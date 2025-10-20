@@ -62,32 +62,32 @@ jobs:
               --env LETSENCRYPT_HOST=${url} \
               --env-file ~/.${NAME}.vars \
               ${DOCKER_IMAGE}
-  # worker-run:
-  #   needs: api-deploy
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     NAME: longevityhack-worker
-  #     VERSION: ${{ github.sha }}
-  #     DOCKER_IMAGE: ghcr.io/${{ github.repository }}-api:latest
-  #   steps:
-  #     - name: executing remote ssh commands
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.KIBA_APP_BOX_URL }}
-  #         username: ${{ secrets.KIBA_APP_BOX_USER }}
-  #         key: ${{ secrets.KIBA_APP_BOX_SSH_KEY }}
-  #         port: ${{ secrets.KIBA_APP_BOX_PORT }}
-  #         envs: DOCKER_IMAGE,NAME,VERSION
-  #         script: |
-  #           set -e
-  #           docker pull ${DOCKER_IMAGE}
-  #           docker stop ${NAME} && docker rm ${NAME} || true
-  #           docker run \
-  #             --name ${NAME} \
-  #             --detach \
-  #             --restart on-failure \
-  #             --volume /home/ec2-user/longevityhack-data:/app/data \
-  #             --env NAME=${NAME} \
-  #             --env VERSION=${VERSION} \
-  #             --env-file ~/.longevityhack-api.vars \
-  #             ${DOCKER_IMAGE} /bin/bash -c 'make start-worker'
+  worker-run:
+    needs: api-deploy
+    runs-on: ubuntu-latest
+    env:
+      NAME: longevityhack-worker
+      VERSION: ${{ github.sha }}
+      DOCKER_IMAGE: ghcr.io/${{ github.repository }}-api:latest
+    steps:
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.KIBA_APP_BOX_URL }}
+          username: ${{ secrets.KIBA_APP_BOX_USER }}
+          key: ${{ secrets.KIBA_APP_BOX_SSH_KEY }}
+          port: ${{ secrets.KIBA_APP_BOX_PORT }}
+          envs: DOCKER_IMAGE,NAME,VERSION
+          script: |
+            set -e
+            docker pull ${DOCKER_IMAGE}
+            docker stop ${NAME} && docker rm ${NAME} || true
+            docker run \
+              --name ${NAME} \
+              --detach \
+              --restart on-failure \
+              --volume /home/ec2-user/longevityhack-data:/app/data \
+              --env NAME=${NAME} \
+              --env VERSION=${VERSION} \
+              --env-file ~/.longevityhack-api.vars \
+              ${DOCKER_IMAGE} /bin/bash -c 'make start-worker'

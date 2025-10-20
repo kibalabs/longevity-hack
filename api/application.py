@@ -35,13 +35,13 @@ resourceBuilder = ResourceBuilderV1(appManager.database)
 async def startup() -> None:
     # NOTE(krishan711): check max with `select * from pg_settings where name='max_connections'`
     await appManager.database.connect(poolSize=2)
-    # await appManager.workQueue.connect()
+    await appManager.workQueue.connect()
 
 
 async def shutdown() -> None:
     await appManager.requester.close_connections()
     await appManager.database.disconnect()
-    # await appManager.workQueue.disconnect()
+    await appManager.workQueue.disconnect()
 
 
 app = Starlette(

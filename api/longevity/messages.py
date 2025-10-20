@@ -1,7 +1,7 @@
-# Example message content classes for background job processing
-# Uncomment and modify as needed for your application
+from core.queues.model import MessageContent
 
-# class ExampleMessageContent(MessageContent):
-#     _COMMAND = 'EXAMPLE_COMMAND'
-#     data: str
-#     userId: str
+
+class AnalyzeGenomeMessageContent(MessageContent):
+    _COMMAND = 'ANALYZE_GENOME'
+    genomeAnalysisId: str
+    filePath: str

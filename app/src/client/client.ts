@@ -36,17 +36,25 @@ export class LongevityClient extends ServiceClient {
     return response.genomeAnalysis;
   };
 
-  public listGenomeAnalysisResults = async (genomeAnalysisId: string, phenotypeGroup: string | null = null, limit: number | null = null, minImportanceScore: number | null = null): Promise<Resources.GenomeAnalysisResult[]> => {
+  public getGenomeAnalysisOverview = async (genomeAnalysisId: string): Promise<Resources.GenomeAnalysisOverview> => {
     const method = RestMethod.GET;
-    const pathBase = `v1/genome-analyses/${genomeAnalysisId}/results`;
+    const path = `v1/genome-analyses/${genomeAnalysisId}/overview`;
+    const request = new Endpoints.GetGenomeAnalysisOverviewRequest(genomeAnalysisId);
+    const response = await this.makeRequest(method, path, request, Endpoints.GetGenomeAnalysisOverviewResponse, this.getHeaders());
+    return response.overview;
+  };
+
+  public listCategorySnps = async (genomeAnalysisId: string, genomeAnalysisResultId: string, offset: number = 0, limit: number = 20, minImportanceScore: number | null = null): Promise<Resources.CategorySnpsPage> => {
+    const method = RestMethod.GET;
+    const pathBase = `v1/genome-analyses/${genomeAnalysisId}/results/${genomeAnalysisResultId}/snps`;
     const params = new URLSearchParams();
-    if (phenotypeGroup) params.append('phenotypeGroup', phenotypeGroup);
-    if (limit !== null) params.append('limit', limit.toString());
+    params.append('offset', offset.toString());
+    params.append('limit', limit.toString());
     if (minImportanceScore !== null) params.append('minImportanceScore', minImportanceScore.toString());
     const path = params.toString() ? `${pathBase}?${params.toString()}` : pathBase;
-    const request = new Endpoints.ListGenomeAnalysisResultsRequest(genomeAnalysisId, phenotypeGroup, limit, minImportanceScore);
-    const response = await this.makeRequest(method, path, request, Endpoints.ListGenomeAnalysisResultsResponse, this.getHeaders());
-    return response.genomeAnalysisResults;
+    const request = new Endpoints.ListCategorySnpsRequest(genomeAnalysisId, genomeAnalysisResultId, offset, limit, minImportanceScore);
+    const response = await this.makeRequest(method, path, request, Endpoints.ListCategorySnpsResponse, this.getHeaders());
+    return response.categorySnpsPage;
   };
 
   public getGenomeAnalysisResult = async (genomeAnalysisId: string, genomeAnalysisResultId: string): Promise<Resources.GenomeAnalysisResult> => {

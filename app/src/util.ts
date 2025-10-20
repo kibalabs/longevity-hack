@@ -36,3 +36,106 @@ export const calculateDiffDays = (date1: Date, date2: Date): number => {
   const differenceInDays = differenceInTime / (1000 * 3600 * 24);
   return Math.abs(Math.round(differenceInDays));
 };
+
+export interface ImportanceBucket {
+  label: string;
+  level: 'critical' | 'high' | 'moderate' | 'low';
+  backgroundColor: string;
+  color: string;
+}
+
+export const getImportanceBucket = (score: number): ImportanceBucket => {
+  if (score >= 50) {
+    return {
+      label: 'Very Strong',
+      level: 'critical',
+      backgroundColor: '#FFEBEE',
+      color: '#C62828',
+    };
+  } else if (score >= 30) {
+    return {
+      label: 'Strong',
+      level: 'high',
+      backgroundColor: '#FFF3E0',
+      color: '#E65100',
+    };
+  } else if (score >= 15) {
+    return {
+      label: 'Moderate',
+      level: 'moderate',
+      backgroundColor: '#FFF9C4',
+      color: '#F57F17',
+    };
+  } else {
+    return {
+      label: 'Weak',
+      level: 'low',
+      backgroundColor: '#E3F2FD',
+      color: '#1565C0',
+    };
+  }
+};
+
+export interface RiskBucket {
+  label: string;
+  backgroundColor: string;
+  color: string;
+}
+
+export const getRiskBucket = (riskLevel: string | undefined | null): RiskBucket => {
+  switch (riskLevel) {
+    case 'very_high':
+      return {
+        label: 'Very High Risk',
+        backgroundColor: '#FFEBEE',
+        color: '#C62828',
+      };
+    case 'high':
+      return {
+        label: 'High Risk',
+        backgroundColor: '#FFE0B2',
+        color: '#E65100',
+      };
+    case 'moderate':
+      return {
+        label: 'Moderately Higher Risk',
+        backgroundColor: '#FFF9C4',
+        color: '#F57F17',
+      };
+    case 'slight':
+      return {
+        label: 'Slightly Higher Risk',
+        backgroundColor: '#E3F2FD',
+        color: '#1976D2',
+      };
+    case 'lower':
+      return {
+        label: 'Lower Risk',
+        backgroundColor: '#E8F5E9',
+        color: '#2E7D32',
+      };
+    default:
+      return {
+        label: 'Unknown Risk',
+        backgroundColor: '#F5F5F5',
+        color: '#666666',
+      };
+  }
+};
+
+export const getRiskPriority = (riskLevel: string | undefined | null): number => {
+  switch (riskLevel) {
+    case 'very_high':
+      return 100;
+    case 'high':
+      return 90;
+    case 'moderate':
+      return 75;
+    case 'slight':
+      return 55;
+    case 'lower':
+      return 1;
+    default:
+      return 0;
+  }
+};

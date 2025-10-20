@@ -22,6 +22,11 @@ class SNP(BaseModel):
     riskAllele: str | None = None
     clinvarCondition: str | None = None
     clinvarSignificance: int | None = None
+    oddsRatio: float | None = None
+    riskAlleleFrequency: float | None = None
+    studyDescription: str | None = None
+    userHasRiskAllele: bool | None = None
+    riskLevel: str | None = None  # "very_high", "high", "moderate", "slight", "lower", "unknown"
 
 
 class GenomeAnalysisResult(BaseModel):
@@ -32,12 +37,41 @@ class GenomeAnalysisResult(BaseModel):
     snps: list[SNP]
 
 
+class GenomeAnalysisCategoryGroup(BaseModel):
+    """A category group with basic info and top SNPs."""
+
+    genomeAnalysisResultId: str
+    phenotypeGroup: str
+    phenotypeDescription: str
+    totalCount: int  # Total number of SNPs in this category
+    topSnps: list[SNP]  # Top 5 SNPs by importance
+
+
 class GenomeAnalysisSummary(BaseModel):
     totalSnps: int | None = None
     matchedSnps: int | None = None
     totalAssociations: int | None = None
-    topCategories: list[str] | None = None
     clinvarCount: int | None = None
+
+
+class GenomeAnalysisOverview(BaseModel):
+    """Overview of genome analysis with all categories and their top results."""
+
+    genomeAnalysisId: str
+    summary: GenomeAnalysisSummary
+    categoryGroups: list[GenomeAnalysisCategoryGroup]
+
+
+class CategorySnpsPage(BaseModel):
+    """Paginated SNPs for a specific category."""
+
+    genomeAnalysisResultId: str
+    phenotypeGroup: str
+    phenotypeDescription: str
+    totalCount: int
+    offset: int
+    limit: int
+    snps: list[SNP]
 
 
 class GenomeAnalysis(BaseModel):

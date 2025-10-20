@@ -4,8 +4,7 @@ from core.queues.model import Message
 from core.store.database import Database
 
 from longevity.app_manager import AppManager
-
-# from longevity.messages import ExampleMessageContent
+from longevity.messages import AnalyzeGenomeMessageContent
 
 
 class AppMessageProcessor(MessageProcessor):
@@ -13,13 +12,14 @@ class AppMessageProcessor(MessageProcessor):
         self.appManager = appManager
         self.database = database
 
-    async def process_message(self, message: Message) -> None:  # noqa: ARG002
+    async def process_message(self, message: Message) -> None:
         async with self.database.create_context_connection():
-            # Example message processing pattern:
-            # if message.command == ExampleMessageContent.get_command():
-            #     exampleMessageContent = ExampleMessageContent.model_validate(message.content)
-            #     await self.appManager.handle_example_message(data=exampleMessageContent.data)
-            #     return
-
+            if message.command == AnalyzeGenomeMessageContent.get_command():
+                analyzeGenomeMessageContent = AnalyzeGenomeMessageContent.model_validate(message.content)
+                await self.appManager.run_genome_analysis(
+                    genomeAnalysisId=analyzeGenomeMessageContent.genomeAnalysisId,
+                    inputFilePath=analyzeGenomeMessageContent.filePath,
+                )
+                return
             # Handle unknown messages
             raise KibaException(message='Message was unhandled')

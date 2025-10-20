@@ -1,0 +1,390 @@
+category	DISEASE/TRAIT
+Cognitive and Neurological	Advanced age-related macular degeneration
+Cognitive and Neurological	Age-related cognitive decline (memory) (slope of z-scores)
+Cognitive and Neurological	Aging traits (healthspan, parental lifespan or longevity) (multivariate analysis)
+Cognitive and Neurological	Alzheimerâ€™s disease (clinical subgroup AD+)
+Cognitive and Neurological	Alzheimerâ€™s disease (clinical subgroup AD++)
+Cognitive and Neurological	Alzheimerâ€™s disease (clinical subgroup AD+++)
+Cognitive and Neurological	Alzheimerâ€™s disease and/or vascular dementia (clinical subgroup VaD+)
+Cognitive and Neurological	Alzheimer's disease
+Cognitive and Neurological	Alzheimer's disease (adjusted for APOE e4 dosage)
+Cognitive and Neurological	Alzheimer's disease (late onset)
+Cognitive and Neurological	Alzheimer's disease biomarkers
+Cognitive and Neurological	Alzheimer's disease in APOE e4- carriers
+Cognitive and Neurological	Alzheimer's disease in hypertension
+Cognitive and Neurological	Alzheimer's disease in hypertension-negative individuals
+Cognitive and Neurological	Alzheimer's disease or family history of Alzheimer's disease
+Cognitive and Neurological	Alzheimer's disease, proxy Alzheimer's disease or related dementias
+Cognitive and Neurological	Alzheimer's disease, proxy Alzheimer's disease or related dementias (age of onset <75)
+Cognitive and Neurological	Alzheimer's disease, proxy Alzheimer's disease or related dementias (age of onset >=75)
+Cognitive and Neurological	Alzheimer's disease, proxy Alzheimer's disease or related dementias in APOE e4 carriers
+Cognitive and Neurological	Amygdala volume change rate x age interaction (1df)
+Cognitive and Neurological	Amygdala volume change rate x age interaction (2df)
+Cognitive and Neurological	Amyloid pathology
+Cognitive and Neurological	Amyloid status (abnormal vs normal)
+Cognitive and Neurological	Baseline memory
+Cognitive and Neurological	Baseline memory in impaired cognition
+Cognitive and Neurological	Biological Father: Alzheimer's / Other Dementia
+Cognitive and Neurological	Biological Father: High cholesterol
+Cognitive and Neurological	Biological Grandparent (paternal): Alzheimer's / Other Dementia
+Cognitive and Neurological	Biological Mother: Alzheimer's / Other Dementia
+Cognitive and Neurological	Blood protein levels
+Cognitive and Neurological	Brain imaging
+Cognitive and Neurological	Central cerebrospinal fluid amyloid beta 42 levels
+Cognitive and Neurological	Central cerebrospinal fluid amyloid beta 42 to 40 ratio
+Cognitive and Neurological	Central cerebrospinal fluid amyloid beta 42 to 40 ratio (abnormal vs normal)
+Cognitive and Neurological	Cerebral amyloid deposition (PET imaging)
+Cognitive and Neurological	Cerebral amyloid deposition positivity (PET imaging)
+Cognitive and Neurological	Cerebrospinal AB1-42 levels in Alzheimer's disease dementia
+Cognitive and Neurological	Dementia (includes Alzheimer's, Vascular, etc.)
+Cognitive and Neurological	Memory decline
+Cognitive and Neurological	Memory decline in impaired cognition
+Cognitive and Neurological	Memory decline in normal cognition
+Cognitive and Neurological	Memory loss or impairment
+Cognitive and Neurological	Mental health study participation (completed survey)
+Cognitive and Neurological	Neuritic plaque
+Cognitive and Neurological	Neuritic plaques or cerebral amyloid angiopathy (pleiotropy)
+Cognitive and Neurological	Neuritic plaques or neurofibrillary tangles (pleiotropy)
+Cognitive and Neurological	Neurofibrillary tangles
+Cognitive and Neurological	Neurofibrillary tangles or cerebral amyloid angiopathy (pleiotropy)
+Cognitive and Neurological	Parkinson's disease progression (cognitive)
+Cognitive and Neurological	Parkinson's disease progression (composite)
+Cognitive and Neurological	Right hippocampal volume
+Cognitive and Neurological	Total brain volume change rate x age interaction (2df)
+Cognitive and Neurological	White matter hyperintensity volume
+Cognitive and Neurological	White matter hyperintensity volume (adjusted for hypertension)
+Bone and Joints	Bone mineral density
+Bone and Joints	Knee osteoarthritis
+Bone and Joints	Lumbar spine bone mineral density
+Breast Cancer	Breast cancer
+Breast Cancer	Breast cancer (estrogen-receptor negative)
+Breast Cancer	Breast cancer (male)
+Cardiometabolic	Abdominal aortic aneurysm
+Cardiometabolic	Anteromedial temporal area (unadjusted for global measures)
+Cardiometabolic	Aortic-valve calcification
+Cardiometabolic	Aspartate aminotransferase levels
+Cardiometabolic	Atrial fibrillation
+Cardiometabolic	Atrial fibrillation/atrial flutter
+Cardiometabolic	Biological Father: Coronary Artery / Coronary Heart Disease
+Cardiometabolic	Biological Father: High cholesterol
+Cardiometabolic	Biological Grandparent (paternal): Coronary Artery / Coronary Heart Disease
+Cardiometabolic	Blood pressure
+Cardiometabolic	B-type natriuretic peptide levels
+Cardiometabolic	Calcific aortic valve stenosis
+Cardiometabolic	Calcium levels
+Cardiometabolic	Cardiovascular disease risk factors
+Cardiometabolic	Carotid intima media thickness
+Cardiometabolic	Cervical artery dissection
+Cardiometabolic	Cholesterol, total
+Cardiometabolic	Cirrhosis (multi-trait analysis)
+Cardiometabolic	Congestive heart failure
+Cardiometabolic	Coronary artery / coronary heart disease (including heart attack, angina)
+Cardiometabolic	Coronary artery calcification
+Cardiometabolic	Coronary artery disease
+Cardiometabolic	Coronary artery disease (myocardial infarction, percutaneous transluminal coronary angioplasty, coronary artery bypass grafting, angina or chromic ischemic heart disease)
+Cardiometabolic	Coronary artery disease in individuals without type 2 diabetes
+Cardiometabolic	Coronary artery disease or ischemic stroke
+Cardiometabolic	Coronary artery disease or large artery stroke
+Cardiometabolic	Coronary heart disease
+Cardiometabolic	C-reactive protein
+Cardiometabolic	C-reactive protein levels
+Cardiometabolic	creatinine (minimum, inv-norm transformed)
+Cardiometabolic	Crohn's disease
+Cardiometabolic	Diastolic blood pressure
+Cardiometabolic	Diastolic blood pressure (cigarette smoking interaction)
+Cardiometabolic	diastolic blood pressure (DBP, mean, inv-normal transformed)
+Cardiometabolic	diastolic blood pressure (DBP, minimum, inv-normal transformed)
+Cardiometabolic	Dilated cardiomyopathy
+Cardiometabolic	Dilated cardiomyopathy (MTAG)
+Cardiometabolic	Early onset atrial fibrillation
+Cardiometabolic	Estimated glomerular filtration rate (creatinine)
+Cardiometabolic	Estimated glomerular filtration rate (creatinine, cystatin c)
+Cardiometabolic	Estimated glomerular filtration rate (cystatin c)
+Cardiometabolic	Exudative age-related macular degeneration
+Cardiometabolic	Fasting blood glucose
+Cardiometabolic	Fasting blood glucose (BMI interaction)
+Cardiometabolic	Fasting blood insulin
+Cardiometabolic	Fasting blood insulin (BMI interaction)
+Cardiometabolic	Fasting plasma glucose
+Cardiometabolic	Fasting triglyceride levels
+Cardiometabolic	Glucose (fasting status unknown, mean, inv-norm transformed)
+Cardiometabolic	Glucose (fasting status unknown, minimum, inv-norm transformed)
+Cardiometabolic	Glycated hemoglobin levels
+Cardiometabolic	Gondoic acid (20:1n-9) levels
+Cardiometabolic	HDL cholesterol
+Cardiometabolic	HDL Cholesterol in HIV-infection
+Cardiometabolic	HDL cholesterol levels
+Cardiometabolic	Heart attack
+Cardiometabolic	Height
+Cardiometabolic	Hematological and biochemical traits
+Cardiometabolic	High cholesterol
+Cardiometabolic	high density lipoprotein cholesterol (HDLC, maximum, inv-norm transformed)
+Cardiometabolic	high density lipoprotein cholesterol (HDLC, mean, inv-norm transformed)
+Cardiometabolic	high density lipoprotein cholesterol (HDLC, minimm, inv-norm transformed)
+Cardiometabolic	High density lipoprotein cholesterol levels
+Cardiometabolic	Homeostasis model assessment of insulin resistance
+Cardiometabolic	Hypertension
+Cardiometabolic	Hypertriglyceridemia
+Cardiometabolic	Idiopathic dilated cardiomyopathy
+Cardiometabolic	Ischemic heart disease (PheCode 411)
+Cardiometabolic	Ischemic stroke
+Cardiometabolic	Ischemic stroke (cardioembolic)
+Cardiometabolic	Large artery stroke
+Cardiometabolic	LDL cholesterol
+Cardiometabolic	LDL cholesterol levels
+Cardiometabolic	LDL cholesterol levels in current drinkers
+Cardiometabolic	LDL cholesterol levels in HIV infection
+Cardiometabolic	LDL cholesterol levels x alcohol consumption (regular vs non-regular drinkers) interaction (2df)
+Cardiometabolic	Lipid metabolism phenotypes
+Cardiometabolic	Lipid traits
+Cardiometabolic	Lipoprotein (a) levels
+Cardiometabolic	Lipoprotein phospholipase A2 activity in cardiovascular disease
+Cardiometabolic	Lipoprotein-associated phospholipase A2 activity and mass
+Cardiometabolic	Lipoprotein-associated phospholipase A2 activity change in response to statin therapy
+Cardiometabolic	Liver condition (ex. cirrhosis)
+Cardiometabolic	Liver enzyme levels (alkaline phosphatase)
+Cardiometabolic	Liver fat content (MRI proton density fat fraction measure)
+Cardiometabolic	Liver fibrosis and steatohepatitis severity (MRI cT1 measure)
+Cardiometabolic	Low density lipoprotein cholesterol levels
+Cardiometabolic	Lp (a) levels
+Cardiometabolic	Mean spheric corpuscular volume
+Cardiometabolic	Metabolic syndrome
+Cardiometabolic	Metabolic syndrome (bivariate traits)
+Cardiometabolic	Metabolic syndrome (multivariate analysis)
+Cardiometabolic	Myocardial infarction
+Cardiometabolic	Myocardial infarction (early onset)
+Cardiometabolic	Nonalcoholic fatty liver disease
+Cardiometabolic	Nonalcoholic fatty liver disease in lean individuals (BMI <25)
+Cardiometabolic	Nonalcoholic fatty liver disease in obese individuals (BMI>30)
+Cardiometabolic	Nonalcoholic fatty liver disease in overweight individuals (25<=BMI<=30)
+Cardiometabolic	Nonalcoholic steatohepatitis
+Cardiometabolic	NPPB protein levels
+Cardiometabolic	NT-proBNP levels in acute coronary syndrome
+Cardiometabolic	Peripheral artery disease
+Cardiometabolic	Peripheral vascular disease
+Cardiometabolic	Phospholipid levels (plasma)
+Cardiometabolic	PLA2G15 protein levels
+Cardiometabolic	Plasma omega-3 polyunsaturated fatty acid levels (docosapentaenoic acid)
+Cardiometabolic	Platelet count
+Cardiometabolic	Platelet reactivity measurement (collagen-epinephrine)
+Cardiometabolic	Plateletcrit
+Cardiometabolic	Postprandial triglyceride levels
+Cardiometabolic	Prevalent atrial fibrillation
+Cardiometabolic	Pulse pressure
+Cardiometabolic	Red blood cell count
+Cardiometabolic	Red blood cell traits
+Cardiometabolic	Red cell distribution width
+Cardiometabolic	Renal underexcretion gout
+Cardiometabolic	Response to statin therapy
+Cardiometabolic	Response to statins (LDL cholesterol change)
+Cardiometabolic	Spontaneous coronary artery dissection
+Cardiometabolic	Stroke (ischemic)
+Cardiometabolic	Systolic blood pressure
+Cardiometabolic	Systolic blood pressure (cigarette smoking interaction)
+Cardiometabolic	Takes medication for congestive heart failure?
+Cardiometabolic	Takes medication for coronary artery/ coronary heart disease?
+Cardiometabolic	Takes medication for heart attack?
+Cardiometabolic	Takes medication for high blood pressure?
+Cardiometabolic	Takes medication for high cholesterol?
+Cardiometabolic	Takes medication for peripheral vascular disease?
+Cardiometabolic	Telomere length (principal component 1)
+Cardiometabolic	Total cholesterol levels
+Cardiometabolic	Total cholesterol levels (1KG-JEWEL7K)
+Cardiometabolic	Total testosterone levels
+Cardiometabolic	Total triglycerides levels
+Cardiometabolic	Triglyceride levels
+Cardiometabolic	Triglycerides
+Cardiometabolic	Type 2 diabetes
+Cardiometabolic	Type 2 diabetes (adjusted for BMI)
+Cardiometabolic	VEGF-R3 levels in metastatic colorectal cancer
+Cardiometabolic	Waist circumference and related phenotypes
+Colorectal Cancer	Benign neoplasm of colon (PheCode 208)
+Colorectal Cancer	Biological Father:  Cancer, Prostate
+Colorectal Cancer	Cancer (pleiotropy)
+Colorectal Cancer	Colon polyps
+Colorectal Cancer	Colorectal cancer
+Colorectal Cancer	Colorectal cancer (PheCode 153)
+Colorectal Cancer	Colorectal polyp (UKB data field 20002_1460)
+Colorectal Cancer	ICD10 C18, C19, C20: colorectal cancer
+Colorectal Cancer	Rectal cancer
+Inflammation	Allergic disease (asthma, hay fever or eczema)
+Inflammation	Atopic dermatitis
+Inflammation	Cerebrospinal fluid clusterin levels in APOEe4- carriers
+Inflammation	C-reactive protein levels
+Inflammation	Iron status biomarkers (iron levels)
+Inflammation	Monocyte percentage of white cells
+Inflammation	Multi-trait sum score
+Inflammation	OSMR protein levels
+Inflammation	Pulse pressure
+Inflammation	Rheumatoid arthritis
+Inflammation	Rheumatoid arthritis (ACPA-positive)
+Inflammation	White blood cell count
+Kidney Disease	Chronic kidney disease
+Kidney Disease	Glomerular filtration rate (creatinine)
+Kidney Disease	Glomerular filtration rate in diabetics (creatinine)
+Kidney Disease	Glomerular filtration rate in non diabetics (creatinine)
+Kidney Disease	Kidney function decline traits
+Kidney Disease	NPC2 protein levels
+Kidney Disease	Renal function and chronic kidney disease
+Kidney Disease	Urinary uromodulin levels
+Lung Cancer	EGFR mutation-positive lung adenocarcinoma
+Lung Cancer	Glioma (high-grade)
+Lung Cancer	hematocrit (maximum, inv-norm transformed)
+Lung Cancer	Idiopathic pulmonary fibrosis
+Lung Cancer	Interstitial lung disease
+Lung Cancer	Lung adenocarcinoma
+Lung Cancer	Lung cancer
+Lung Cancer	Post bronchodilator FEV1
+Lung Cancer	Post bronchodilator FEV1/FVC ratio
+Lung Cancer	Post bronchodilator FEV1/FVC ratio in COPD
+Lung Cancer	Pre bronchodilator FEV1
+Lung Cancer	Pre bronchodilator FEV1/FVC ratio
+Lung Cancer	Smoking behaviour (cigarettes smoked per day)
+Lung Cancer	Time to smoke first cigarette in the morning
+Melanoma	Basal cell carcinoma
+Melanoma	Basal cell carcinoma (PheCode 172.21)
+Melanoma	Biological Father:  Cancer, Skin
+Melanoma	Cutaneous squamous cell carcinoma
+Melanoma	Keratinocyte cancer (MTAG)
+Melanoma	Melanoma
+Melanoma	Melanomas of skin (PheCode 172.11)
+Melanoma	Melanomas of skin, dx or hx (PheCode 172.1)
+Melanoma	Non-melanoma skin cancer
+Melanoma	Other non-epithelial cancer of skin (PheCode 172.2)
+Melanoma	Screening for malignant neopla (PheCode 216.1)
+Melanoma	Skin cancer
+Melanoma	Skin pigmentation traits
+Melanoma	Skin sensitivity to sun
+Melanoma	Squamous cell carcinoma
+Melanoma	Squamous cell carcinoma (PheCode 172.22)
+Melanoma	Sunburns
+Melanoma	Takes medication for skin cancer?
+Melanoma	Tanning
+Cardiometabolic	Age-related disease endophenotypes
+Cardiometabolic	Age-related diseases, mortality and associated endophenotypes
+Cardiometabolic	Alcohol consumption (drinks per week) (MTAG)
+Cardiometabolic	Biomedical quantitative traits
+Cardiometabolic	BMI (adjusted for smoking behaviour)
+Cardiometabolic	BMI in non-smokers
+Cardiometabolic	BMI in smokers
+Cardiometabolic	Body fat percentage
+Cardiometabolic	Body mass index
+Cardiometabolic	Body mass index (age interaction)
+Cardiometabolic	Body mass index (joint analysis main effects and physical activity interaction)
+Cardiometabolic	Body mass index (joint analysis main effects and smoking interaction)
+Cardiometabolic	Body mass index in physically inactive individuals
+Cardiometabolic	Childhood body mass index
+Cardiometabolic	C-reactive protein levels or HDL-cholesterol levels (pleiotropy)
+Cardiometabolic	Fasting blood glucose
+Cardiometabolic	Fasting blood glucose (BMI interaction)
+Cardiometabolic	Fasting plasma glucose
+Cardiometabolic	Glucose (fasting status unknown, maximum, inv-norm transformed)
+Cardiometabolic	Glucose (fasting status unknown, mean, inv-norm transformed)
+Cardiometabolic	Glucose (fasting status unknown, minimum, inv-norm transformed)
+Cardiometabolic	Glucose (finger stick, mean, inv-norm transformed)
+Cardiometabolic	Glycated hemoglobin levels
+Cardiometabolic	Glycemic traits (pregnancy)
+Cardiometabolic	Height
+Cardiometabolic	Height adjusted BMI
+Cardiometabolic	Hemoglobin A1c levels
+Cardiometabolic	Hemoglobin levels
+Cardiometabolic	High blood pressure / hypertension
+Cardiometabolic	Hip circumference
+Cardiometabolic	Homeostasis model assessment of beta-cell function
+Cardiometabolic	Metabolic syndrome
+Cardiometabolic	Metabolic traits
+Cardiometabolic	Metabolite levels
+Cardiometabolic	Multi-trait sum score
+Cardiometabolic	Obesity
+Cardiometabolic	Obesity (early onset extreme)
+Cardiometabolic	Offspring birth weight
+Cardiometabolic	Red cell distribution width
+Cardiometabolic	Type 2 diabetes
+Cardiometabolic	Waist circumference
+Cardiometabolic	Weight
+Pancreatic Cancer	Clinical laboratory measurements
+Pancreatic Cancer	COVID-19 severity
+Pancreatic Cancer	COVID-19 with respiratory failure
+Pancreatic Cancer	Duodenal ulcer
+Pancreatic Cancer	End-stage coagulation
+Pancreatic Cancer	Graves' disease
+Pancreatic Cancer	Insulin disposition index
+Pancreatic Cancer	Mean spheric corpuscular volume
+Pancreatic Cancer	Monocyte count
+Pancreatic Cancer	Pancreatic cancer
+Pancreatic Cancer	Peripheral artery disease
+Pancreatic Cancer	Protein quantitative trait loci
+Pancreatic Cancer	Reticulocyte count
+Pancreatic Cancer	Type 2 diabetes
+Pancreatic Cancer	Venous thromboembolism
+Pancreatic Cancer	vWF levels in ischaemic stroke and hyperhomocysteinaemia
+Cognitive and Neurological	Parkinson's disease
+Prostate Cancer	Biological Father:  Cancer, Prostate
+Prostate Cancer	Cancer of prostate (PheCode 185)
+Prostate Cancer	Elevated serum prostate-specific antigen levels in healthy men
+Prostate Cancer	Prostate cancer
+Prostate Cancer	Prostate-specific antigen levels
+Prostate Cancer	Takes medication for prostate cancer?
+Sarcopenia	Body fat percentage
+Sarcopenia	Body mass index
+Sarcopenia	Body mass index or osteoarthritis (pleiotropy)
+Sarcopenia	Brain morphology (MOSTest)
+Sarcopenia	Hand grip strength
+Cardiometabolic	Biological Father: Diabetes / "Sugar"
+Cardiometabolic	BMI (adjusted for smoking behaviour)
+Cardiometabolic	BMI in non-smokers
+Cardiometabolic	Body mass index
+Cardiometabolic	Body mass index (BMI, maximum, inv-normal transformed)
+Cardiometabolic	Body mass index (BMI, mean, inv-normal transformed)
+Cardiometabolic	Body mass index (BMI, minimum, inv-normal transformed)
+Cardiometabolic	Body mass index (joint analysis main effects and physical activity interaction)
+Cardiometabolic	Body mass index (joint analysis main effects and smoking interaction)
+Cardiometabolic	Body mass index in physically active individuals
+Cardiometabolic	Childhood onset type 2 diabetes
+Cardiometabolic	Diabetes / "Sugar"
+Cardiometabolic	Diabetes mellitus (PheCode 250)
+Cardiometabolic	Diabetes type 2 with peripheral circulatory (PheCode 250.25)
+Cardiometabolic	diastolic blood pressure (DBP, mean, inv-normal transformed)
+Cardiometabolic	Fasting blood glucose
+Cardiometabolic	Fasting blood glucose (BMI interaction)
+Cardiometabolic	Fasting blood insulin
+Cardiometabolic	Fasting blood insulin (BMI interaction)
+Cardiometabolic	Fasting plasma glucose
+Cardiometabolic	Glucose (fasting status unknown, maximum, inv-norm transformed)
+Cardiometabolic	Glucose (fasting status unknown, mean, inv-norm transformed)
+Cardiometabolic	Glucose (fasting status unknown, minimum, inv-norm transformed)
+Cardiometabolic	Glucose (finger stick, maximum, inv-norm transformed)
+Cardiometabolic	Glucose (finger stick, mean, inv-norm transformed)
+Cardiometabolic	Glucosuria
+Cardiometabolic	Glucosuria (mild)
+Cardiometabolic	Glucosuria (moderate to severe)
+Cardiometabolic	Glycated hemoglobin levels
+Cardiometabolic	hematocrit (maximum, inv-norm transformed)
+Cardiometabolic	hematocrit (mean, inv-norm transformed)
+Cardiometabolic	hematocrit (minimum, inv-norm transformed)
+Cardiometabolic	High cholesterol
+Cardiometabolic	Hip circumference
+Cardiometabolic	Insulin pump user (PheCode 250.3)
+Cardiometabolic	Insulin secretion rate
+Cardiometabolic	Mean arterial pressure
+Cardiometabolic	Metabolic syndrome
+Cardiometabolic	Offspring birth weight
+Cardiometabolic	Peak insulin response
+Cardiometabolic	Peripheral artery disease
+Cardiometabolic	Proinsulin levels
+Cardiometabolic	Pulse pressure
+Cardiometabolic	Screening for other diseases and disorders (PheCode 1010.3)
+Cardiometabolic	Secondary diabetes mellitus (PheCode 249)
+Cardiometabolic	Statin-associated type 2 diabetes mellitus
+Cardiometabolic	Systolic blood pressure
+Cardiometabolic	Takes medication for Diabetes/sugar?
+Cardiometabolic	Takes medication for high cholesterol?
+Cardiometabolic	Type 1 diabetes (PheCode 250.1)
+Cardiometabolic	Type 2 diabetes
+Cardiometabolic	Type 2 diabetes (adjusted for BMI)
+Cardiometabolic	Type 2 diabetes (PheCode 250.2)
+Cardiometabolic	Type 2 diabetes with neurological manifestations (PheCode 250.24)
+Cardiometabolic	Type 2 diabetes with ophthalmic manifestations (PheCode 250.23)
+Cardiometabolic	Type 2 diabetes with renal manifestations (PheCode 250.22)
+Cardiometabolic	Waist circumference
+Cardiometabolic	Youth-onset type 2 diabetes

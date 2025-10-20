@@ -85,11 +85,38 @@ export class GetGenomeAnalysisResponse extends ResponseData {
   };
 }
 
-export class ListGenomeAnalysisResultsRequest extends RequestData {
+export class GetGenomeAnalysisOverviewRequest extends RequestData {
   public constructor(
     readonly genomeAnalysisId: string,
-    readonly phenotypeGroup: string | null,
-    readonly limit: number | null = null,
+  ) {
+    super();
+  }
+
+  public toObject = (): RawObject => {
+    return {};
+  };
+}
+
+export class GetGenomeAnalysisOverviewResponse extends ResponseData {
+  public constructor(
+    readonly overview: Resources.GenomeAnalysisOverview,
+  ) {
+    super();
+  }
+
+  public static fromObject = (obj: RawObject): GetGenomeAnalysisOverviewResponse => {
+    return new GetGenomeAnalysisOverviewResponse(
+      Resources.GenomeAnalysisOverview.fromObject(obj.overview as RawObject),
+    );
+  };
+}
+
+export class ListCategorySnpsRequest extends RequestData {
+  public constructor(
+    readonly genomeAnalysisId: string,
+    readonly genomeAnalysisResultId: string,
+    readonly offset: number = 0,
+    readonly limit: number = 20,
     readonly minImportanceScore: number | null = null,
   ) {
     super();
@@ -100,16 +127,16 @@ export class ListGenomeAnalysisResultsRequest extends RequestData {
   };
 }
 
-export class ListGenomeAnalysisResultsResponse extends ResponseData {
+export class ListCategorySnpsResponse extends ResponseData {
   public constructor(
-    readonly genomeAnalysisResults: Resources.GenomeAnalysisResult[],
+    readonly categorySnpsPage: Resources.CategorySnpsPage,
   ) {
     super();
   }
 
-  public static fromObject = (obj: RawObject): ListGenomeAnalysisResultsResponse => {
-    return new ListGenomeAnalysisResultsResponse(
-      ((obj.genomeAnalysisResults || []) as RawObject[]).map(Resources.GenomeAnalysisResult.fromObject),
+  public static fromObject = (obj: RawObject): ListCategorySnpsResponse => {
+    return new ListCategorySnpsResponse(
+      Resources.CategorySnpsPage.fromObject(obj.categorySnpsPage as RawObject),
     );
   };
 }

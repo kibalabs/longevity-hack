@@ -30,6 +30,11 @@ export class SNP {
     readonly riskAllele: string | null,
     readonly clinvarCondition: string | null,
     readonly clinvarSignificance: number | null,
+    readonly oddsRatio: number | null,
+    readonly riskAlleleFrequency: number | null,
+    readonly studyDescription: string | null,
+    readonly userHasRiskAllele: boolean | null,
+    readonly riskLevel: string | null,
   ) { }
 
   public static fromObject = (obj: RawObject): SNP => {
@@ -48,6 +53,11 @@ export class SNP {
       obj.riskAllele ? String(obj.riskAllele) : null,
       obj.clinvarCondition ? String(obj.clinvarCondition) : null,
       obj.clinvarSignificance ? Number(obj.clinvarSignificance) : null,
+      obj.oddsRatio ? Number(obj.oddsRatio) : null,
+      obj.riskAlleleFrequency ? Number(obj.riskAlleleFrequency) : null,
+      obj.studyDescription ? String(obj.studyDescription) : null,
+      obj.userHasRiskAllele != null ? Boolean(obj.userHasRiskAllele) : null,
+      obj.riskLevel ? String(obj.riskLevel) : null,
     );
   };
 }
@@ -72,12 +82,31 @@ export class GenomeAnalysisResult {
   };
 }
 
+export class GenomeAnalysisCategoryGroup {
+  public constructor(
+    readonly genomeAnalysisResultId: string,
+    readonly phenotypeGroup: string,
+    readonly phenotypeDescription: string,
+    readonly totalCount: number,
+    readonly topSnps: SNP[],
+  ) { }
+
+  public static fromObject = (obj: RawObject): GenomeAnalysisCategoryGroup => {
+    return new GenomeAnalysisCategoryGroup(
+      String(obj.genomeAnalysisResultId),
+      String(obj.phenotypeGroup),
+      String(obj.phenotypeDescription),
+      Number(obj.totalCount),
+      ((obj.topSnps || []) as RawObject[]).map(SNP.fromObject),
+    );
+  };
+}
+
 export class GenomeAnalysisSummary {
   public constructor(
     readonly totalSnps: number | null,
     readonly matchedSnps: number | null,
     readonly totalAssociations: number | null,
-    readonly topCategories: string[] | null,
     readonly clinvarCount: number | null,
   ) { }
 
@@ -86,8 +115,47 @@ export class GenomeAnalysisSummary {
       obj.totalSnps ? Number(obj.totalSnps) : null,
       obj.matchedSnps ? Number(obj.matchedSnps) : null,
       obj.totalAssociations ? Number(obj.totalAssociations) : null,
-      obj.topCategories ? (obj.topCategories as string[]) : null,
       obj.clinvarCount ? Number(obj.clinvarCount) : null,
+    );
+  };
+}
+
+export class GenomeAnalysisOverview {
+  public constructor(
+    readonly genomeAnalysisId: string,
+    readonly summary: GenomeAnalysisSummary,
+    readonly categoryGroups: GenomeAnalysisCategoryGroup[],
+  ) { }
+
+  public static fromObject = (obj: RawObject): GenomeAnalysisOverview => {
+    return new GenomeAnalysisOverview(
+      String(obj.genomeAnalysisId),
+      GenomeAnalysisSummary.fromObject(obj.summary as RawObject),
+      ((obj.categoryGroups || []) as RawObject[]).map(GenomeAnalysisCategoryGroup.fromObject),
+    );
+  };
+}
+
+export class CategorySnpsPage {
+  public constructor(
+    readonly genomeAnalysisResultId: string,
+    readonly phenotypeGroup: string,
+    readonly phenotypeDescription: string,
+    readonly totalCount: number,
+    readonly offset: number,
+    readonly limit: number,
+    readonly snps: SNP[],
+  ) { }
+
+  public static fromObject = (obj: RawObject): CategorySnpsPage => {
+    return new CategorySnpsPage(
+      String(obj.genomeAnalysisResultId),
+      String(obj.phenotypeGroup),
+      String(obj.phenotypeDescription),
+      Number(obj.totalCount),
+      Number(obj.offset),
+      Number(obj.limit),
+      ((obj.snps || []) as RawObject[]).map(SNP.fromObject),
     );
   };
 }
