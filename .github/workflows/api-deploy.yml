@@ -56,8 +56,10 @@ jobs:
               --detach \
               --publish-all \
               --restart on-failure \
+              --volume /home/ec2-user/longevityhack-data:/app/data \
               --env NAME=${NAME} \
               --env VERSION=${VERSION} \
+              --env DATA_DIR=/app/data \
               --env VIRTUAL_HOST=${url} \
               --env LETSENCRYPT_HOST=${url} \
               --env-file ~/.${NAME}.vars \
@@ -89,5 +91,6 @@ jobs:
               --volume /home/ec2-user/longevityhack-data:/app/data \
               --env NAME=${NAME} \
               --env VERSION=${VERSION} \
+              --env DATA_DIR=/app/data \
               --env-file ~/.longevityhack-api.vars \
               ${DOCKER_IMAGE} /bin/bash -c 'make start-worker'

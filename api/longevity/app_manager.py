@@ -1,4 +1,5 @@
 import logging
+import os
 import time
 import uuid
 from collections import defaultdict
@@ -28,8 +29,9 @@ class AppManager:
         self.database = database
         self.requester = requester
         self.workQueue = workQueue
-        self.uploadsDir = Path(__file__).parent.parent / 'uploads'
-        self.outputsDir = Path(__file__).parent.parent / 'outputs'
+        dataDir = Path(os.environ.get('DATA_DIR', str(Path(__file__).parent.parent)))
+        self.uploadsDir = dataDir / 'uploads'
+        self.outputsDir = dataDir / 'outputs'
         self.uploadsDir.mkdir(parents=True, exist_ok=True)
         self.outputsDir.mkdir(parents=True, exist_ok=True)
         self.genomeAnalyzer = GenomeAnalyzer(database=self.database)
