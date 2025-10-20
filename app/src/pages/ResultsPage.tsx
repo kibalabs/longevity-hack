@@ -23,6 +23,7 @@ export function ResultsPage(): React.ReactElement {
   const [expandedGroups, setExpandedGroups] = React.useState<Set<string>>(new Set());
   const [expandedSnps, setExpandedSnps] = React.useState<Set<string>>(new Set());
   const [subscribedCategories, setSubscribedCategories] = React.useState<Set<string>>(new Set());
+  const [expandedPapers, setExpandedPapers] = React.useState<Map<string, boolean>>(new Map());
   const [categorySnpsData, setCategorySnpsData] = React.useState<Map<string, CategorySnpsData>>(new Map());
   const [categoryAnalyses, setCategoryAnalyses] = React.useState<Map<string, Resources.CategoryAnalysis>>(new Map());
   const [analyzingCategories, setAnalyzingCategories] = React.useState<Set<string>>(new Set());
@@ -117,6 +118,15 @@ export function ResultsPage(): React.ReactElement {
         newSet.add(categoryId);
       }
       return newSet;
+    });
+  };
+
+  const toggleExpandAllPapers = (categoryId: string): void => {
+    setExpandedPapers((prev): Map<string, boolean> => {
+      const newMap = new Map(prev);
+      const currentState = newMap.get(categoryId) || false;
+      newMap.set(categoryId, !currentState);
+      return newMap;
     });
   };
 
@@ -569,14 +579,19 @@ export function ResultsPage(): React.ReactElement {
                                 </div>
                                 <a
                                   href="#"
+                                  onClick={(e): void => {
+                                    e.preventDefault();
+                                    toggleExpandAllPapers(group.genomeAnalysisResultId);
+                                  }}
                                   style={{
                                     fontSize: '13px',
                                     color: '#1A73E8',
                                     textDecoration: 'none',
                                     fontWeight: 500,
+                                    cursor: 'pointer',
                                   }}
                                 >
-                                  Expand all ↓
+                                  {expandedPapers.get(group.genomeAnalysisResultId) ? 'Collapse all ↑' : 'Expand all ↓'}
                                 </a>
                               </div>
 
@@ -584,6 +599,9 @@ export function ResultsPage(): React.ReactElement {
                               {categoryAnalyses.get(group.genomeAnalysisResultId)!.papersUsed.slice(0, 5).map((paper: Resources.PaperReference, index: number): React.ReactElement => {
                                 const firstAuthor = paper.authors?.split(',')[0]?.trim() || '';
                                 const authorDisplay = firstAuthor ? `${firstAuthor} et al.` : '';
+                                const isExpanded = expandedPapers.get(group.genomeAnalysisResultId) || false;
+                                const abstractText = paper.abstract || '';
+                                const shortAbstract = abstractText.length > 150 ? abstractText.substring(0, 150) + '...' : abstractText;
 
                                 return (
                                   <div
@@ -630,8 +648,19 @@ export function ResultsPage(): React.ReactElement {
                                           lineHeight: '1.4',
                                           marginBottom: '6px',
                                         }}>
-                                          {paper.title && paper.title.length > 80 ? paper.title.substring(0, 80) + '...' : paper.title}
+                                          {isExpanded ? paper.title : (paper.title && paper.title.length > 80 ? paper.title.substring(0, 80) + '...' : paper.title)}
                                         </div>
+                                        {isExpanded && abstractText && (
+                                          <div style={{
+                                            fontSize: '12px',
+                                            color: '#5F6368',
+                                            lineHeight: '1.5',
+                                            marginBottom: '8px',
+                                            fontStyle: 'italic',
+                                          }}>
+                                            {abstractText}
+                                          </div>
+                                        )}
                                         <div style={{ display: 'flex', gap: '12px', fontSize: '12px' }}>
                                           <a
                                             href={`https://pubmed.ncbi.nlm.nih.gov/${paper.pubmedId}/`}
