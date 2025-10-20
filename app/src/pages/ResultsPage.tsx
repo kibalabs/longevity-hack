@@ -21,6 +21,8 @@ export function ResultsPage(): React.ReactElement {
   const [genomeAnalysisId, setGenomeAnalysisId] = React.useState<string | null>(null);
   const [overview, setOverview] = React.useState<Resources.GenomeAnalysisOverview | null>(null);
   const [expandedGroups, setExpandedGroups] = React.useState<Set<string>>(new Set());
+  const [expandedSnps, setExpandedSnps] = React.useState<Set<string>>(new Set());
+  const [subscribedCategories, setSubscribedCategories] = React.useState<Set<string>>(new Set());
   const [categorySnpsData, setCategorySnpsData] = React.useState<Map<string, CategorySnpsData>>(new Map());
   const [categoryAnalyses, setCategoryAnalyses] = React.useState<Map<string, Resources.CategoryAnalysis>>(new Map());
   const [analyzingCategories, setAnalyzingCategories] = React.useState<Set<string>>(new Set());
@@ -89,6 +91,30 @@ export function ResultsPage(): React.ReactElement {
             return newMap;
           });
         }
+      }
+      return newSet;
+    });
+  };
+
+  const toggleSnp = (snpKey: string): void => {
+    setExpandedSnps((prev): Set<string> => {
+      const newSet = new Set(prev);
+      if (newSet.has(snpKey)) {
+        newSet.delete(snpKey);
+      } else {
+        newSet.add(snpKey);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleCategorySubscription = (categoryId: string): void => {
+    setSubscribedCategories((prev): Set<string> => {
+      const newSet = new Set(prev);
+      if (newSet.has(categoryId)) {
+        newSet.delete(categoryId);
+      } else {
+        newSet.add(categoryId);
       }
       return newSet;
     });
@@ -264,8 +290,12 @@ export function ResultsPage(): React.ReactElement {
                 {/* Expanded Content */}
                 {isExpanded && (
                   <div style={{ padding: '16px' }}>
-                    <div style={{ marginBottom: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ marginBottom: '12px' }}>
                       <Text variant='note'>{group.categoryDescription}</Text>
+                    </div>
+
+                    {/* Action buttons row */}
+                    <div style={{ marginBottom: '16px', display: 'flex', gap: '12px', alignItems: 'center' }}>
                       {!categoryAnalyses.has(group.genomeAnalysisResultId) && (
                         <button
                           onClick={(): void => { void analyzeCategory(group.genomeAnalysisResultId); }}
@@ -287,6 +317,43 @@ export function ResultsPage(): React.ReactElement {
                           {analyzingCategories.has(group.genomeAnalysisResultId) ? '⏳ Analyzing...' : '🤖 Analyze with AI'}
                         </button>
                       )}
+                      
+                      {/* Keep me updated button */}
+                      <div 
+                        onClick={(): void => toggleCategorySubscription(group.genomeAnalysisResultId)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '8px 12px',
+                          backgroundColor: '#F8F9FA',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          transition: 'background-color 0.2s',
+                          border: '1px solid #E8EAED',
+                        }}
+                        onMouseEnter={(e): void => { e.currentTarget.style.backgroundColor = '#EEEFF1'; }}
+                        onMouseLeave={(e): void => { e.currentTarget.style.backgroundColor = '#F8F9FA'; }}
+                      >
+                        <div style={{
+                          width: '16px',
+                          height: '16px',
+                          border: '2px solid #5F6368',
+                          borderRadius: '3px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          backgroundColor: subscribedCategories.has(group.genomeAnalysisResultId) ? '#007AFF' : 'white',
+                          borderColor: subscribedCategories.has(group.genomeAnalysisResultId) ? '#007AFF' : '#5F6368',
+                        }}>
+                          {subscribedCategories.has(group.genomeAnalysisResultId) && (
+                            <div style={{ color: 'white', fontSize: '12px', fontWeight: 'bold' }}>✓</div>
+                          )}
+                        </div>
+                        <div style={{ fontSize: '13px', color: '#5F6368', fontWeight: 500 }}>
+                          Keep me updated on the latest research for this category
+                        </div>
+                      </div>
                     </div>
 
                     {/* AI Analysis Section */}
@@ -362,140 +429,312 @@ export function ResultsPage(): React.ReactElement {
                     )}
 
                     <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
-                      {displaySnps.map((snp: Resources.SNP, index: number): React.ReactElement => (
-                        <div
-                          key={`${snp.rsid}-${index}`}
-                          style={{
-                            padding: '12px',
-                            backgroundColor: 'white',
-                            borderRadius: '6px',
-                            border: '1px solid #E8EAED',
-                          }}
-                        >
-                          {/* Top Row: rsid, genotype, and badges */}
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                            <div style={{
-                              color: '#007AFF',
-                              fontWeight: 600,
-                              fontSize: '15px',
-                              minWidth: '100px',
-                            }}>
-                              {snp.rsid}
-                            </div>
-                            <div style={{
-                              backgroundColor: '#F5F5F5',
-                              padding: '4px 10px',
-                              borderRadius: '4px',
-                              fontSize: '13px',
-                              fontWeight: 500,
-                            }}>
-                              {snp.genotype}
-                            </div>
-                            {snp.importanceScore && snp.importanceScore > 15 && (
-                              <div style={{
-                                backgroundColor: '#FFEBEE',
-                                color: '#C62828',
-                                padding: '4px 8px',
-                                borderRadius: '4px',
-                                fontSize: '12px',
-                                fontWeight: 600,
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '4px',
-                              }}>
-                                <span>⚠</span>
-                              </div>
-                            )}
-                            {snp.clinvarCondition && snp.clinvarCondition !== 'not provided' && (
-                              <div style={{
-                                backgroundColor: '#FFF9C4',
-                                color: '#F57F17',
-                                padding: '4px 8px',
-                                borderRadius: '4px',
-                                fontSize: '12px',
-                                fontWeight: 600,
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '4px',
-                              }}>
-                                <span>⚕</span>
-                              </div>
-                            )}
-                            <div style={{ marginLeft: 'auto' }}>
-                              {snp.riskLevel && (
+                      {displaySnps.map((snp: Resources.SNP, index: number): React.ReactElement => {
+                        const snpKey = `${group.genomeAnalysisResultId}-${snp.rsid}-${index}`;
+                        const isSnpExpanded = expandedSnps.has(snpKey);
+                        
+                        return (
+                          <div
+                            key={snpKey}
+                            style={{
+                              backgroundColor: 'white',
+                              borderRadius: '6px',
+                              border: '1px solid #E8EAED',
+                              overflow: 'hidden',
+                            }}
+                          >
+                            {/* Collapsed SNP Header */}
+                            <div
+                              onClick={(): void => toggleSnp(snpKey)}
+                              style={{
+                                padding: '12px',
+                                cursor: 'pointer',
+                                transition: 'background-color 0.2s',
+                              }}
+                              onMouseEnter={(e): void => { e.currentTarget.style.backgroundColor = '#F8F9FA'; }}
+                              onMouseLeave={(e): void => { e.currentTarget.style.backgroundColor = 'white'; }}
+                            >
+                              {/* Top Row: rsid, genotype, and badges */}
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                  <Text variant='note'>{isSnpExpanded ? '▼' : '▶'}</Text>
+                                  <div style={{
+                                    color: '#007AFF',
+                                    fontWeight: 600,
+                                    fontSize: '15px',
+                                  }}>
+                                    {snp.rsid}
+                                  </div>
+                                </div>
                                 <div style={{
-                                  backgroundColor: getRiskBucket(snp.riskLevel).backgroundColor,
-                                  color: getRiskBucket(snp.riskLevel).color,
+                                  backgroundColor: '#F5F5F5',
                                   padding: '4px 10px',
                                   borderRadius: '4px',
-                                  fontSize: '14px',
-                                  fontWeight: 600,
-                                  whiteSpace: 'nowrap',
+                                  fontSize: '13px',
+                                  fontWeight: 500,
                                 }}>
-                                  {getRiskBucket(snp.riskLevel).label}
+                                  {snp.genotype}
+                                </div>
+                                {snp.riskAllele && (
+                                  <div style={{
+                                    backgroundColor: '#E3F2FD',
+                                    color: '#1976D2',
+                                    padding: '4px 8px',
+                                    borderRadius: '4px',
+                                    fontSize: '12px',
+                                    fontWeight: 500,
+                                  }}>
+                                    {snp.riskAllele}
+                                  </div>
+                                )}
+                                {snp.effectStrength && (
+                                  <div style={{
+                                    backgroundColor: snp.effectStrength.toLowerCase() === 'large' ? '#FFEBEE' : '#FFF3E0',
+                                    color: snp.effectStrength.toLowerCase() === 'large' ? '#C62828' : '#E65100',
+                                    padding: '4px 8px',
+                                    borderRadius: '12px',
+                                    fontSize: '11px',
+                                    fontWeight: 600,
+                                    textTransform: 'lowercase',
+                                  }}>
+                                    {snp.effectStrength}
+                                  </div>
+                                )}
+                                {snp.importanceScore && snp.importanceScore > 15 && (
+                                  <div style={{
+                                    backgroundColor: '#FFEBEE',
+                                    color: '#C62828',
+                                    padding: '4px 8px',
+                                    borderRadius: '4px',
+                                    fontSize: '12px',
+                                    fontWeight: 600,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '4px',
+                                  }}>
+                                    <span>⚠</span>
+                                  </div>
+                                )}
+                                {snp.clinvarCondition && snp.clinvarCondition !== 'not provided' && (
+                                  <div style={{
+                                    backgroundColor: '#FFF9C4',
+                                    color: '#F57F17',
+                                    padding: '4px 8px',
+                                    borderRadius: '4px',
+                                    fontSize: '12px',
+                                    fontWeight: 600,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '4px',
+                                  }}>
+                                    <span>⚕</span>
+                                  </div>
+                                )}
+                                <div style={{ marginLeft: 'auto' }}>
+                                  {snp.riskLevel && (
+                                    <div style={{
+                                      backgroundColor: getRiskBucket(snp.riskLevel).backgroundColor,
+                                      color: getRiskBucket(snp.riskLevel).color,
+                                      padding: '4px 10px',
+                                      borderRadius: '4px',
+                                      fontSize: '14px',
+                                      fontWeight: 600,
+                                      whiteSpace: 'nowrap',
+                                    }}>
+                                      {getRiskBucket(snp.riskLevel).label}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+
+                              {/* Trait Description - always visible */}
+                              {snp.trait && (
+                                <div style={{
+                                  fontSize: '14px',
+                                  lineHeight: '1.5',
+                                  color: '#333',
+                                }}>
+                                  {snp.trait}
                                 </div>
                               )}
                             </div>
+
+                            {/* Expanded SNP Details */}
+                            {isSnpExpanded && (
+                              <div style={{ 
+                                padding: '0 12px 12px 12px',
+                                borderTop: '1px solid #E8EAED',
+                              }}>
+                                {/* At a glance Section */}
+                                <div style={{ marginTop: '12px', marginBottom: '16px' }}>
+                                  <div style={{ 
+                                    fontSize: '14px', 
+                                    fontWeight: 600, 
+                                    marginBottom: '8px',
+                                    color: '#5F6368',
+                                  }}>
+                                    At a glance
+                                  </div>
+                                  <div style={{ 
+                                    fontSize: '14px', 
+                                    lineHeight: '1.6',
+                                    color: '#333',
+                                    marginBottom: '8px',
+                                  }}>
+                                    {snp.trait ? (
+                                      <>
+                                        The <strong>{snp.riskAllele || 'variant'}</strong> allele at {snp.rsid} contributes to{' '}
+                                        {snp.trait.toLowerCase()}.
+                                        {snp.oddsRatio && snp.oddsRatio !== 1 && (
+                                          <> {snp.oddsRatio > 1 
+                                            ? `Studies show ${((snp.oddsRatio - 1) * 100).toFixed(0)}% increased association` 
+                                            : `Studies show ${((1 - snp.oddsRatio) * 100).toFixed(0)}% decreased association`
+                                          } (OR: {snp.oddsRatio.toFixed(2)}).</>
+                                        )}
+                                      </>
+                                    ) : (
+                                      `This variant at ${snp.rsid} has been identified in genetic studies.`
+                                    )}
+                                  </div>
+                                  {snp.riskAlleleFrequency != null && (
+                                    <div style={{ 
+                                      fontSize: '13px', 
+                                      color: '#5F6368',
+                                      marginBottom: '8px',
+                                    }}>
+                                      Population frequency: {(snp.riskAlleleFrequency * 100).toFixed(1)}% of people carry this variant
+                                      {snp.riskAlleleFrequency < 0.1 && ' (relatively rare)'}
+                                      {snp.riskAlleleFrequency > 0.5 && ' (common variant)'}
+                                    </div>
+                                  )}
+                                  {snp.pValue && (
+                                    <div style={{ 
+                                      fontSize: '12px', 
+                                      color: '#5F6368',
+                                      fontFamily: 'monospace',
+                                    }}>
+                                      P-value: {snp.pValue}
+                                    </div>
+                                  )}
+                                </div>
+
+                                {/* What to watch Section */}
+                                {snp.trait && (
+                                  <div style={{ marginBottom: '16px' }}>
+                                    <div style={{ 
+                                      fontSize: '14px', 
+                                      fontWeight: 600, 
+                                      marginBottom: '8px',
+                                      color: '#5F6368',
+                                    }}>
+                                      What to watch
+                                    </div>
+                                    <div style={{ 
+                                      fontSize: '14px', 
+                                      lineHeight: '1.6',
+                                      color: '#333',
+                                    }}>
+                                      {group.category === 'Cardiological' && (
+                                        <>Monitor cardiovascular health markers. Consider regular check-ups and maintaining a heart-healthy lifestyle.</>
+                                      )}
+                                      {group.category === 'T2D' && (
+                                        <>Keep track of blood glucose levels and maintain a balanced diet. Regular exercise can help manage risk.</>
+                                      )}
+                                      {group.category !== 'Cardiological' && group.category !== 'T2D' && (
+                                        <>Stay informed about {snp.trait.toLowerCase()}. Discuss with healthcare provider for personalized guidance.</>
+                                      )}
+                                    </div>
+                                  </div>
+                                )}
+
+                                {/* Evidence Section */}
+                                {snp.studyDescription && (
+                                  <div style={{ marginBottom: '16px' }}>
+                                    <div style={{ 
+                                      fontSize: '14px', 
+                                      fontWeight: 600, 
+                                      marginBottom: '8px',
+                                      color: '#5F6368',
+                                    }}>
+                                      Evidence
+                                    </div>
+                                    <div style={{
+                                      backgroundColor: '#F8F9FA',
+                                      padding: '12px',
+                                      borderRadius: '6px',
+                                      marginBottom: '8px',
+                                    }}>
+                                      <div style={{ 
+                                        fontSize: '13px',
+                                        fontWeight: 500,
+                                        marginBottom: '4px',
+                                        color: '#333',
+                                      }}>
+                                        {snp.trait || 'Genetic association study'}
+                                      </div>
+                                      <div style={{ 
+                                        fontSize: '13px',
+                                        color: '#5F6368',
+                                        marginBottom: '8px',
+                                        lineHeight: '1.5',
+                                      }}>
+                                        {snp.studyDescription}
+                                      </div>
+                                      {snp.sources && snp.sources.length > 0 && (
+                                        <div style={{ fontSize: '12px', color: '#1976D2' }}>
+                                          {snp.sources.includes('gwas_catalog') && (
+                                            <a
+                                              href={`https://www.ebi.ac.uk/gwas/search?query=${snp.rsid}`}
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              style={{ color: '#007AFF', textDecoration: 'none', marginRight: '12px' }}
+                                            >
+                                              GWAS Catalog ↗
+                                            </a>
+                                          )}
+                                          <a
+                                            href={`https://www.ncbi.nlm.nih.gov/snp/${snp.rsid}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{ color: '#007AFF', textDecoration: 'none' }}
+                                          >
+                                            dbSNP ↗
+                                          </a>
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                )}
+
+                                {/* Clinical Info */}
+                                {snp.clinvarCondition && snp.clinvarCondition !== 'not provided' && (
+                                  <div style={{
+                                    backgroundColor: '#FFF9C4',
+                                    padding: '12px',
+                                    borderRadius: '6px',
+                                    marginBottom: '12px',
+                                  }}>
+                                    <div style={{
+                                      fontSize: '13px',
+                                      fontWeight: 600,
+                                      color: '#F57F17',
+                                      marginBottom: '4px',
+                                    }}>
+                                      ⚕️ Clinical Significance
+                                    </div>
+                                    <div style={{
+                                      fontSize: '13px',
+                                      color: '#5F6368',
+                                    }}>
+                                      {snp.clinvarCondition}
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            )}
                           </div>
-
-                          {/* Trait Description */}
-                          {snp.trait && (
-                            <div style={{
-                              fontSize: '14px',
-                              lineHeight: '1.5',
-                              marginBottom: '6px',
-                              color: '#333',
-                            }}>
-                              {snp.trait}
-                            </div>
-                          )}
-
-                          {/* Risk Information */}
-                          {(snp.oddsRatio != null || snp.riskAlleleFrequency != null) && (
-                            <div style={{ fontSize: '13px', marginBottom: '6px', color: '#555' }}>
-                              {snp.oddsRatio != null && (
-                                <div style={{ marginBottom: '2px' }}>
-                                  {snp.oddsRatio > 1
-                                    ? `${((snp.oddsRatio - 1) * 100).toFixed(0)}% increased risk (OR: ${snp.oddsRatio.toFixed(2)})`
-                                    : `${((1 - snp.oddsRatio) * 100).toFixed(0)}% decreased risk (OR: ${snp.oddsRatio.toFixed(2)})`
-                                  }
-                                </div>
-                              )}
-                              {snp.riskAlleleFrequency != null && (
-                                <div style={{ fontSize: '12px', color: '#666' }}>
-                                  {snp.riskAlleleFrequency > 0.5
-                                    ? `${(snp.riskAlleleFrequency * 100).toFixed(1)}% of people have this variant`
-                                    : `${(snp.riskAlleleFrequency * 100).toFixed(1)}% of people have this variant (relatively rare)`
-                                  }
-                                </div>
-                              )}
-                            </div>
-                          )}
-
-                          {/* Study Description */}
-                          {snp.studyDescription && (
-                            <div style={{
-                              fontSize: '12px',
-                              color: '#666',
-                              marginBottom: '4px',
-                              fontStyle: 'italic',
-                            }}>
-                              Study: {snp.studyDescription}
-                            </div>
-                          )}
-
-                          {/* Clinical Info */}
-                          {snp.clinvarCondition && snp.clinvarCondition !== 'not provided' && (
-                            <div style={{
-                              fontSize: '13px',
-                              color: '#F57F17',
-                              fontWeight: 500,
-                            }}>
-                              Clinical: {snp.clinvarCondition}
-                            </div>
-                          )}
-                        </div>
-                      ))}
+                        );
+                      })}
                     </Stack>
 
                     {/* Load More Button */}
