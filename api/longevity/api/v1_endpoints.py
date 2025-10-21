@@ -89,3 +89,13 @@ class SubscribeToNotificationsRequest(BaseModel):
 
 class SubscribeToNotificationsResponse(BaseModel):
     pass
+
+
+class ChatWithAgentRequest(BaseModel):
+    genomeAnalysisId: str
+    genomeAnalysisResultId: str
+    message: str
+
+
+class ChatWithAgentResponse(BaseModel):
+    response: str

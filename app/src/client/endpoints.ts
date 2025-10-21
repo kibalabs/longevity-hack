@@ -245,3 +245,33 @@ export class SubscribeToNotificationsResponse extends ResponseData {
     return new SubscribeToNotificationsResponse();
   };
 }
+
+export class ChatWithAgentRequest extends RequestData {
+  public constructor(
+    readonly genomeAnalysisId: string,
+    readonly genomeAnalysisResultId: string,
+    readonly message: string,
+  ) {
+    super();
+  }
+
+  public toObject = (): RawObject => {
+    return {
+      message: this.message,
+    };
+  };
+}
+
+export class ChatWithAgentResponse extends ResponseData {
+  public constructor(
+    readonly response: string,
+  ) {
+    super();
+  }
+
+  public static fromObject = (obj: RawObject): ChatWithAgentResponse => {
+    return new ChatWithAgentResponse(
+      obj.response as string,
+    );
+  };
+}

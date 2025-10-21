@@ -81,6 +81,11 @@ def create_v1_routes(appManager: AppManager, database: Database, resourceBuilder
         await appManager.send_subscription_notification(email=request.data.email)
         return endpoints.SubscribeToNotificationsResponse()
 
+    @json_route(requestType=endpoints.ChatWithAgentRequest, responseType=endpoints.ChatWithAgentResponse)
+    async def chat_with_agent(request: KibaApiRequest[endpoints.ChatWithAgentRequest]) -> endpoints.ChatWithAgentResponse:
+        response = await appManager.chat_with_agent(genomeAnalysisId=request.data.genomeAnalysisId, genomeAnalysisResultId=request.data.genomeAnalysisResultId, message=request.data.message)
+        return endpoints.ChatWithAgentResponse(response=response)
+
     async def upload_genome_file(request: Request) -> JSONResponse:
         """Handle multipart file upload for genome analysis."""
         genomeAnalysisId = request.path_params['genomeAnalysisId']
@@ -118,6 +123,7 @@ def create_v1_routes(appManager: AppManager, database: Database, resourceBuilder
         Route('/genome-analyses/{genomeAnalysisId}/results/{genomeAnalysisResultId}/snps', list_category_snps, methods=['GET']),
         Route('/genome-analyses/{genomeAnalysisId}/results/{genomeAnalysisResultId}', get_genome_analysis_result, methods=['GET']),
         Route('/genome-analyses/{genomeAnalysisId}/results/{genomeAnalysisResultId}/analyze', analyze_category, methods=['POST']),
+        Route('/genome-analyses/{genomeAnalysisId}/results/{genomeAnalysisResultId}/chat', chat_with_agent, methods=['POST']),
         Route('/example-analysis', get_example_analysis_id, methods=['GET']),
         Route('/subscribe-to-notifications', subscribe_to_notifications, methods=['POST']),
     ]

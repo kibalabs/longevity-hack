@@ -104,4 +104,12 @@ export class LongevityClient extends ServiceClient {
     const request = new Endpoints.SubscribeToNotificationsRequest(email);
     await this.makeRequest(method, path, request, Endpoints.SubscribeToNotificationsResponse, this.getHeaders());
   };
+
+  public chatWithAgent = async (genomeAnalysisId: string, genomeAnalysisResultId: string, message: string): Promise<string> => {
+    const method = RestMethod.POST;
+    const path = `v1/genome-analyses/${genomeAnalysisId}/results/${genomeAnalysisResultId}/chat`;
+    const request = new Endpoints.ChatWithAgentRequest(genomeAnalysisId, genomeAnalysisResultId, message);
+    const response = await this.makeRequest(method, path, request, Endpoints.ChatWithAgentResponse, this.getHeaders());
+    return response.response;
+  };
 }

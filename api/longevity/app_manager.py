@@ -722,6 +722,96 @@ class AppManager:
             snpsAnalyzed=analysisResult['snpsAnalyzed'],
         )
 
+    async def chat_with_agent(self, genomeAnalysisId: str, genomeAnalysisResultId: str, message: str) -> str:
+        """Chat with AI agent about a specific category.
+
+        Args:
+            genomeAnalysisId: ID of the genome analysis
+            genomeAnalysisResultId: ID of the category
+            message: User's question/message
+
+        Returns:
+            AI agent's response
+        """
+        from longevity.gemini_client import GeminiClient
+
+        # Get category info and SNPs for context
+        categorySnpsPage = await self.list_category_snps(
+            genomeAnalysisId=genomeAnalysisId,
+            genomeAnalysisResultId=genomeAnalysisResultId,
+            offset=0,
+            limit=50,  # Get top SNPs for context
+            minImportanceScore=None,
+        )
+
+        # Get existing analysis if available
+        categoryAnalysis = None
+        async with self.database.create_transaction() as connection:
+            cachedAnalyses = await schema.CategoryAnalysesRepository.list_many(
+                database=self.database,
+                connection=connection,
+                fieldFilters=[
+                    StringFieldFilter(fieldName='genomeAnalysisId', eq=genomeAnalysisId),
+                    StringFieldFilter(fieldName='resultId', eq=genomeAnalysisResultId),
+                ],
+            )
+            if cachedAnalyses:
+                categoryAnalysis = cachedAnalyses[0]
+
+        # Build context from SNPs
+        snpContext = []
+        for snp in categorySnpsPage.snps[:10]:  # Top 10 most important SNPs
+            snpContext.append(
+                f"- {snp.rsid}: {snp.trait} (Genotype: {snp.genotype}, Risk Level: {snp.riskLevel})"
+            )
+
+        # Build context message
+        contextParts = [
+            f"Category: {categorySnpsPage.category}",
+            f"Description: {categorySnpsPage.categoryDescription}",
+            "",
+            "Top Genetic Variants:",
+            "\n".join(snpContext) if snpContext else "No significant variants found.",
+        ]
+
+        if categoryAnalysis and categoryAnalysis.analysis:
+            contextParts.extend([
+                "",
+                "Previous Analysis:",
+                categoryAnalysis.analysis[:1000],  # First 1000 chars of analysis
+            ])
+
+        context = "\n".join(contextParts)
+
+        # Build prompt for Gemini
+        systemPrompt = """You are a helpful AI genetics advisor specializing in longevity and healthspan. 
+Your role is to help users understand their genetic results in a clear, accessible way while maintaining scientific accuracy.
+
+Guidelines:
+- Be conversational and friendly, but accurate
+- Explain complex genetics concepts in simple terms
+- Focus on actionable insights when appropriate
+- Always emphasize that genetic predispositions are just one factor among many (lifestyle, environment, etc.)
+- If you're unsure, say so rather than speculating
+- Keep responses concise but informative (2-3 paragraphs max)
+"""
+
+        fullPrompt = f"""{systemPrompt}
+
+Context about the user's genetics for this category:
+
+{context}
+
+User's question: {message}
+
+Please provide a helpful, accurate response."""
+
+        # Get response from Gemini
+        geminiClient = GeminiClient()
+        response = await geminiClient.generate_content(prompt=fullPrompt)
+
+        return response
+
     async def send_subscription_notification(self, email: str) -> None:
         message = f'New subscription interest!\nEmail: `{email}`'
         await self.adminNotificationClient.post(messageText=message)

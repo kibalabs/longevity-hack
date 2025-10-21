@@ -4,6 +4,7 @@ import { useNavigator } from '@kibalabs/core-react';
 import { Alignment, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 
 import * as Resources from '../client/resources';
+import { ChatModal } from '../components/ChatModal';
 import { useGlobals } from '../GlobalsContext';
 import { getRiskBucket, getRiskPriority } from '../util';
 import { getCategoryDisplayName } from '../util/categoryNames';
@@ -31,6 +32,8 @@ export function ResultsPage(): React.ReactElement {
   const [showSubscriptionSuccess, setShowSubscriptionSuccess] = React.useState<boolean>(false);
   const [userEmail, setUserEmail] = React.useState<string>('');
   const [hasSubmittedEmail, setHasSubmittedEmail] = React.useState<boolean>(false);
+  const [chatModalOpen, setChatModalOpen] = React.useState<boolean>(false);
+  const [activeChatCategory, setActiveChatCategory] = React.useState<{ id: string; name: string; description: string } | null>(null);
 
   // Load subscriptions and check if email was submitted on mount
   React.useEffect((): void => {
@@ -260,6 +263,20 @@ export function ResultsPage(): React.ReactElement {
         return newMap;
       });
     }
+  };
+
+  const handleOpenChat = (categoryId: string, categoryName: string, categoryDescription: string): void => {
+    setActiveChatCategory({ id: categoryId, name: categoryName, description: categoryDescription });
+    setChatModalOpen(true);
+  };
+
+  const handleSendChatMessage = async (message: string): Promise<string> => {
+    if (!genomeAnalysisId || !activeChatCategory) {
+      throw new Error('No active chat category');
+    }
+    
+    const response = await longevityClient.chatWithAgent(genomeAnalysisId, activeChatCategory.id, message);
+    return response;
   };
 
   if (!overview) {
@@ -1015,6 +1032,7 @@ export function ResultsPage(): React.ReactElement {
                               Ask your agent to explain this trait in simpler terms or dive deeper into the research
                             </div>
                             <button
+                              onClick={(): void => handleOpenChat(group.genomeAnalysisResultId, getCategoryDisplayName(group.category), group.categoryDescription)}
                               style={{
                                 width: '100%',
                                 padding: '12px 20px',
@@ -1287,6 +1305,20 @@ export function ResultsPage(): React.ReactElement {
             </button>
           </div>
         </div>
+      )}
+
+      {/* Chat Modal */}
+      {activeChatCategory && (
+        <ChatModal
+          isOpen={chatModalOpen}
+          onClose={(): void => {
+            setChatModalOpen(false);
+            setActiveChatCategory(null);
+          }}
+          categoryName={activeChatCategory.name}
+          categoryDescription={activeChatCategory.description}
+          onSendMessage={handleSendChatMessage}
+        />
       )}
     </div>
   );
