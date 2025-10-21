@@ -99,7 +99,7 @@ export function App(props: IAppProps): React.ReactElement {
         left: 0,
         width: '100vw',
         height: '100vh',
-        background: '#fce4ec',
+        background: 'linear-gradient(135deg, #e8f4f8 0%, #fce4ec 50%, #f5e8ff 100%)',
         zIndex: 0,
       }}>
         <div style={{
@@ -109,12 +109,13 @@ export function App(props: IAppProps): React.ReactElement {
           width: '100%',
           height: '100%',
           backgroundImage: `
-            radial-gradient(circle at 20% 30%, rgba(250, 208, 196, 0.8) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(255, 209, 255, 0.7) 0%, transparent 50%),
-            radial-gradient(circle at 40% 70%, rgba(224, 195, 252, 0.8) 0%, transparent 50%),
-            radial-gradient(circle at 90% 80%, rgba(251, 194, 235, 0.7) 0%, transparent 50%),
-            radial-gradient(circle at 10% 90%, rgba(248, 181, 213, 0.7) 0%, transparent 50%),
-            radial-gradient(circle at 60% 50%, rgba(255, 230, 250, 0.6) 0%, transparent 60%)
+            radial-gradient(circle at 15% 25%, rgba(173, 216, 230, 0.6) 0%, transparent 50%),
+            radial-gradient(circle at 85% 15%, rgba(221, 160, 221, 0.5) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(224, 195, 252, 0.7) 0%, transparent 50%),
+            radial-gradient(circle at 20% 80%, rgba(250, 208, 196, 0.6) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(255, 209, 255, 0.5) 0%, transparent 50%),
+            radial-gradient(circle at 40% 30%, rgba(200, 230, 255, 0.4) 0%, transparent 60%),
+            radial-gradient(circle at 90% 50%, rgba(248, 181, 213, 0.5) 0%, transparent 50%)
           `,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',

@@ -111,7 +111,7 @@ export function HomePage(): React.ReactElement {
           animation: 'gradientShift 8s ease-in-out infinite',
           display: 'inline-block',
         }}>
-          Understand your genome<br/>to unlock a longer and healthier life
+          Decipher your genome,<br/>unlock a longer and healthier life
         </h1>
         <p style={{
           fontSize: '20px',
