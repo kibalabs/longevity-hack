@@ -97,4 +97,11 @@ export class LongevityClient extends ServiceClient {
     const response = await this.makeRequest(method, path, request, Endpoints.AnalyzeCategoryResponse, this.getHeaders());
     return response.categoryAnalysis;
   };
+
+  public subscribeToNotifications = async (email: string): Promise<void> => {
+    const method = RestMethod.POST;
+    const path = 'v1/subscribe-to-notifications';
+    const request = new Endpoints.SubscribeToNotificationsRequest(email);
+    await this.makeRequest(method, path, request, Endpoints.SubscribeToNotificationsResponse, this.getHeaders());
+  };
 }

@@ -46,6 +46,7 @@ class GenomeAnalysisCategoryGroup(BaseModel):
     category: str
     categoryDescription: str
     totalCount: int  # Total number of SNPs in this category
+    riskCounts: dict[str, int] = {}  # Count of SNPs by risk level
     topSnps: list[SNP] = []  # Empty in overview, frontend loads on-demand when category opens
 
 

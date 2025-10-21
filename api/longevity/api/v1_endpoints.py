@@ -81,3 +81,11 @@ class AnalyzeCategoryRequest(BaseModel):
 
 class AnalyzeCategoryResponse(BaseModel):
     categoryAnalysis: resources.CategoryAnalysis
+
+
+class SubscribeToNotificationsRequest(BaseModel):
+    email: str
+
+
+class SubscribeToNotificationsResponse(BaseModel):
+    pass

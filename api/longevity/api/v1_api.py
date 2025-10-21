@@ -76,6 +76,11 @@ def create_v1_routes(appManager: AppManager, database: Database, resourceBuilder
         categoryAnalysis = await appManager.analyze_category(genomeAnalysisId=request.data.genomeAnalysisId, genomeAnalysisResultId=request.data.genomeAnalysisResultId)
         return endpoints.AnalyzeCategoryResponse(categoryAnalysis=categoryAnalysis)
 
+    @json_route(requestType=endpoints.SubscribeToNotificationsRequest, responseType=endpoints.SubscribeToNotificationsResponse)
+    async def subscribe_to_notifications(request: KibaApiRequest[endpoints.SubscribeToNotificationsRequest]) -> endpoints.SubscribeToNotificationsResponse:
+        await appManager.send_subscription_notification(email=request.data.email)
+        return endpoints.SubscribeToNotificationsResponse()
+
     async def upload_genome_file(request: Request) -> JSONResponse:
         """Handle multipart file upload for genome analysis."""
         genomeAnalysisId = request.path_params['genomeAnalysisId']
@@ -114,4 +119,5 @@ def create_v1_routes(appManager: AppManager, database: Database, resourceBuilder
         Route('/genome-analyses/{genomeAnalysisId}/results/{genomeAnalysisResultId}', get_genome_analysis_result, methods=['GET']),
         Route('/genome-analyses/{genomeAnalysisId}/results/{genomeAnalysisResultId}/analyze', analyze_category, methods=['POST']),
         Route('/example-analysis', get_example_analysis_id, methods=['GET']),
+        Route('/subscribe-to-notifications', subscribe_to_notifications, methods=['POST']),
     ]

@@ -9,9 +9,9 @@ from core.store.retriever import StringFieldFilter
 from core.util import list_util
 
 from longevity import model
+from longevity.manual_categories import MANUAL_CATEGORIES
 from longevity.manual_categories import get_manual_category
 from longevity.store import schema
-from longevity.manual_categories import MANUAL_CATEGORIES
 
 # ClinVar significance scoring (higher = more clinically important)
 CLINVAR_SIGNIFICANCE_SCORES = {

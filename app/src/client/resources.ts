@@ -88,6 +88,7 @@ export class GenomeAnalysisCategoryGroup {
     readonly category: string,
     readonly categoryDescription: string,
     readonly totalCount: number,
+    readonly riskCounts: Record<string, number>,
     readonly topSnps: SNP[],
   ) { }
 
@@ -97,6 +98,7 @@ export class GenomeAnalysisCategoryGroup {
       String(obj.category),
       String(obj.categoryDescription),
       Number(obj.totalCount),
+      (obj.riskCounts || {}) as Record<string, number>,
       ((obj.topSnps || []) as RawObject[]).map(SNP.fromObject),
     );
   };

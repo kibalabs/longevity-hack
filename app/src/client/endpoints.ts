@@ -221,3 +221,27 @@ export class AnalyzeCategoryResponse extends ResponseData {
     );
   };
 }
+
+export class SubscribeToNotificationsRequest extends RequestData {
+  public constructor(
+    readonly email: string,
+  ) {
+    super();
+  }
+
+  public toObject = (): RawObject => {
+    return {
+      email: this.email,
+    };
+  };
+}
+
+export class SubscribeToNotificationsResponse extends ResponseData {
+  public constructor() {
+    super();
+  }
+
+  public static fromObject = (obj: RawObject): SubscribeToNotificationsResponse => {
+    return new SubscribeToNotificationsResponse();
+  };
+}

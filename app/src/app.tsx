@@ -88,16 +88,76 @@ export function App(props: IAppProps): React.ReactElement {
   });
 
   return (
-    <KibaApp theme={theme} isFullPageApp={true} extraComponentDefinitions={extraComponentDefinitions} extraGlobalCss={extraGlobalCss}>
-      <PageDataProvider initialData={props.pageData}>
-        <GlobalsProvider globals={globals}>
-          <Router staticPath={props.staticPath}>
-            {isInitialized && (
-              <SubRouter routes={routes} />
-            )}
-          </Router>
-        </GlobalsProvider>
-      </PageDataProvider>
-    </KibaApp>
+    <div style={{
+      position: 'relative',
+      minHeight: '100vh',
+    }}>
+      {/* Animated background */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        background: '#fce4ec',
+        zIndex: 0,
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundImage: `
+            radial-gradient(circle at 20% 30%, rgba(250, 208, 196, 0.8) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 209, 255, 0.7) 0%, transparent 50%),
+            radial-gradient(circle at 40% 70%, rgba(224, 195, 252, 0.8) 0%, transparent 50%),
+            radial-gradient(circle at 90% 80%, rgba(251, 194, 235, 0.7) 0%, transparent 50%),
+            radial-gradient(circle at 10% 90%, rgba(248, 181, 213, 0.7) 0%, transparent 50%),
+            radial-gradient(circle at 60% 50%, rgba(255, 230, 250, 0.6) 0%, transparent 60%)
+          `,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          animation: 'morphGradient 20s ease-in-out infinite',
+          pointerEvents: 'none',
+        }} />
+      </div>
+
+      <style>{`
+        @keyframes morphGradient {
+          0%, 100% {
+            transform: translate(0, 0) scale(1);
+            opacity: 1;
+          }
+          33% {
+            transform: translate(5%, -5%) scale(1.1);
+            opacity: 0.9;
+          }
+          66% {
+            transform: translate(-5%, 5%) scale(1.05);
+            opacity: 0.95;
+          }
+        }
+
+        /* Override KibaApp background */
+        .kiba-app, .kiba-app > div {
+          background: transparent !important;
+        }
+      `}</style>
+
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <KibaApp theme={theme} isFullPageApp={true} extraComponentDefinitions={extraComponentDefinitions} extraGlobalCss={extraGlobalCss}>
+          <PageDataProvider initialData={props.pageData}>
+            <GlobalsProvider globals={globals}>
+              <Router staticPath={props.staticPath}>
+                {isInitialized && (
+                  <SubRouter routes={routes} />
+                )}
+              </Router>
+            </GlobalsProvider>
+          </PageDataProvider>
+        </KibaApp>
+      </div>
+    </div>
   );
 }

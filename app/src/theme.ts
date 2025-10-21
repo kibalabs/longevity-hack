@@ -15,17 +15,24 @@ export const buildAppTheme = (): ITheme => {
     },
     fonts: {
       main: {
-        url: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap',
+        url: 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap',
+      },
+      heading: {
+        url: 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&display=swap',
       },
     },
     texts: {
       default: mergeTheme(baseTheme.texts.default, {
-        'font-family': 'sans-serif',
+        'font-family': '"Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
         'font-weight': '400',
       }),
       header1: {
+        'font-family': '"Playfair Display", Georgia, serif',
         'font-weight': '800',
         color: '$colors.brandPrimary',
+      },
+      header2: {
+        'font-family': '"Playfair Display", Georgia, serif',
       },
       navBarLogo: {
         'font-weight': '800',

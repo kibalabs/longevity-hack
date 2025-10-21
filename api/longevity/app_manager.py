@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from core.exceptions import NotFoundException
+from core.notifications.discord_client import DiscordClient
 from core.queues.message_queue import MessageQueue
 from core.requester import Requester
 from core.store.database import Database
@@ -26,10 +27,11 @@ from longevity.store.entity_repository import StringFieldFilter
 
 
 class AppManager:
-    def __init__(self, database: Database, requester: Requester, workQueue: MessageQueue[Any]) -> None:
+    def __init__(self, database: Database, requester: Requester, workQueue: MessageQueue[Any], adminNotificationClient: DiscordClient) -> None:
         self.database = database
         self.requester = requester
         self.workQueue = workQueue
+        self.adminNotificationClient = adminNotificationClient
         dataDir = Path(os.environ.get('DATA_DIR', str(Path(__file__).parent.parent)))
         self.uploadsDir = dataDir / 'uploads'
         self.outputsDir = dataDir / 'outputs'
@@ -297,21 +299,71 @@ class AppManager:
         rows = result.mappings().all()
         logging.info(f'[PERF] Fetched {len(rows)} categories with metadata in {time.time() - stepStart:.2f}s')
 
-        # Build category groups (no SNPs - frontend will load them on demand)
+        # Build category groups with risk level counts
         stepStart = time.time()
         categoryGroups = []
         for row in rows:
+            # Get risk level counts for this category
+            riskQuery = (
+                select(
+                    schema.GenomeAnalysisSnpsTable.c.userHasRiskAllele,
+                    schema.GenomeAnalysisSnpsTable.c.importanceScore,
+                    schema.GenomeAnalysisSnpsTable.c.oddsRatio,
+                    schema.GenomeAnalysisSnpsTable.c.riskAlleleFrequency,
+                )
+                .where(schema.GenomeAnalysisSnpsTable.c.resultId == row['resultId'])
+            )
+            riskResult = await self.database.execute(query=riskQuery)
+            riskRows = riskResult.mappings().all()
+
+            # Calculate risk levels
+            riskCounts = {'very_high': 0, 'high': 0, 'moderate': 0, 'slight': 0, 'lower': 0, 'unknown': 0}
+            for snpRow in riskRows:
+                importanceScore = snpRow['importanceScore'] or 0
+                userHasRiskAllele = snpRow['userHasRiskAllele'] or False
+                oddsRatio = snpRow['oddsRatio'] or 1.0
+                riskAlleleFrequency = snpRow['riskAlleleFrequency'] or 0
+
+                isCommonVariant = riskAlleleFrequency > 0.8
+
+                if importanceScore >= 30 and userHasRiskAllele and oddsRatio >= 2.0 and not isCommonVariant:
+                    riskCounts['very_high'] += 1
+                elif importanceScore >= 30 and userHasRiskAllele and oddsRatio >= 1.5 and not isCommonVariant:
+                    riskCounts['high'] += 1
+                elif importanceScore >= 15 and userHasRiskAllele and oddsRatio >= 2.0 and not isCommonVariant:
+                    riskCounts['moderate'] += 1
+                elif importanceScore >= 30 and userHasRiskAllele:
+                    riskCounts['moderate'] += 1 if not isCommonVariant else 0
+                    riskCounts['slight'] += 1 if isCommonVariant else 0
+                elif importanceScore >= 15 and userHasRiskAllele and oddsRatio >= 1.5:
+                    riskCounts['slight'] += 1
+                elif importanceScore >= 15 and userHasRiskAllele:
+                    riskCounts['slight'] += 1
+                elif not userHasRiskAllele:
+                    riskCounts['lower'] += 1
+                else:
+                    riskCounts['unknown'] += 1
+
             categoryGroup = resources.GenomeAnalysisCategoryGroup(
                 genomeAnalysisResultId=row['resultId'],
                 category=row['category'],
                 categoryDescription=row['categoryDescription'],
                 totalCount=row['totalCount'],
+                riskCounts=riskCounts,
                 topSnps=[],  # Empty - frontend loads SNPs when category is opened
             )
             categoryGroups.append(categoryGroup)
 
-        # Sort category groups by total count (descending)
-        categoryGroups = sorted(categoryGroups, key=lambda x: x.totalCount, reverse=True)
+        # Sort category groups by highest risk level, then by count
+        def get_risk_priority(group: resources.GenomeAnalysisCategoryGroup) -> tuple[int, int]:
+            priorities = {'very_high': 5, 'high': 4, 'moderate': 3, 'slight': 2, 'lower': 1, 'unknown': 0}
+            maxRisk = 0
+            for riskLevel, count in group.riskCounts.items():
+                if count > 0:
+                    maxRisk = max(maxRisk, priorities.get(riskLevel, 0))
+            return (maxRisk, group.totalCount)
+
+        categoryGroups = sorted(categoryGroups, key=get_risk_priority, reverse=True)
         logging.info(f'[PERF] Built and sorted {len(categoryGroups)} category groups in {time.time() - stepStart:.2f}s')
 
         totalTime = time.time() - startTime
@@ -669,3 +721,7 @@ class AppManager:
             papersUsed=papersUsed,
             snpsAnalyzed=analysisResult['snpsAnalyzed'],
         )
+
+    async def send_subscription_notification(self, email: str) -> None:
+        message = f'New subscription interest!\nEmail: `{email}`'
+        await self.adminNotificationClient.post(messageText=message)

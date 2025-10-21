@@ -2,14 +2,13 @@ import os
 from typing import Any
 
 import google.generativeai as genai
-from core import logging
 from core.exceptions import KibaException
-from longevity import model
+
 from longevity import constants as longevity_constants
+from longevity import model
 
 
 class GeminiClient:
-
     def __init__(self, api_key: str | None = None, model_name: str = 'models/gemini-flash-latest') -> None:
         self.api_key = api_key or os.getenv('GEMINI_API_KEY')
         if not self.api_key:
@@ -74,24 +73,18 @@ class GeminiClient:
             if len(fullText) > 1000:
                 fullText = fullText[:1000] + '...'
 
-            paper_list.append(
-                f'{i}. {paper.authors} ({paper.year})\n'
-                f'   Title: {paper.title}\n'
-                f'   Journal: {paper.journal}\n'
-                f'   Full Text: {fullText}\n'
-                f'   PubMed ID: {paper.pubmedId}'
-            )
+            paper_list.append(f'{i}. {paper.authors} ({paper.year})\n   Title: {paper.title}\n   Journal: {paper.journal}\n   Full Text: {fullText}\n   PubMed ID: {paper.pubmedId}')
         # Build a concise context string and then append the editable plain-text prompt
         context_parts = [
-            f"CATEGORY: {category}",
-            f"DESCRIPTION: {category_description}",
+            f'CATEGORY: {category}',
+            f'DESCRIPTION: {category_description}',
             "USER'S GENETIC VARIANTS:",
-            "\n".join(snp_list),
-            f"Total variants analyzed: {len(snps)}",
-            "RELEVANT SCIENTIFIC RESEARCH:",
-            "\n".join(paper_list) if paper_list else 'No research papers available for these variants.',
+            '\n'.join(snp_list),
+            f'Total variants analyzed: {len(snps)}',
+            'RELEVANT SCIENTIFIC RESEARCH:',
+            '\n'.join(paper_list) if paper_list else 'No research papers available for these variants.',
         ]
-        context = "\n".join(context_parts)
+        context = '\n'.join(context_parts)
         # Place the editable prompt constant at the top to ensure model follows the plain-text instructions
-        prompt = f"{longevity_constants.AI_PLAIN_TEXT_ANALYSIS_PROMPT}\n\n{context}\n\nPlease write the analysis now in 2-4 short paragraphs."
+        prompt = f'{longevity_constants.AI_PLAIN_TEXT_ANALYSIS_PROMPT}\n\n{context}\n\nPlease write the analysis now in 2-4 short paragraphs.'
         return prompt

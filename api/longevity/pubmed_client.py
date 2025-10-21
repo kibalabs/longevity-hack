@@ -3,7 +3,6 @@
 import asyncio
 import logging
 import time
-from typing import Any
 
 from core.requester import Requester
 from core.store.database import Database

@@ -1,5 +1,6 @@
 import os
 
+from core.notifications.discord_client import DiscordClient
 from core.queues.sqs import SqsMessageQueue
 from core.requester import Requester
 from core.store.database import Database
@@ -39,9 +40,14 @@ def create_app_manager() -> AppManager:
         queueUrl=os.environ['AWS_SQS_WORK_QUEUE_URL'],
     )
     requester = Requester()
+    adminNotificationClient = DiscordClient(
+        requester=requester,
+        webhookUrl=os.environ['DISCORD_WEBHOOK_URL'],
+    )
     appManager = AppManager(
         database=database,
         requester=requester,
         workQueue=workQueue,
+        adminNotificationClient=adminNotificationClient,
     )
     return appManager

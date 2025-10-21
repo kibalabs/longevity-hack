@@ -86,37 +86,37 @@ export const getRiskBucket = (riskLevel: string | undefined | null): RiskBucket 
   switch (riskLevel) {
     case 'very_high':
       return {
-        label: 'Very High Risk',
+        label: 'Very High',
         backgroundColor: '#FFEBEE',
         color: '#C62828',
       };
     case 'high':
       return {
-        label: 'High Risk',
+        label: 'High',
         backgroundColor: '#FFE0B2',
         color: '#E65100',
       };
     case 'moderate':
       return {
-        label: 'Moderately Higher Risk',
+        label: 'Moderately Higher',
         backgroundColor: '#FFF9C4',
         color: '#F57F17',
       };
     case 'slight':
       return {
-        label: 'Slightly Higher Risk',
+        label: 'Slightly Higher',
         backgroundColor: '#E3F2FD',
         color: '#1976D2',
       };
     case 'lower':
       return {
-        label: 'Lower Risk',
+        label: 'Lower',
         backgroundColor: '#E8F5E9',
         color: '#2E7D32',
       };
     default:
       return {
-        label: 'Unknown Risk',
+        label: 'Unknown',
         backgroundColor: '#F5F5F5',
         color: '#666666',
       };

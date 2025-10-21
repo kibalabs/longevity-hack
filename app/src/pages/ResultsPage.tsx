@@ -27,6 +27,34 @@ export function ResultsPage(): React.ReactElement {
   const [categorySnpsData, setCategorySnpsData] = React.useState<Map<string, CategorySnpsData>>(new Map());
   const [categoryAnalyses, setCategoryAnalyses] = React.useState<Map<string, Resources.CategoryAnalysis>>(new Map());
   const [analyzingCategories, setAnalyzingCategories] = React.useState<Set<string>>(new Set());
+  const [showSubscriptionPopup, setShowSubscriptionPopup] = React.useState<boolean>(false);
+  const [showSubscriptionSuccess, setShowSubscriptionSuccess] = React.useState<boolean>(false);
+  const [userEmail, setUserEmail] = React.useState<string>('');
+  const [hasSubmittedEmail, setHasSubmittedEmail] = React.useState<boolean>(false);
+
+  // Load subscriptions and check if email was submitted on mount
+  React.useEffect((): void => {
+    const storedSubscriptions = localStorage.getItem('notificationSubscriptions');
+    if (storedSubscriptions) {
+      try {
+        const parsed = JSON.parse(storedSubscriptions);
+        setSubscribedCategories(new Set(parsed));
+      } catch (error) {
+        console.error('Failed to parse stored subscriptions:', error);
+      }
+    }
+
+    // Check if user has already submitted their email
+    const storedEmail = localStorage.getItem('subscriptionInterestEmail');
+    if (storedEmail) {
+      setHasSubmittedEmail(true);
+    }
+  }, []);
+
+  // Save subscriptions to localStorage whenever they change
+  React.useEffect((): void => {
+    localStorage.setItem('notificationSubscriptions', JSON.stringify(Array.from(subscribedCategories)));
+  }, [subscribedCategories]);
 
   React.useEffect((): void => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -113,12 +141,42 @@ export function ResultsPage(): React.ReactElement {
     setSubscribedCategories((prev): Set<string> => {
       const newSet = new Set(prev);
       if (newSet.has(categoryId)) {
+        // Unsubscribing - just remove it
         newSet.delete(categoryId);
       } else {
+        // Subscribing - check if they already have 1 subscription
+        if (newSet.size >= 1) {
+          // Show popup for paid subscription
+          setShowSubscriptionPopup(true);
+          return prev; // Don't add yet
+        }
         newSet.add(categoryId);
       }
       return newSet;
     });
+  };
+
+  const handleSubscriptionSubmit = async (): Promise<void> => {
+    if (!userEmail || !userEmail.includes('@')) {
+      alert('Please enter a valid email address');
+      return;
+    }
+
+    try {
+      // Send subscription to API
+      await longevityClient.subscribeToNotifications(userEmail);
+
+      // Store email in localStorage for future reference
+      localStorage.setItem('subscriptionInterestEmail', userEmail);
+      setHasSubmittedEmail(true);
+
+      // Show success view
+      setShowSubscriptionPopup(false);
+      setShowSubscriptionSuccess(true);
+    } catch (error) {
+      console.error('Failed to subscribe:', error);
+      alert('Failed to submit subscription. Please try again.');
+    }
   };
 
   const toggleExpandAllPapers = (categoryId: string): void => {
@@ -213,38 +271,116 @@ export function ResultsPage(): React.ReactElement {
   }
 
   return (
-    <Stack direction={Direction.Vertical} isFullWidth={true} isFullHeight={true}>
-      {/* Compact Header */}
-      <div style={{ borderBottom: '1px solid #E5E5E5', backgroundColor: '#FAFAFA' }}>
-        <Stack
-          direction={Direction.Horizontal}
-          contentAlignment={Alignment.Center}
-          childAlignment={Alignment.Center}
-          shouldAddGutters={true}
-          paddingVertical={PaddingSize.Wide}
-          paddingHorizontal={PaddingSize.Wide}
-        >
-          <Text variant='header3'>🧬 Genome Analysis</Text>
-          {overview.summary && (
-            <>
-              <Text variant='note'>•</Text>
-              <Text variant='note'>{overview.summary.matchedSnps?.toLocaleString()} associations</Text>
-              <Text variant='note'>•</Text>
-              <Text variant='note'>{overview.categoryGroups.length} categories</Text>
-              {overview.summary.clinvarCount && overview.summary.clinvarCount > 0 && (
-                <>
-                  <Text variant='note'>•</Text>
-                  <Text variant='note'>⚕️ {overview.summary.clinvarCount} clinical</Text>
-                </>
-              )}
-            </>
-          )}
-        </Stack>
-      </div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+      overflow: 'hidden',
+    }}>
+      {/* Compact Header with glassmorphism */}
+        <div style={{
+          borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+          background: 'linear-gradient(135deg, rgba(255, 250, 255, 0.9) 0%, rgba(255, 245, 250, 0.9) 100%)',
+          backdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 16px rgba(102, 126, 234, 0.1)',
+        }}>
+          <div style={{
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '20px 32px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+            {/* Logo on the left */}
+            <div style={{
+              fontSize: '20px',
+              fontWeight: 700,
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>
+              GenomeAgent
+            </div>
 
-      {/* Scrollable Content */}
-      <div style={{ flex: 1, overflowY: 'auto', width: '100%' }}>
-        <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default} isFullWidth={true} paddingHorizontal={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
+            {/* Stats on the right */}
+            {overview.summary && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                <div style={{ fontSize: '13px', color: '#666' }}>
+                  <span style={{ fontWeight: 600, color: '#667eea' }}>{overview.summary.matchedSnps?.toLocaleString()}</span> associations
+                </div>
+                <div style={{ fontSize: '13px', color: '#666' }}>
+                  <span style={{ fontWeight: 600, color: '#667eea' }}>{overview.categoryGroups.length}</span> categories
+                </div>
+                {overview.summary.clinvarCount && overview.summary.clinvarCount > 0 && (
+                  <div style={{ fontSize: '13px', color: '#666' }}>
+                    ⚕️ <span style={{ fontWeight: 600, color: '#667eea' }}>{overview.summary.clinvarCount}</span> clinical
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Scrollable Content */}
+        <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
+          <div style={{
+            width: '100%',
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '0 24px 80px 24px',
+          }}>
+            {/* Page Header */}
+            <div style={{
+              padding: '48px 0 40px 0',
+              textAlign: 'center',
+            }}>
+              <style>{`
+                @keyframes gradientShift {
+                  0% {
+                    background-position: 0% 50%;
+                  }
+                  50% {
+                    background-position: 100% 50%;
+                  }
+                  100% {
+                    background-position: 0% 50%;
+                  }
+                }
+              `}</style>
+              <h1 style={{
+                fontSize: '42px',
+                fontWeight: 700,
+                margin: '0 0 16px 0',
+                letterSpacing: '-0.5px',
+                lineHeight: '1.2',
+                paddingBottom: '8px',
+                background: 'linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #667eea 75%, #764ba2 100%)',
+                backgroundSize: '200% auto',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                animation: 'gradientShift 8s ease-in-out infinite',
+                display: 'inline-block',
+              }}>
+                Your Genome Results
+              </h1>
+              <p style={{
+                fontSize: '16px',
+                color: '#444',
+                lineHeight: '1.6',
+                maxWidth: '700px',
+                margin: '0 auto',
+                fontWeight: 500,
+              }}>
+                We've analyzed your genetic data and organized the findings into key health categories.
+                These insights focus on the most impactful markers for longevity and healthspan,
+                helping you understand your unique genetic profile.
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           {overview.categoryGroups.map((group: Resources.GenomeAnalysisCategoryGroup): React.ReactElement => {
             const isExpanded = expandedGroups.has(group.genomeAnalysisResultId);
             const loadedData = categorySnpsData.get(group.genomeAnalysisResultId);
@@ -255,46 +391,104 @@ export function ResultsPage(): React.ReactElement {
               <div
                 key={group.genomeAnalysisResultId}
                 style={{
-                  border: '1px solid #E5E5E5',
-                  borderRadius: '8px',
-                  backgroundColor: 'white',
+                  border: '1px solid rgba(255, 255, 255, 0.4)',
+                  borderRadius: '20px',
+                  background: 'linear-gradient(135deg, rgba(255, 250, 255, 0.85) 0%, rgba(255, 245, 250, 0.85) 100%)',
+                  backdropFilter: 'blur(20px)',
                   overflow: 'hidden',
+                  boxShadow: '0 8px 32px rgba(102, 126, 234, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04)',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  width: '100%',
+                }}
+                onMouseEnter={(e): void => {
+                  if (!isExpanded) {
+                    e.currentTarget.style.boxShadow = '0 12px 48px rgba(102, 126, 234, 0.2), 0 4px 12px rgba(0, 0, 0, 0.08)';
+                    e.currentTarget.style.transform = 'translateY(-4px) scale(1.01)';
+                  }
+                }}
+                onMouseLeave={(e): void => {
+                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(102, 126, 234, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04)';
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
                 }}
               >
                 {/* Group Header - Clickable */}
                 <div
                   onClick={(): void => toggleGroup(group.genomeAnalysisResultId, group)}
                   style={{
-                    padding: '12px 16px',
-                    backgroundColor: '#F8F9FA',
+                    padding: '24px 28px',
+                    background: isExpanded
+                      ? 'linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%)'
+                      : 'transparent',
                     cursor: 'pointer',
-                    borderBottom: isExpanded ? '1px solid #E5E5E5' : 'none',
-                    transition: 'background-color 0.2s',
+                    borderBottom: isExpanded ? '1px solid rgba(102, 126, 234, 0.2)' : 'none',
+                    transition: 'background 0.3s ease',
                   }}
-                  onMouseEnter={(e): void => { e.currentTarget.style.backgroundColor = '#F0F2F5'; }}
-                  onMouseLeave={(e): void => { e.currentTarget.style.backgroundColor = '#F8F9FA'; }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} childAlignment={Alignment.Center}>
-                      <Text variant='bold'>{getCategoryDisplayName(group.category)}</Text>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1 }}>
                       <div style={{
-                        backgroundColor: '#007AFF',
-                        color: 'white',
-                        padding: '2px 8px',
-                        borderRadius: '12px',
-                        fontSize: '12px',
-                        fontWeight: 600,
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '14px',
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '24px',
+                        boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
                       }}>
-                        {group.totalCount}
+                        🧬
                       </div>
-                    </Stack>
-                    <Text variant='note'>{isExpanded ? '▼' : '▶'}</Text>
-                  </div>
-                  {!isExpanded && (
-                    <div style={{ marginTop: '4px' }}>
-                      <Text variant='note'>{group.categoryDescription}</Text>
+                      <div style={{ flex: 1 }}>
+                        <div style={{
+                          fontSize: '20px',
+                          fontWeight: 700,
+                          color: '#1a1a1a',
+                        }}>
+                          {getCategoryDisplayName(group.category)}
+                        </div>
+                      </div>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        background: 'rgba(102, 126, 234, 0.1)',
+                        padding: '8px 16px',
+                        borderRadius: '12px',
+                      }}>
+                        {group.riskCounts.very_high > 0 && (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <span style={{ fontSize: '16px' }}>🔴</span>
+                            <span style={{ fontSize: '13px', fontWeight: 600, color: '#dc2626' }}>{group.riskCounts.very_high}</span>
+                          </div>
+                        )}
+                        {group.riskCounts.high > 0 && (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <span style={{ fontSize: '16px' }}>🟠</span>
+                            <span style={{ fontSize: '13px', fontWeight: 600, color: '#ea580c' }}>{group.riskCounts.high}</span>
+                          </div>
+                        )}
+                        {group.riskCounts.moderate > 0 && (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <span style={{ fontSize: '16px' }}>🟡</span>
+                            <span style={{ fontSize: '13px', fontWeight: 600, color: '#ca8a04' }}>{group.riskCounts.moderate}</span>
+                          </div>
+                        )}
+                        {group.riskCounts.slight > 0 && (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <span style={{ fontSize: '16px' }}>🔵</span>
+                            <span style={{ fontSize: '13px', fontWeight: 600, color: '#2563eb' }}>{group.riskCounts.slight}</span>
+                          </div>
+                        )}
+                        {group.riskCounts.lower > 0 && (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <span style={{ fontSize: '16px' }}>🟢</span>
+                            <span style={{ fontSize: '13px', fontWeight: 600, color: '#16a34a' }}>{group.riskCounts.lower}</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </div>
 
                 {/* Expanded Content */}
@@ -350,21 +544,39 @@ export function ResultsPage(): React.ReactElement {
                               disabled={analyzingCategories.has(group.genomeAnalysisResultId)}
                               style={{
                                 width: '100%',
-                                padding: '12px 16px',
-                                backgroundColor: analyzingCategories.has(group.genomeAnalysisResultId) ? '#DADCE0' : '#1A73E8',
+                                padding: '14px 20px',
+                                background: analyzingCategories.has(group.genomeAnalysisResultId)
+                                  ? 'rgba(0, 0, 0, 0.15)'
+                                  : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                 color: 'white',
                                 border: 'none',
-                                borderRadius: '6px',
-                                fontSize: '14px',
-                                fontWeight: 600,
+                                borderRadius: '12px',
+                                fontSize: '15px',
+                                fontWeight: 700,
                                 cursor: analyzingCategories.has(group.genomeAnalysisResultId) ? 'not-allowed' : 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 gap: '8px',
+                                boxShadow: analyzingCategories.has(group.genomeAnalysisResultId)
+                                  ? 'none'
+                                  : '0 4px 16px rgba(102, 126, 234, 0.3)',
+                                transition: 'all 0.3s ease',
+                              }}
+                              onMouseEnter={(e): void => {
+                                if (!analyzingCategories.has(group.genomeAnalysisResultId)) {
+                                  e.currentTarget.style.transform = 'translateY(-2px)';
+                                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
+                                }
+                              }}
+                              onMouseLeave={(e): void => {
+                                if (!analyzingCategories.has(group.genomeAnalysisResultId)) {
+                                  e.currentTarget.style.transform = 'translateY(0)';
+                                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(102, 126, 234, 0.3)';
+                                }
                               }}
                             >
-                              {analyzingCategories.has(group.genomeAnalysisResultId) ? 'Analyzing...' : 'Generate AI Analysis'}
+                              {analyzingCategories.has(group.genomeAnalysisResultId) ? 'Analyzing...' : 'Request Agent Analysis'}
                             </button>
                           </div>
                         )}
@@ -524,24 +736,27 @@ export function ResultsPage(): React.ReactElement {
                               disabled={loadedData?.isLoading}
                               style={{
                                 width: '100%',
-                                backgroundColor: 'white',
-                                color: '#1A73E8',
-                                border: '1px solid #DADCE0',
-                                padding: '10px 16px',
-                                borderRadius: '6px',
-                                fontSize: '14px',
-                                fontWeight: 500,
+                                background: 'transparent',
+                                color: '#667eea',
+                                border: '2px solid #667eea',
+                                padding: '12px 20px',
+                                borderRadius: '12px',
+                                fontSize: '15px',
+                                fontWeight: 600,
                                 cursor: loadedData?.isLoading ? 'not-allowed' : 'pointer',
-                                transition: 'all 0.2s',
+                                transition: 'all 0.3s ease',
+                                opacity: loadedData?.isLoading ? 0.5 : 1,
                               }}
                               onMouseEnter={(e): void => {
                                 if (!loadedData?.isLoading) {
-                                  e.currentTarget.style.backgroundColor = '#F8F9FA';
+                                  e.currentTarget.style.background = 'rgba(102, 126, 234, 0.08)';
+                                  e.currentTarget.style.transform = 'translateY(-2px)';
                                 }
                               }}
                               onMouseLeave={(e): void => {
                                 if (!loadedData?.isLoading) {
-                                  e.currentTarget.style.backgroundColor = 'white';
+                                  e.currentTarget.style.background = 'transparent';
+                                  e.currentTarget.style.transform = 'translateY(0)';
                                 }
                               }}
                             >
@@ -700,55 +915,82 @@ export function ResultsPage(): React.ReactElement {
                             Notification Settings
                           </div>
 
-                          <div style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginBottom: '12px',
-                          }}>
-                            <div style={{ fontSize: '14px', color: '#202124' }}>
-                              Follow updates
-                            </div>
-                            <div
-                              onClick={(): void => toggleCategorySubscription(group.genomeAnalysisResultId)}
-                              style={{
-                                width: '44px',
-                                height: '24px',
-                                backgroundColor: subscribedCategories.has(group.genomeAnalysisResultId) ? '#1A73E8' : '#DADCE0',
-                                borderRadius: '12px',
-                                position: 'relative',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.2s',
-                              }}
-                            >
+                          {hasSubmittedEmail ? (
+                            // Show confirmation message if email was submitted
+                            <div style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '12px',
+                              padding: '12px',
+                              backgroundColor: '#E8F5E9',
+                              borderRadius: '6px',
+                            }}>
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" fill="#34A853"/>
+                                <path d="M9 12.5l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
                               <div style={{
-                                width: '20px',
-                                height: '20px',
-                                backgroundColor: 'white',
-                                borderRadius: '50%',
-                                position: 'absolute',
-                                top: '2px',
-                                left: subscribedCategories.has(group.genomeAnalysisResultId) ? '22px' : '2px',
-                                transition: 'left 0.2s',
-                                boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-                              }}></div>
+                                fontSize: '14px',
+                                color: '#1E4620',
+                                lineHeight: '1.5',
+                              }}>
+                                Thanks for your interest! We'll notify you as soon as notifications are ready.
+                              </div>
                             </div>
-                          </div>
+                          ) : (
+                            // Show normal toggle if email not submitted
+                            <>
+                              <div style={{
+                                fontSize: '14px',
+                                color: '#5F6368',
+                                lineHeight: '1.6',
+                                marginBottom: '16px',
+                              }}>
+                                Get a dedicated AI agent that monitors new research related to your {group.category.toLowerCase()} genetics and explains what it means for you.
+                              </div>
 
-                          <a
-                            href="#"
-                            style={{
-                              fontSize: '13px',
-                              color: '#1A73E8',
-                              textDecoration: 'none',
-                              fontWeight: 500,
-                            }}
-                          >
-                            Advanced notification settings
-                          </a>
+                              <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                              }}>
+                                <div style={{
+                                  fontSize: '14px',
+                                  color: '#202124',
+                                  fontWeight: 500,
+                                }}>
+                                  Assign AI research agent
+                                </div>
+                                <div
+                                  onClick={(): void => toggleCategorySubscription(group.genomeAnalysisResultId)}
+                                  style={{
+                                    width: '44px',
+                                    height: '24px',
+                                    backgroundColor: subscribedCategories.has(group.genomeAnalysisResultId) ? '#1A73E8' : '#DADCE0',
+                                    borderRadius: '12px',
+                                    position: 'relative',
+                                    cursor: 'pointer',
+                                    transition: 'background-color 0.2s',
+                                  }}
+                                >
+                                  <div style={{
+                                    width: '20px',
+                                    height: '20px',
+                                    backgroundColor: 'white',
+                                    borderRadius: '50%',
+                                    position: 'absolute',
+                                    top: '2px',
+                                    left: subscribedCategories.has(group.genomeAnalysisResultId) ? '22px' : '2px',
+                                    transition: 'left 0.2s',
+                                    boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+                                  }}></div>
+                                </div>
+                              </div>
+                            </>
+                          )}
                         </div>
 
-                        {/* Ask the AI button */}
+                        {/* Ask your agent button */}
                         <div style={{ marginTop: '16px' }}>
                           <div style={{
                             backgroundColor: 'white',
@@ -770,22 +1012,32 @@ export function ResultsPage(): React.ReactElement {
                               marginBottom: '12px',
                               lineHeight: '1.4',
                             }}>
-                              Ask the AI to explain this trait in simpler terms or dive deeper into the research
+                              Ask your agent to explain this trait in simpler terms or dive deeper into the research
                             </div>
                             <button
                               style={{
                                 width: '100%',
-                                padding: '10px 16px',
-                                backgroundColor: '#1A73E8',
+                                padding: '12px 20px',
+                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                 color: 'white',
                                 border: 'none',
-                                borderRadius: '6px',
-                                fontSize: '14px',
-                                fontWeight: 600,
+                                borderRadius: '12px',
+                                fontSize: '15px',
+                                fontWeight: 700,
                                 cursor: 'pointer',
+                                boxShadow: '0 4px 16px rgba(102, 126, 234, 0.3)',
+                                transition: 'all 0.3s ease',
+                              }}
+                              onMouseEnter={(e): void => {
+                                e.currentTarget.style.transform = 'translateY(-2px)';
+                                e.currentTarget.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
+                              }}
+                              onMouseLeave={(e): void => {
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.boxShadow = '0 4px 16px rgba(102, 126, 234, 0.3)';
                               }}
                             >
-                              Ask the AI
+                              Ask your agent
                             </button>
                           </div>
                         </div>
@@ -796,8 +1048,246 @@ export function ResultsPage(): React.ReactElement {
               </div>
             );
           })}
-        </Stack>
-      </div>
-    </Stack>
+            </div>
+          </div>
+        </div>
+
+      {/* Subscription Popup Modal */}
+      {showSubscriptionPopup && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+        }}
+        onClick={(): void => setShowSubscriptionPopup(false)}
+        >
+          <div
+            style={{
+              backgroundColor: 'white',
+              borderRadius: '12px',
+              padding: '32px',
+              maxWidth: '480px',
+              width: '90%',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+            }}
+            onClick={(e): void => e.stopPropagation()}
+          >
+            <div style={{
+              fontSize: '24px',
+              fontWeight: 600,
+              marginBottom: '16px',
+              color: '#202124',
+            }}>
+              AI Research Agents
+            </div>
+
+            <div style={{
+              fontSize: '15px',
+              lineHeight: '1.6',
+              color: '#5F6368',
+              marginBottom: '24px',
+            }}>
+              Get dedicated AI agents monitoring new research for up to 10 genetic categories for <strong>$20/year</strong>.
+              <br /><br />
+              Your agents will continuously scan the latest studies, alert you to relevant findings, and explain what they mean for your specific genetics.
+            </div>
+
+            <div style={{
+              marginBottom: '24px',
+            }}>
+              <label style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: 600,
+                marginBottom: '8px',
+                color: '#202124',
+              }}>
+                Enter your email to be notified when AI agents launch:
+              </label>
+              <input
+                type="email"
+                value={userEmail}
+                onChange={(e): void => setUserEmail(e.target.value)}
+                placeholder="your.email@example.com"
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '1px solid #DADCE0',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  boxSizing: 'border-box',
+                }}
+                onKeyDown={(e): void => {
+                  if (e.key === 'Enter') {
+                    handleSubscriptionSubmit();
+                  }
+                }}
+              />
+            </div>
+
+            <div style={{
+              display: 'flex',
+              gap: '12px',
+              justifyContent: 'flex-end',
+            }}>
+              <button
+                onClick={(): void => {
+                  setShowSubscriptionPopup(false);
+                  setUserEmail('');
+                }}
+                style={{
+                  padding: '12px 28px',
+                  background: 'transparent',
+                  color: '#667eea',
+                  border: '2px solid #667eea',
+                  borderRadius: '12px',
+                  fontSize: '15px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={(e): void => {
+                  e.currentTarget.style.background = 'rgba(102, 126, 234, 0.08)';
+                }}
+                onMouseLeave={(e): void => {
+                  e.currentTarget.style.background = 'transparent';
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubscriptionSubmit}
+                style={{
+                  padding: '12px 28px',
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '12px',
+                  fontSize: '15px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 16px rgba(102, 126, 234, 0.3)',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={(e): void => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
+                }}
+                onMouseLeave={(e): void => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(102, 126, 234, 0.3)';
+                }}
+              >
+                Notify Me
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Subscription Success Modal */}
+      {showSubscriptionSuccess && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+        }}
+        onClick={(): void => {
+          setShowSubscriptionSuccess(false);
+          setUserEmail('');
+        }}
+        >
+          <div
+            style={{
+              backgroundColor: 'white',
+              borderRadius: '12px',
+              padding: '48px 32px',
+              maxWidth: '480px',
+              width: '90%',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+              textAlign: 'center',
+            }}
+            onClick={(e): void => e.stopPropagation()}
+          >
+            {/* Success Icon */}
+            <div style={{
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              backgroundColor: '#34A853',
+              margin: '0 auto 24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="white"/>
+              </svg>
+            </div>
+
+            <div style={{
+              fontSize: '28px',
+              fontWeight: 700,
+              marginBottom: '16px',
+              color: '#202124',
+            }}>
+              You're all set!
+            </div>
+
+            <div style={{
+              fontSize: '16px',
+              lineHeight: '1.6',
+              color: '#5F6368',
+              marginBottom: '32px',
+            }}>
+              You'll be the first to hear when your AI research agents are ready to start monitoring.
+            </div>
+
+            <button
+              onClick={(): void => {
+                setShowSubscriptionSuccess(false);
+                setUserEmail('');
+              }}
+              style={{
+                padding: '14px 36px',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '12px',
+                fontSize: '16px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                boxShadow: '0 4px 16px rgba(102, 126, 234, 0.3)',
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={(e): void => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
+              }}
+              onMouseLeave={(e): void => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(102, 126, 234, 0.3)';
+              }}
+            >
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
