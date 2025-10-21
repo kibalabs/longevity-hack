@@ -40,14 +40,14 @@ export function ChatModal(props: ChatModalProps): React.ReactElement | null {
     try {
       // Get response from API
       const response = await props.onSendMessage(userMessage);
-      
+
       // Add assistant response
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
     } catch (error) {
       console.error('Failed to get response:', error);
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: 'Sorry, I encountered an error. Please try again.' 
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: 'Sorry, I encountered an error. Please try again.'
       }]);
     } finally {
       setIsLoading(false);
@@ -78,7 +78,7 @@ export function ChatModal(props: ChatModalProps): React.ReactElement | null {
       padding: '24px',
     }}
     onClick={props.onClose}>
-      <div 
+      <div
         style={{
           width: '100%',
           maxWidth: '800px',
@@ -93,7 +93,7 @@ export function ChatModal(props: ChatModalProps): React.ReactElement | null {
           overflow: 'hidden',
         }}
         onClick={(e) => e.stopPropagation()}>
-        
+
         {/* Header */}
         <div style={{
           padding: '24px 32px',
@@ -165,7 +165,7 @@ export function ChatModal(props: ChatModalProps): React.ReactElement | null {
               color: '#888',
             }}>
               <div style={{ fontSize: '48px' }}>🤖</div>
-              <p style={{ 
+              <p style={{
                 fontSize: '16px',
                 textAlign: 'center',
                 maxWidth: '400px',
@@ -189,7 +189,7 @@ export function ChatModal(props: ChatModalProps): React.ReactElement | null {
                   maxWidth: '70%',
                   padding: '12px 18px',
                   borderRadius: message.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
-                  background: message.role === 'user' 
+                  background: message.role === 'user'
                     ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
                     : 'rgba(102, 126, 234, 0.08)',
                   color: message.role === 'user' ? 'white' : '#1a1a1a',
@@ -272,8 +272,8 @@ export function ChatModal(props: ChatModalProps): React.ReactElement | null {
                 fontWeight: 700,
                 cursor: (!inputMessage.trim() || isLoading) ? 'not-allowed' : 'pointer',
                 transition: 'all 0.3s ease',
-                boxShadow: (!inputMessage.trim() || isLoading) 
-                  ? 'none' 
+                boxShadow: (!inputMessage.trim() || isLoading)
+                  ? 'none'
                   : '0 4px 16px rgba(102, 126, 234, 0.3)',
                 minHeight: '52px',
               }}

@@ -784,7 +784,7 @@ class AppManager:
         context = "\n".join(contextParts)
 
         # Build prompt for Gemini
-        systemPrompt = """You are a helpful AI genetics advisor specializing in longevity and healthspan. 
+        systemPrompt = """You are a helpful AI genetics advisor specializing in longevity and healthspan.
 Your role is to help users understand their genetic results in a clear, accessible way while maintaining scientific accuracy.
 
 Guidelines:

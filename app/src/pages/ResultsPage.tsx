@@ -274,7 +274,7 @@ export function ResultsPage(): React.ReactElement {
     if (!genomeAnalysisId || !activeChatCategory) {
       throw new Error('No active chat category');
     }
-    
+
     const response = await longevityClient.chatWithAgent(genomeAnalysisId, activeChatCategory.id, message);
     return response;
   };
