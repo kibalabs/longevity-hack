@@ -41,30 +41,30 @@ async def run(input_file: str, output_file: str, batch_size: int):
         print(f'  Total associations: {result.summary.totalAssociations:,}')
         print(f'  ClinVar variants: {result.summary.clinvarCount:,}')
 
-        # Show top categories by association count
-        if result.associations:
-            print(f'\n📊 Top Trait Categories:')
-            category_counts = Counter(assoc.traitCategory for assoc in result.associations)
-            for category, count in category_counts.most_common(8):
-                print(f'  • {category}: {count:,} associations')
+        # Print top categories
+        print('\n📊 Top Manual Categories:')
+        category_counts = Counter(assoc.manualCategory for assoc in result.associations if assoc.manualCategory)
+        for category, count in category_counts.most_common(10):
+            print(f'  - {category}: {count} associations')
 
-            # Show highest scoring associations
-            print(f'\n⭐ Top 10 Associations by Importance Score:')
-            for i, assoc in enumerate(result.associations[:10], 1):
+        # Show highest scoring associations
+        print(f'\n⭐ Top 10 Associations by Importance Score:')
+        for i, assoc in enumerate(result.associations[:10], 1):
+            trait = assoc.trait[:60] + '...' if len(assoc.trait) > 60 else assoc.trait
+            clinvar_marker = ' 🧬' if assoc.clinvarSignificance else ''
+            category = assoc.manualCategory or 'Uncategorized'
+            print(f'  {i:2d}. {trait}{clinvar_marker}')
+            print(f'      Score: {assoc.importanceScore:.1f} | SNP: {assoc.rsid} ({assoc.genotype}) | Category: {category}')
+
+        # Show clinically significant variants
+        clinvar_associations = [a for a in result.associations if a.clinvarSignificance and a.clinvarSignificance >= 6]
+        if clinvar_associations:
+            print(f'\n🧬 Clinically Significant Variants ({len(clinvar_associations)}):')
+            for i, assoc in enumerate(clinvar_associations[:10], 1):
                 trait = assoc.trait[:60] + '...' if len(assoc.trait) > 60 else assoc.trait
-                clinvar_marker = ' 🧬' if assoc.clinvarSignificance else ''
-                print(f'  {i:2d}. {trait}{clinvar_marker}')
-                print(f'      Score: {assoc.importanceScore:.1f} | SNP: {assoc.rsid} ({assoc.genotype}) | Category: {assoc.traitCategory}')
-
-            # Show clinically significant variants
-            clinvar_associations = [a for a in result.associations if a.clinvarSignificance and a.clinvarSignificance >= 6]
-            if clinvar_associations:
-                print(f'\n🧬 Clinically Significant Variants ({len(clinvar_associations)}):')
-                for i, assoc in enumerate(clinvar_associations[:10], 1):
-                    trait = assoc.trait[:60] + '...' if len(assoc.trait) > 60 else assoc.trait
-                    print(f'  {i:2d}. {assoc.rsid} ({assoc.genotype}): {trait}')
-                    if assoc.clinvarCondition:
-                        print(f'      Condition: {assoc.clinvarCondition} | Significance: {assoc.clinvarSignificance}/10')
+                print(f'  {i:2d}. {assoc.rsid} ({assoc.genotype}): {trait}')
+                if assoc.clinvarCondition:
+                    print(f'      Condition: {assoc.clinvarCondition} | Significance: {assoc.clinvarSignificance}/10')
 
         print(f'\n📁 Full results saved to: {outputPath}')
 

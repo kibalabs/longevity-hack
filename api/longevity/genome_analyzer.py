@@ -12,6 +12,8 @@ from longevity import model
 from longevity.manual_categories import MANUAL_CATEGORIES
 from longevity.manual_categories import get_manual_category
 from longevity.store import schema
+from longevity.genome_format_detector import GenomeFileFormat
+from longevity.genome_format_detector import detect_format
 
 # ClinVar significance scoring (higher = more clinically important)
 CLINVAR_SIGNIFICANCE_SCORES = {
@@ -229,30 +231,57 @@ class GenomeAnalyzer:
         return result
 
     @staticmethod
-    def detect_23andme_format(content: str) -> bool:
-        """Detect if content is in 23andMe format."""
-        lines = content.split('\n')
-
-        has_header_comment = False
-        has_data_line = False
-
-        for i, line in enumerate(lines[:100]):  # Check first 100 lines
-            # Check for 23andMe-style comment header
+    def _parse_23andme_content(genome_content: str) -> dict[str, model.UserSnp]:
+        """Parse 23andMe file format."""
+        user_snps: dict[str, model.UserSnp] = {}
+        first_line = True
+        for line in genome_content.split('\n'):
             if line.startswith('#'):
-                if 'rsid' in line.lower() and 'chromosome' in line.lower():
-                    has_header_comment = True
                 continue
-
-            # Check for data line format
+            if first_line:
+                first_line = False
+                if 'rsid' in line.lower() and 'chromosome' in line.lower():
+                    continue
             parts = line.strip().split('\t')
-            if len(parts) >= 4:
-                rsid, chrom, pos, genotype = parts[:4]
-                # 23andMe format: rsid starts with 'rs' or 'i', chromosome is number/X/Y/MT
-                if (rsid.startswith('rs') or rsid.startswith('i')) and len(genotype) <= 2:
-                    has_data_line = True
-                    break
+            if len(parts) < 4:
+                continue
+            rsid, chromosome, position, genotype = parts[:4]
+            if genotype == '--':
+                continue
+            user_snps[rsid] = model.UserSnp(
+                rsid=rsid,
+                chromosome=chromosome,
+                position=position,
+                genotype=genotype,
+            )
+        return user_snps
 
-        return has_header_comment or has_data_line
+    @staticmethod
+    def _parse_myheritage_content(genome_content: str) -> dict[str, model.UserSnp]:
+        """Parse MyHeritage file format."""
+        import csv
+
+        user_snps: dict[str, model.UserSnp] = {}
+        lines = genome_content.splitlines()
+        # Skip header lines that start with #
+        data_lines = [line for line in lines if not line.startswith('#')]
+        # Use csv reader to handle quotes and commas
+        reader = csv.reader(data_lines)
+        # Skip the header row
+        next(reader, None)
+        for row in reader:
+            if len(row) < 4:
+                continue
+            rsid, chromosome, position, genotype = row
+            if genotype == '--':
+                continue
+            user_snps[rsid] = model.UserSnp(
+                rsid=rsid,
+                chromosome=chromosome,
+                position=position,
+                genotype=genotype,
+            )
+        return user_snps
 
     async def analyze_snps_batch(self, snps: list[model.UserSnp]) -> list[model.SnpAnalysisResult]:
         """Analyze multiple SNPs in batch."""
@@ -387,40 +416,21 @@ class GenomeAnalyzer:
         logging.info('Starting genome analysis')
 
         # Detect file format
-        if not self.detect_23andme_format(genomeContent):
-            raise ValueError(
-                'Unrecognized file format. This analyzer only supports 23andMe format.\n'
-                'Expected format:\n'
-                '  - Comment lines starting with #\n'
-                '  - Header line with: # rsid chromosome position genotype\n'
-                '  - Tab-separated data lines with rsid, chromosome, position, genotype'
-            )
+        file_format = detect_format(genomeContent)
 
-        # Parse genome file content
+        # Parse genome file content based on format
         parse_start = time.time()
         userSnps: dict[str, model.UserSnp] = {}
-        firstLine = True
 
-        for line in genomeContent.split('\n'):
-            # Skip comment lines
-            if line.startswith('#'):
-                continue
-            # Skip header line (first non-comment line if it contains 'rsid')
-            if firstLine:
-                firstLine = False
-                if 'rsid' in line.lower() and 'chromosome' in line.lower():
-                    continue
-            parts = line.strip().split('\t')
-            if len(parts) < 4:
-                continue
-            rsid, chromosome, position, genotype = parts[:4]
-            if genotype == '--':
-                continue
-            userSnps[rsid] = model.UserSnp(
-                rsid=rsid,
-                chromosome=chromosome,
-                position=position,
-                genotype=genotype,
+        if file_format == GenomeFileFormat.TWENTY_THREE_AND_ME:
+            logging.info("Detected 23andMe format")
+            userSnps = self._parse_23andme_content(genomeContent)
+        elif file_format == GenomeFileFormat.MY_HERITAGE:
+            logging.info("Detected MyHeritage format")
+            userSnps = self._parse_myheritage_content(genomeContent)
+        else:
+            raise ValueError(
+                'Unrecognized file format. This analyzer currently supports 23andMe and MyHeritage formats.'
             )
 
         parse_time = time.time() - parse_start
