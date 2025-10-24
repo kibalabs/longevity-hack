@@ -31,7 +31,7 @@ def detect_format(content: str) -> GenomeFileFormat:
             if len(parts) >= 4 and (parts[0].startswith('rs') or parts[0].startswith('i')):
                 is_23andme = True
                 break
-    
+
     if is_23andme:
         return GenomeFileFormat.TWENTY_THREE_AND_ME
 
